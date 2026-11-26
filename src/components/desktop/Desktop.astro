@@ -20,6 +20,16 @@ const problems = [
   { id: 'custom-software', text: 'Spreadsheets slow us down' },
 ];
 const first = services.find((s) => s.id === problems[0].id)!;
+const kbFeatures = [
+  { icon: 'cart', tone: 'green', label: 'Sales' },
+  { icon: 'bookopen', tone: 'orange', label: 'Credit book' },
+  { icon: 'users', tone: 'blue', label: 'Customers' },
+  { icon: 'package', tone: 'violet', label: 'Stock' },
+  { icon: 'chart', tone: 'indigo', label: 'Reports' },
+  { icon: 'chef', tone: 'amber', label: 'Kitchen' },
+  { icon: 'usercog', tone: 'pink', label: 'Staff' },
+  { icon: 'printer', tone: 'cyan', label: 'Printing' },
+] as const;
 ---
 <div class="desktop" id="desktop">
   <header class="nav" data-nav>
@@ -218,18 +228,47 @@ const first = services.find((s) => s.id === problems[0].id)!;
         </div>
         <div class="work-grid" data-rv-group="lift">
           {projects.filter((p) => p.url).map((p) => (
-            <a class:list={['work', { 'is-phone': p.phone }]} href={p.url} target="_blank" rel="noopener" data-tilt>
-              {p.phone ? (
-                <div class="work-phone">
-                  <img src={p.image} width="390" height="844" loading="lazy" decoding="async" alt={`${p.name} app screen`} />
-                  <img class="work-phone-logo" src="/img/svc/kadabook.webp" width="88" height="88" alt="" loading="lazy" />
+            p.phone ? (
+            <div class="kb-show">
+              <div class="kb-copy">
+                <img class="kb-logo" src="/img/svc/kadabook.webp" width="88" height="88" alt="KadaBook logo" loading="lazy" />
+                <span class="pill">{p.status}</span>
+                <h3 class="kb-title">{p.name}</h3>
+                <p>{p.summary} Sales, credit book, stock, staff and printing in one app, in English, Tamil and Sinhala.</p>
+                <div class="kb-actions">
+                  <a class="btn btn-primary" href={p.url} target="_blank" rel="noopener">Visit kadabook.app</a>
+                  <button type="button" class="btn btn-ghost-d" data-service="kadabook">What it does</button>
                 </div>
-              ) : (
-                <div class="browser">
-                  <div class="browser-bar"><i></i><i></i><i></i><span>{p.name}</span></div>
-                  <img src={p.image} width="1080" height="675" loading="lazy" decoding="async" alt={`Screenshot of ${p.name}`} />
+              </div>
+              <div class="kb-stage" aria-hidden="true">
+                <div class="kb-ring">
+                  {kbFeatures.map((f, i) => {
+                    const a = (i / kbFeatures.length) * Math.PI * 2;
+                    return (
+                      <div class="kb-item" style={`left:${(50 + Math.cos(a) * 46).toFixed(2)}%;top:${(50 + Math.sin(a) * 46).toFixed(2)}%;--i:${i}`}>
+                        <span class={`kb-tile tone-${f.tone}`}><Icon name={f.icon} size={26} stroke={2} /></span>
+                        <span class="kb-label">{f.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
+                <div class="kb-phone">
+                  <div class="kb-screen">
+                    <div class="kb-status"><b>9:41</b><i class="kb-island"></i><span class="kb-icons"><em></em><em></em><em></em></span></div>
+                    <img src={p.image} width="390" height="844" loading="lazy" decoding="async" alt="" />
+                    <div class="kb-home"><span></span></div>
+                    <span class="kb-sheen"></span>
+                  </div>
+                </div>
+                <span class="kb-shadow"></span>
+              </div>
+            </div>
+            ) : (
+            <a class="work" href={p.url} target="_blank" rel="noopener" data-tilt>
+              <div class="browser">
+                <div class="browser-bar"><i></i><i></i><i></i><span>{p.name}</span></div>
+                <img src={p.image} width="1080" height="675" loading="lazy" decoding="async" alt={`Screenshot of ${p.name}`} />
+              </div>
               <div class="work-meta">
                 <div>
                   <h3 class="h4">{p.name}</h3>
@@ -238,6 +277,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
                 <span class="pill">{p.status ?? p.kind}</span>
               </div>
             </a>
+            )
           ))}
         </div>
       </div>
