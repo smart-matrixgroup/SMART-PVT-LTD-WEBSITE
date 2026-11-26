@@ -707,10 +707,6 @@
 .kb-tile::after { content: ''; position: absolute; inset: 2px 2px 50% 2px; border-radius: 30% 30% 40% 40%; background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent); }
 .kb-tile svg { position: relative; z-index: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15)); }
 .kb-label { font-size: 13px; font-weight: 700; color: #334155; background: rgba(255,255,255,0.88); padding: 3px 10px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(30,58,138,0.35); white-space: nowrap; }
-.tone-blue { --t1: #60a5fa; --t2: #2563eb; } .tone-green { --t1: #4ade80; --t2: #16a34a; }
-.tone-orange { --t1: #fdba74; --t2: #ea580c; } .tone-violet { --t1: #a78bfa; --t2: #7c3aed; }
-.tone-indigo { --t1: #818cf8; --t2: #4f46e5; } .tone-amber { --t1: #fcd34d; --t2: #d97706; }
-.tone-pink { --t1: #f472b6; --t2: #db2777; } .tone-cyan { --t1: #22d3ee; --t2: #0891b2; }
 @keyframes kb-spin { to { rotate: 360deg; } }
 
 .kb-phone {
@@ -731,3 +727,8 @@
 .kb-home span { width: 34%; height: 4px; border-radius: 4px; background: #0f172a; opacity: 0.85; }
 .kb-sheen { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0.45) 0%, transparent 28%, transparent 70%, rgba(255,255,255,0.12)); }
 .kb-shadow { position: absolute; left: 50%; bottom: 6%; width: 200px; height: 26px; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(30,58,138,0.28), transparent); filter: blur(4px); }
+
+/* Contact list: glossy 3D tiles */
+.c-list .t3d { --s: 48px; }
+.c-list a:hover .t3d { transform: translateY(-3px) rotate(-4deg); }
+.c-list .t3d { transition: transform 0.4s var(--ease-out); }

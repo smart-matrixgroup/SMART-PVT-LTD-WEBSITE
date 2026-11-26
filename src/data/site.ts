@@ -82,7 +82,8 @@ export type IconName =
   | 'profile' | 'order' | 'book' | 'chat' | 'megaphone' | 'globe' | 'phone' | 'cog'
   | 'check' | 'arrow' | 'close' | 'mail' | 'pin' | 'clock' | 'whatsapp' | 'star'
   | 'home' | 'grid' | 'briefcase' | 'info' | 'qr' | 'shield' | 'spark' | 'chev'
-  | 'cart' | 'bookopen' | 'users' | 'package' | 'chart' | 'chef' | 'usercog' | 'printer';
+  | 'cart' | 'bookopen' | 'users' | 'package' | 'chart' | 'chef' | 'usercog' | 'printer'
+  | 'call' | 'target' | 'eye' | 'navigate' | 'heart';
 
 export const services: Service[] = [
   {

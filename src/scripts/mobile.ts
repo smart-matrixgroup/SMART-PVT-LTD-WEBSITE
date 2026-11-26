@@ -29,6 +29,15 @@ export function initMobile() {
     });
     root.dataset.active = tab;
     navTitle.textContent = TITLES[tab];
+    root.querySelector<HTMLElement>('.m-tabbar')?.style.setProperty('--ti', String(TABS.indexOf(tab)));
+    const panel = panels.get(tab)!;
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      [...panel.children].forEach((ch, i) => (ch as HTMLElement).style.setProperty('--k', String(Math.min(i, 8))));
+      panel.classList.remove('enter');
+      void panel.offsetWidth;
+      panel.classList.add('enter');
+      window.setTimeout(() => panel.classList.remove('enter'), 1200);
+    }
     const target = tab === current ? 0 : scrollMem[tab] ?? 0;
     current = tab;
     scrollTo({ top: target, behavior: 'instant' as ScrollBehavior });
@@ -71,6 +80,18 @@ export function initMobile() {
   addEventListener('scroll', updateNav, { passive: true });
   updateNav();
 
+  // ── Scroll reveals ──
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }),
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+    );
+    root.querySelectorAll('.m-rv').forEach((el) => io.observe(el));
+    root.classList.add('m-rv-on');
+  }
+
   // ── Search ──
   const search = root.querySelector<HTMLInputElement>('[data-search]');
   const empty = root.querySelector<HTMLElement>('[data-search-empty]')!;
@@ -79,7 +100,7 @@ export function initMobile() {
     let shown = 0;
     root.querySelectorAll<HTMLElement>('[data-search-text]').forEach((el) => {
       const hit = !q || el.dataset.searchText!.includes(q);
-      el.parentElement!.hidden = !hit;
+      (el.classList.contains('m-fcard') ? el : el.parentElement!).hidden = !hit;
       if (hit) shown++;
     });
     empty.hidden = shown > 0;

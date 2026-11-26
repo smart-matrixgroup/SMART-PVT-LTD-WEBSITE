@@ -389,11 +389,11 @@ const kbFeatures = [
           <h2 id="contact-title" class="h2 chrome">Tell us what you need.</h2>
           <p class="lede" data-rv="up">Send a message and we will reply with a plan and an exact price.</p>
           <ul class="c-list" data-rv-group="up">
-            <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="tile glass sm"><Icon name="whatsapp" size={20} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
-            <li><a href={`tel:${c.phone}`}><span class="tile glass sm"><Icon name="phone" size={20} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
-            <li><a href={`mailto:${c.email}`}><span class="tile glass sm"><Icon name="mail" size={20} /></span><span><small>Email</small>{c.email}</span></a></li>
-            <li><div><span class="tile glass sm"><Icon name="pin" size={20} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></div></li>
-            <li><div><span class="tile glass sm"><Icon name="clock" size={20} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
+            <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="t3d tone-wa"><Icon name="whatsapp" size={22} stroke={1.9} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
+            <li><a href={`tel:${c.phone}`}><span class="t3d tone-blue"><Icon name="call" size={22} stroke={1.9} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
+            <li><a href={`mailto:${c.email}`}><span class="t3d tone-violet"><Icon name="mail" size={22} stroke={1.9} /></span><span><small>Email</small>{c.email}</span></a></li>
+            <li><a href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange"><Icon name="pin" size={22} stroke={1.9} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></a></li>
+            <li><div><span class="t3d tone-indigo"><Icon name="clock" size={22} stroke={1.9} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
           </ul>
         </div>
 
