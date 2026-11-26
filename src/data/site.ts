@@ -365,6 +365,16 @@ export const testimonials: Testimonial[] = [
     site: 'https://lovecakehouse.com',
     approved: true,
   },
+  {
+    quote:
+      "In 2025 SMART built the UN Campus website for us, and they worked like true professionals. They took the time to understand how our students and staff really use the site, and built it for everyday use, not just to look good. It is clean, easy to use on phones, and whenever we asked for a change they responded quickly. My sincere thanks to the SMART team for a job done properly.",
+    name: 'Prof. Balaratnam Rajeendran',
+    role: 'Director, UN Campus',
+    // TODO(owner): replace the initials with a real photo when available.
+    photo: '/img/client-uncampus.webp',
+    site: 'https://uncampusacademy.com',
+    approved: true,
+  },
 ];
 
 export const faqs = [
