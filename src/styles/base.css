@@ -13,9 +13,9 @@
   --line-d: #dbe1ec;
   --wa: #25d366;
 
-  --display: 'Unbounded Variable', 'Unbounded', ui-sans-serif, system-ui, sans-serif;
-  --body: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --ios: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Instrument Sans Variable', system-ui, sans-serif;
+  --display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ios: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);

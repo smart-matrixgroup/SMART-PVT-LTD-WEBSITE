@@ -1,6 +1,5 @@
 ---
-import '@fontsource-variable/unbounded';
-import '@fontsource-variable/instrument-sans';
+import '../styles/fonts.css';
 import '../styles/base.css';
 import { SITE_URL, company, services } from '../data/site';
 
@@ -106,6 +105,8 @@ const graph = [org, website, ...jsonLd];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <link rel="preload" href="/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 861px)" />
+    <link rel="preload" href="/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 861px)" />
     <link rel="preload" as="image" href="/img/head-440.webp" type="image/webp" fetchpriority="high"
       imagesrcset="/img/head-440.webp 440w, /img/head-880.webp 880w" imagesizes="(max-width: 860px) 240px, 520px" />
 
