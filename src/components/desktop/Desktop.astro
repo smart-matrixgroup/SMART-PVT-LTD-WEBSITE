@@ -1,6 +1,7 @@
 ---
 import Icon from '../Icon.astro';
 import Price from '../Price.astro';
+import Social from '../Social.astro';
 import '../../styles/desktop.css';
 import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 
@@ -395,6 +396,10 @@ const kbFeatures = [
             <li><a href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange"><Icon name="pin" size={22} stroke={1.9} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></a></li>
             <li><div><span class="t3d tone-indigo"><Icon name="clock" size={22} stroke={1.9} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
           </ul>
+          <div class="c-social" data-rv="up">
+            <p class="c-social-h">Follow SMART</p>
+            <Social />
+          </div>
         </div>
 
         <form class="c-form" data-wa-form novalidate data-rv="lift">
@@ -432,6 +437,7 @@ const kbFeatures = [
       <div class="foot-brand">
         <img src="/img/logo-dark.webp" width="220" height="89" alt="SMART [PVT] LTD" loading="lazy" />
         <p>{company.tagline}</p>
+        <Social size="sm" labels={false} class="foot-social" />
       </div>
       <div>
         <h4>Services</h4>

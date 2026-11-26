@@ -44,11 +44,13 @@ export const company = {
     googleMapsUrl: 'https://share.google/J00mA7hLxUJEKLkek',
   },
   social: {
-    // TODO(owner): fill in the real profile links; empty ones are hidden.
-    facebook: '',
+    facebook: 'https://www.facebook.com/profile.php?id=61593893646038',
+    // Public channel page (the Studio link is only for the channel owner).
+    youtube: 'https://www.youtube.com/channel/UCJztz2LucYt1d3sGtW4iZuQ',
+    tiktok: 'https://www.tiktok.com/@smart_pvt_ltd',
+    // TODO(owner): add when ready; empty ones are hidden.
     instagram: '',
     linkedin: '',
-    tiktok: '',
   },
 };
 

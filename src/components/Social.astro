@@ -1,0 +1,30 @@
+---
+// Animated brand tiles for SMART's social profiles. Links come from company.social.
+import { company } from '../data/site';
+interface Props { size?: 'sm' | 'md' | 'lg'; labels?: boolean; class?: string }
+const { size = 'md', labels = true, class: cls = '' } = Astro.props;
+
+const glyph = {
+  facebook: '<path fill="currentColor" d="M13.6 21.5v-7.8h2.6l.4-3.1h-3V8.7c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.3H7.9v3.1h2.6v7.8z"/>',
+  youtube: '<rect x="2.2" y="5.6" width="19.6" height="12.8" rx="4" fill="currentColor"/><path d="M10 9.1v5.8l5-2.9z" fill="#e8002a"/>',
+  tiktok: '<path fill="currentColor" d="M16.7 3h-3.2v12.3a2.7 2.7 0 1 1-2.7-2.7c.3 0 .5 0 .8.1V9.4a5.9 5.9 0 1 0 5.1 5.9V9.1a7.5 7.5 0 0 0 4.3 1.4V7.3A4.3 4.3 0 0 1 16.7 3z"/>',
+} as const;
+const items = [
+  { key: 'facebook', name: 'Facebook', handle: 'SMART on Facebook', url: company.social.facebook },
+  { key: 'youtube', name: 'YouTube', handle: 'SMART on YouTube', url: company.social.youtube },
+  { key: 'tiktok', name: 'TikTok', handle: '@smart_pvt_ltd', url: company.social.tiktok },
+].filter((i) => i.url) as { key: keyof typeof glyph; name: string; handle: string; url: string }[];
+---
+<ul class:list={['social', `social-${size}`, cls]} aria-label="SMART on social media">
+  {items.map((it, i) => (
+    <li style={`--si:${i}`}>
+      <a href={it.url} target="_blank" rel="noopener" aria-label={`${it.handle} (opens in a new tab)`} class={`social-a sb-${it.key}`}>
+        <span class="social-tile" aria-hidden="true">
+          <span class="social-ring"></span>
+          <svg viewBox="0 0 24 24" width="24" height="24" set:html={glyph[it.key]} />
+        </span>
+        {labels && <span class="social-name">{it.name}</span>}
+      </a>
+    </li>
+  ))}
+</ul>

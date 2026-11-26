@@ -1,6 +1,7 @@
 ---
 import Icon from '../Icon.astro';
 import Price from '../Price.astro';
+import Social from '../Social.astro';
 import '../../styles/mobile.css';
 import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 import type { IconName } from '../../data/site';
@@ -166,6 +167,7 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
           </div>
         </>
       )}
+      <div class="m-home-social m-rv"><Social size="sm" labels={false} /></div>
       <p class="m-foot-note">{company.tagline}</p>
     </section>
 
@@ -345,6 +347,11 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
         <li><a class="m-cell m-cell-btn" href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange" style="--s:34px"><Icon name="pin" size={17} stroke={2} /></span><span class="m-cell-main"><small>Office</small><b>{mapQuery}</b></span></a></li>
         <li><span class="m-cell"><span class="t3d tone-indigo" style="--s:34px"><Icon name="clock" size={17} stroke={2} /></span><span class="m-cell-main"><small>Hours</small><b>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</b></span></span></li>
       </ul>
+
+      <div class="m-card m-follow m-rv">
+        <div class="m-card-h"><span class="t3d tone-pink" style="--s:34px"><Icon name="heart" size={17} stroke={2} /></span><b>Follow SMART</b></div>
+        <Social size="lg" />
+      </div>
 
       <a class="m-map m-rv" href={directionsUrl} target="_blank" rel="noopener" aria-label="Get directions to SMART on Google Maps">
         <iframe title="SMART office on the map" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade"

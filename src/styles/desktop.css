@@ -732,3 +732,11 @@
 .c-list .t3d { --s: 48px; }
 .c-list a:hover .t3d { transform: translateY(-3px) rotate(-4deg); }
 .c-list .t3d { transition: transform 0.4s var(--ease-out); }
+
+.c-social { margin-top: 36px; }
+.c-social-h { margin: 0 0 16px; font-size: 14px; font-weight: 600; color: var(--cyan); }
+.c-social .social { gap: 22px; }
+.c-social .social-name { color: rgba(238,242,249,0.8); }
+.foot-social { margin-top: 22px; }
+
+.foot ul.social { display: flex; gap: 12px; }
