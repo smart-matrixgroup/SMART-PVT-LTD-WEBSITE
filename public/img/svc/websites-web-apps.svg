@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><defs>
+<linearGradient id="b" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#8fe3ff"/><stop offset="0.45" stop-color="#2f7dff"/><stop offset="1" stop-color="#0a35c4"/></linearGradient>
+<linearGradient id="c" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#cfdaec"/><stop offset="1" stop-color="#7f90b4"/></linearGradient>
+<linearGradient id="cy" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#48d6ff"/><stop offset="1" stop-color="#2563ff"/></linearGradient>
+<linearGradient id="hl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="g" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3" result="s"/><feFlood flood-color="#3fb8ff" flood-opacity="0.75"/><feComposite in2="s" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs><g filter="url(#g)">
+<rect x="30" y="14" width="86" height="62" rx="11" fill="url(#c)" opacity="0.9"/>
+<rect x="12" y="34" width="90" height="70" rx="12" fill="url(#b)"/>
+<rect x="12" y="34" width="90" height="16" rx="12" fill="url(#hl)" opacity="0.4"/>
+<circle cx="22" cy="42" r="2.6" fill="#dff4ff"/><circle cx="30" cy="42" r="2.6" fill="#9fdcff"/>
+<rect x="22" y="78" width="9" height="16" rx="2" fill="url(#c)"/><rect x="36" y="68" width="9" height="26" rx="2" fill="url(#c)"/><rect x="50" y="60" width="9" height="34" rx="2" fill="url(#c)"/>
+<circle cx="84" cy="80" r="16" fill="none" stroke="#dff4ff" stroke-width="3.5"/><path d="M68 80h32M84 64c6 5 6 27 0 32M84 64c-6 5-6 27 0 32" stroke="#dff4ff" stroke-width="2.6" fill="none"/></g></svg>

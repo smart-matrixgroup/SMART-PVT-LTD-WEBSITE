@@ -1,4 +1,4 @@
-import { findService, iconHTML, waLink, sendFormToWhatsApp } from './shared';
+import { findService, waLink, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
 
 const TABS = ['home', 'services', 'work', 'about', 'contact'] as const;
 type Tab = (typeof TABS)[number];
@@ -8,6 +8,7 @@ const tap = () => navigator.vibrate?.(6);
 export function initMobile() {
   const root = document.getElementById('mobile');
   if (!root) return;
+  initPriceLocks();
   const nav = root.querySelector<HTMLElement>('[data-mnav]')!;
   const navTitle = root.querySelector<HTMLElement>('[data-mnav-title]')!;
   const panels = new Map(TABS.map((t) => [t, root.querySelector<HTMLElement>(`[data-tab="${t}"]`)!]));
@@ -121,11 +122,10 @@ export function initMobile() {
     if (!s) return;
     tap();
     opener = from;
-    q('icon').className = `ico xl ico-${s.id}`;
-    q('icon').innerHTML = iconHTML(s.id);
+    q('icon').innerHTML = logoHTML(s.logo, 72);
     q('name').textContent = s.name;
     q('short').textContent = s.short;
-    q('price').textContent = s.price;
+    setPrice(q('price'), s.price);
     q('delivery').textContent = s.delivery || '';
     q('delivery-wrap').hidden = !s.delivery;
     q('note').textContent = s.priceNote || '';

@@ -71,6 +71,10 @@ export type Service = {
   priceNote?: string;
   delivery?: string;
   icon: IconName;
+  /** Service emblem image. */
+  logo: string;
+  /** Optional own website (e.g. KadaBook). */
+  url?: string;
   badge?: string;
 };
 
@@ -82,6 +86,7 @@ export type IconName =
 export const services: Service[] = [
   {
     id: 'portfolio-website',
+    logo: '/img/svc/portfolio-website.svg',
     orbit: 'Portfolio Sites',
     name: 'Portfolio Website',
     short: 'A one-page website that shows who you are and how to reach you.',
@@ -106,6 +111,7 @@ export const services: Service[] = [
   },
   {
     id: 'restaurant-ordering',
+    logo: '/img/svc/restaurant-ordering.svg',
     orbit: 'Restaurant Ordering',
     name: 'Restaurant Online Ordering',
     short: 'Your own ordering website. Customers scan, order, and it lands on your WhatsApp.',
@@ -129,6 +135,8 @@ export const services: Service[] = [
   },
   {
     id: 'kadabook',
+    logo: '/img/svc/kadabook.webp',
+    url: 'https://kadabook.app',
     orbit: 'KadaBook',
     name: 'KadaBook Shop App',
     short: 'Billing, stock and credit book for your shop, on your phone.',
@@ -149,6 +157,7 @@ export const services: Service[] = [
   },
   {
     id: 'whatsapp-ai',
+    logo: '/img/svc/whatsapp-ai.svg',
     orbit: 'WhatsApp AI',
     name: 'WhatsApp AI Assistant',
     short: 'Replies to your customers instantly, day and night, in your business voice.',
@@ -172,6 +181,7 @@ export const services: Service[] = [
   },
   {
     id: 'digital-marketing',
+    logo: '/img/svc/digital-marketing.svg',
     orbit: 'Marketing',
     name: 'Digital Marketing',
     short: 'Posts, reels and ads that bring customers to your door.',
@@ -192,6 +202,7 @@ export const services: Service[] = [
   },
   {
     id: 'websites-web-apps',
+    logo: '/img/svc/websites-web-apps.svg',
     orbit: 'Web Apps',
     name: 'Business Websites & Web Apps',
     short: 'Multi-page websites, booking systems, portals and dashboards.',
@@ -212,6 +223,7 @@ export const services: Service[] = [
   },
   {
     id: 'mobile-apps',
+    logo: '/img/svc/mobile-apps.svg',
     orbit: 'Mobile Apps',
     name: 'Mobile Apps',
     short: 'Android and iOS apps, from idea to the app stores.',
@@ -232,6 +244,7 @@ export const services: Service[] = [
   },
   {
     id: 'custom-software',
+    logo: '/img/svc/custom-software.svg',
     orbit: 'Custom Software',
     name: 'Custom Software & Support',
     short: 'Systems built around how your business already works, and kept running.',
@@ -258,6 +271,8 @@ export type Project = {
   kind: string;
   summary: string;
   image?: string;
+  /** True when image is a tall phone screenshot, not a browser one. */
+  phone?: boolean;
   status?: string;
 };
 
@@ -277,9 +292,19 @@ export const projects: Project[] = [
     image: '/img/work-vaikunthan.webp',
   },
   {
+    name: 'lovecakehouse.com',
+    url: 'https://lovecakehouse.com',
+    kind: 'Business Website',
+    summary: 'Website for a homemade cake shop in Trincomalee, with their full cake gallery and WhatsApp ordering.',
+    image: '/img/work-lovecakehouse.webp',
+  },
+  {
     name: 'KadaBook',
+    url: 'https://kadabook.app',
     kind: 'Mobile App',
     summary: 'Our own shop billing and accounting app, built in Sri Lanka for Sri Lankan shops.',
+    image: '/img/kadabook-ui-home.webp',
+    phone: true,
     status: 'Coming to Google Play',
   },
 ];
@@ -291,13 +316,47 @@ export const process = [
   { title: 'Launch and support', text: 'We put it live, show you how it works, and stay on WhatsApp for help.' },
 ];
 
-export type Testimonial = { quote: string; name: string; role: string; placeholder?: boolean };
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  photo: string;
+  site?: string;
+  /**
+   * Drafted from what the client told SMART. Only shows on the live site once
+   * the client has read and OK'd the exact words. Set to true after they agree.
+   */
+  approved: boolean;
+};
 
-// TODO(owner): replace with real client words (with their permission).
-// Entries marked `placeholder` only show in dev, never in production.
 export const testimonials: Testimonial[] = [
-  { quote: 'Placeholder. Ask Mehala for two lines about working with SMART.', name: 'Mehala', role: 'mehala.me', placeholder: true },
-  { quote: 'Placeholder. Ask Vaikunthan for two lines about the website.', name: 'Vaikunthan', role: 'vaikunthan.com', placeholder: true },
+  {
+    quote:
+      "I wanted a website that looked as professional as my CV, and SMART got it right the first time. They understood exactly the style I had in mind, kept me updated on WhatsApp the whole way, and the site was live within the week. I now share mehala.me with recruiters without a second thought.",
+    name: 'Mehala Thandayuthapani',
+    role: 'Business Development & Operations Professional, Dubai',
+    photo: '/img/client-mehala.webp',
+    site: 'https://mehala.me',
+    approved: false,
+  },
+  {
+    quote:
+      "I work with investors in Dubai and Sri Lanka, so first impressions matter. SMART built exactly what I pictured, a clean and confident site that explains all my ventures in one place. I'm very happy with it, and I trust the team with whatever we build next.",
+    name: 'K. Vaikunthan',
+    role: 'Business Connector, Dubai and Sri Lanka',
+    photo: '/img/client-vaikunthan.webp',
+    site: 'https://vaikunthan.com',
+    approved: false,
+  },
+  {
+    quote:
+      "Now our customers see all our cakes online and message us straight away to order. SMART took our ideas and made them look even better than we imagined. Friendly people, quick replies, and they still help whenever we need a change. We trust SMART completely.",
+    name: 'Love Cake House',
+    role: 'Homemade cakes, Trincomalee',
+    photo: '/img/client-lovecakehouse.webp',
+    site: 'https://lovecakehouse.com',
+    approved: false,
+  },
 ];
 
 export const faqs = [
@@ -335,4 +394,6 @@ export const waLink = (text: string) =>
   `https://wa.me/${company.contact.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export const isDev = import.meta.env.DEV;
-export const visibleTestimonials = testimonials.filter((t) => isDev || !t.placeholder);
+export const visibleTestimonials = testimonials.filter((t) => isDev || t.approved);
+
+export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('SMART PVT LTD, 135C Inner Harbour Road, Trincomalee 31000, Sri Lanka')}`;

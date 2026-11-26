@@ -1,7 +1,8 @@
 ---
 import Icon from '../Icon.astro';
+import Price from '../Price.astro';
 import '../../styles/desktop.css';
-import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev } from '../../data/site';
+import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 
 const featured = services.filter((s) => ['portfolio-website', 'restaurant-ordering'].includes(s.id));
 const others = services.filter((s) => !featured.includes(s));
@@ -65,14 +66,14 @@ const first = services.find((s) => s.id === problems[0].id)!;
             </div>
 
             <div class="answer" data-answer aria-live="polite">
-              <span class="answer-ico tile" data-a="icon"><Icon name={first.icon} size={26} /></span>
+              <span class="answer-ico logo" data-a="icon"><img src={first.logo} width="56" height="56" alt="" /></span>
               <div class="answer-main">
                 <p class="answer-k">Our fix</p>
                 <p class="answer-name" data-a="name">{first.name}</p>
                 <p class="answer-short" data-a="short">{first.short}</p>
               </div>
               <div class="answer-side">
-                <p class="answer-price" data-a="price">{first.price}</p>
+                <p class="answer-price"><Price value={first.price} vAttrs={{ "data-a": "price" }} /></p>
                 <div class="answer-act">
                   <button type="button" class="btn btn-ghost btn-sm" data-service={first.id} data-a="more">What is included</button>
                   <a class="answer-wa" data-a="wa" href={waLink(`Hi SMART, I'm interested in ${first.name}.`)} target="_blank" rel="noopener" aria-label="Ask on WhatsApp"><Icon name="whatsapp" size={22} /></a>
@@ -97,7 +98,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
             {services.map((s) => (
               <li class="orbit-item">
                 <button class="orbit-node" type="button" data-service={s.id} aria-label={s.name}>
-                  <span class="orbit-ico"><Icon name={s.icon} size={20} /></span>
+                  <span class="orbit-ico"><img src={s.logo} width="34" height="34" alt="" /></span>
                   <span class="orbit-label">{s.orbit}</span>
                 </button>
               </li>
@@ -113,14 +114,14 @@ const first = services.find((s) => s.id === problems[0].id)!;
       <div class="wrap">
         <div class="sec-head">
           <h2 id="services-title" class="h2">Services with clear price ranges.</h2>
-          <p class="lede">Every business needs something a little different, so each service has a range. Tell us what you need and we agree one exact price before any work starts.</p>
+          <p class="lede" data-rv="up">Every business needs something a little different, so each service has a range. Tell us what you need and we agree one exact price before any work starts.</p>
         </div>
 
-        <div class="featured">
+        <div class="featured" data-rv-group="lift">
           {featured.map((s) => (
             <article class="feat-card" data-spot>
               <div class="feat-top">
-                <span class="tile"><Icon name={s.icon} size={26} /></span>
+                <span class="logo lg"><img src={s.logo} width="72" height="72" alt="" loading="lazy" /></span>
                 {s.badge && <span class="badge">{s.badge}</span>}
               </div>
               <h3 class="h3">{s.name}</h3>
@@ -131,7 +132,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
               </ul>
               <div class="feat-foot">
                 <div>
-                  <p class="price">{s.price}</p>
+                  <p class="price"><Price value={s.price} /></p>
                   <p class="price-note">{s.priceNote}{s.delivery && <> Ready in {s.delivery}.</>}</p>
                 </div>
                 <button type="button" class="btn btn-dark" data-service={s.id}>See everything included</button>
@@ -140,18 +141,18 @@ const first = services.find((s) => s.id === problems[0].id)!;
           ))}
         </div>
 
-        <ul class="svc-list">
+        <ul class="svc-list" data-rv-group="up">
           {others.map((s) => (
-            <li>
+            <li class="svc-li">
               <button type="button" class="svc-row" data-service={s.id}>
-                <span class="tile sm"><Icon name={s.icon} size={22} /></span>
+                <span class="logo"><img src={s.logo} width="52" height="52" alt="" loading="lazy" /></span>
                 <span class="svc-main">
                   <span class="svc-name">{s.name}{s.badge && <span class="badge sm">{s.badge}</span>}</span>
                   <span class="svc-short">{s.short}</span>
                 </span>
-                <span class="svc-price">{s.price}</span>
                 <span class="svc-go"><Icon name="arrow" size={20} /></span>
               </button>
+              <span class="svc-price"><Price value={s.price} /></span>
             </li>
           ))}
         </ul>
@@ -163,29 +164,30 @@ const first = services.find((s) => s.id === problems[0].id)!;
       <div class="wrap">
         <div class="sec-head">
           <h2 id="products-title" class="h2 chrome">Products we built ourselves.</h2>
-          <p class="lede">We do not just build for clients. These are ours, and we run them every day.</p>
+          <p class="lede" data-rv="up">We do not just build for clients. These are ours, and we run them every day.</p>
         </div>
-        <div class="prod-grid">
+        <div class="prod-grid" data-rv-group="lift">
           <article class="prod" data-spot>
             <div class="prod-copy">
+              <img class="prod-logo" src="/img/svc/kadabook.webp" width="64" height="64" alt="KadaBook logo" loading="lazy" />
               <span class="badge glow">Coming to Google Play</span>
               <h3 class="h3">KadaBook</h3>
               <p>Billing, stock and a credit book for every Sri Lankan shop, on the phone the owner already has. English, Tamil and Sinhala.</p>
-              <button type="button" class="link-btn" data-service="kadabook">What KadaBook does <Icon name="arrow" size={18} /></button>
+              <div class="prod-links">
+                <a class="btn btn-primary btn-sm" href="https://kadabook.app" target="_blank" rel="noopener">Visit kadabook.app</a>
+                <button type="button" class="link-btn" data-service="kadabook">What it does <Icon name="arrow" size={18} /></button>
+              </div>
             </div>
-            <div class="phone" aria-hidden="true">
-              <div class="phone-screen kb">
-                <div class="kb-top"><span>Today</span><b>LKR 48,250</b><small>32 bills</small></div>
-                <div class="kb-row"><span>Rice 5kg</span><b>2,150</b></div>
-                <div class="kb-row"><span>Dhal 1kg</span><b>420</b></div>
-                <div class="kb-row"><span>Milk powder</span><b>1,180</b></div>
-                <div class="kb-row credit"><span>Credit · Raju</span><b>3,600</b></div>
-                <div class="kb-btn">New bill</div>
+            <div class="phone real" aria-hidden="true">
+              <div class="phone-screen">
+                <img class="ui-a" src="/img/kadabook-ui-home.webp" width="390" height="844" alt="" loading="lazy" decoding="async" />
+                <img class="ui-b" src="/img/kadabook-ui-sale.webp" width="390" height="844" alt="" loading="lazy" decoding="async" />
               </div>
             </div>
           </article>
           <article class="prod" data-spot>
             <div class="prod-copy">
+              <img class="prod-logo" src="/img/svc/whatsapp-ai.svg" width="64" height="64" alt="" loading="lazy" />
               <span class="badge glow">New service</span>
               <h3 class="h3">WhatsApp AI Assistant</h3>
               <p>Answers prices, opening hours and orders the moment a customer asks, even at midnight, and hands the chat to you when it needs a person.</p>
@@ -211,22 +213,29 @@ const first = services.find((s) => s.id === problems[0].id)!;
     <section class="sec light" id="work" aria-labelledby="work-title">
       <div class="wrap">
         <div class="sec-head">
-          <h2 id="work-title" class="h2">Live websites we built.</h2>
-          <p class="lede">Real clients, real sites, online today. Open them and judge for yourself.</p>
+          <h2 id="work-title" class="h2">Live work you can open today.</h2>
+          <p class="lede" data-rv="up">Real clients, real sites, online today. Open them and judge for yourself.</p>
         </div>
-        <div class="work-grid">
+        <div class="work-grid" data-rv-group="lift">
           {projects.filter((p) => p.url).map((p) => (
-            <a class="work" href={p.url} target="_blank" rel="noopener" data-tilt>
-              <div class="browser">
-                <div class="browser-bar"><i></i><i></i><i></i><span>{p.name}</span></div>
-                <img src={p.image} width="1080" height="675" loading="lazy" decoding="async" alt={`Screenshot of ${p.name}`} />
-              </div>
+            <a class:list={['work', { 'is-phone': p.phone }]} href={p.url} target="_blank" rel="noopener" data-tilt>
+              {p.phone ? (
+                <div class="work-phone">
+                  <img src={p.image} width="390" height="844" loading="lazy" decoding="async" alt={`${p.name} app screen`} />
+                  <img class="work-phone-logo" src="/img/svc/kadabook.webp" width="88" height="88" alt="" loading="lazy" />
+                </div>
+              ) : (
+                <div class="browser">
+                  <div class="browser-bar"><i></i><i></i><i></i><span>{p.name}</span></div>
+                  <img src={p.image} width="1080" height="675" loading="lazy" decoding="async" alt={`Screenshot of ${p.name}`} />
+                </div>
+              )}
               <div class="work-meta">
                 <div>
                   <h3 class="h4">{p.name}</h3>
                   <p>{p.summary}</p>
                 </div>
-                <span class="pill">{p.kind}</span>
+                <span class="pill">{p.status ?? p.kind}</span>
               </div>
             </a>
           ))}
@@ -248,7 +257,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
             <p class="vm-text">{company.mission}</p>
           </div>
         </div>
-        <ul class="values">
+        <ul class="values" data-rv-group="up">
           {company.values.map((v, i) => (
             <li>
               <span class="tile glass"><Icon name={(['shield', 'cog', 'chat', 'whatsapp'] as const)[i]} size={22} /></span>
@@ -260,7 +269,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
 
         <div class="process">
           <h3 class="h2 chrome sm">How a project works.</h3>
-          <ol class="steps" data-steps>
+          <ol class="steps" data-steps data-rv-group="up">
             <span class="steps-line" aria-hidden="true"><span></span></span>
             {process.map((p, i) => (
               <li>
@@ -281,17 +290,22 @@ const first = services.find((s) => s.id === problems[0].id)!;
           <h2 id="trust-title" class="h2">{visibleTestimonials.length ? 'What our clients say.' : 'Find us on Google.'}</h2>
         </div>
         {visibleTestimonials.length > 0 && (
-          <div class="quotes">
+          <div class="quotes" data-rv-group="lift">
             {visibleTestimonials.map((t) => (
-              <figure class:list={['quote', { placeholder: t.placeholder }]}>
-                {t.placeholder && <span class="dev-flag">Placeholder, dev only</span>}
+              <figure class:list={['quote', { pending: !t.approved }]}>
+                {!t.approved && <span class="dev-flag">Waiting for client OK (dev only)</span>}
+                <span class="q-mark" aria-hidden="true">“</span>
                 <blockquote>{t.quote}</blockquote>
-                <figcaption><b>{t.name}</b><span>{t.role}</span></figcaption>
+                <figcaption>
+                  <img src={t.photo} width="56" height="56" alt={t.name} loading="lazy" />
+                  <span><b>{t.name}</b><small>{t.role}</small></span>
+                </figcaption>
+                {t.site && <a href={t.site} target="_blank" rel="noopener" class="q-site">{t.site.replace('https://', '')}</a>}
               </figure>
             ))}
           </div>
         )}
-        <div class="greview">
+        <div class="greview" data-rv="up">
           <div class="g-stars" aria-hidden="true">
             {[0, 1, 2, 3, 4].map(() => <Icon name="star" size={22} stroke={1.4} />)}
           </div>
@@ -315,9 +329,9 @@ const first = services.find((s) => s.id === problems[0].id)!;
       <div class="wrap faq-wrap">
         <div class="sec-head sticky">
           <h2 id="faq-title" class="h2">Questions people ask us.</h2>
-          <p class="lede">Something else on your mind? Ask on WhatsApp, a person replies.</p>
+          <p class="lede" data-rv="up">Something else on your mind? Ask on WhatsApp, a person replies.</p>
         </div>
-        <div class="faq">
+        <div class="faq" data-rv-group="up">
           {faqs.map((f) => (
             <details>
               <summary>{f.q}<span class="faq-x" aria-hidden="true"></span></summary>
@@ -333,8 +347,8 @@ const first = services.find((s) => s.id === problems[0].id)!;
       <div class="wrap contact-grid">
         <div>
           <h2 id="contact-title" class="h2 chrome">Tell us what you need.</h2>
-          <p class="lede">Send a message and we will reply with a plan and an exact price.</p>
-          <ul class="c-list">
+          <p class="lede" data-rv="up">Send a message and we will reply with a plan and an exact price.</p>
+          <ul class="c-list" data-rv-group="up">
             <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="tile glass sm"><Icon name="whatsapp" size={20} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
             <li><a href={`tel:${c.phone}`}><span class="tile glass sm"><Icon name="phone" size={20} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
             <li><a href={`mailto:${c.email}`}><span class="tile glass sm"><Icon name="mail" size={20} /></span><span><small>Email</small>{c.email}</span></a></li>
@@ -343,7 +357,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
           </ul>
         </div>
 
-        <form class="c-form" data-wa-form novalidate>
+        <form class="c-form" data-wa-form novalidate data-rv="lift">
           <h3 class="h4">Quick message</h3>
           <label>Your name<input name="name" autocomplete="name" required /></label>
           <label>Business name<input name="business" autocomplete="organization" /></label>
@@ -358,16 +372,17 @@ const first = services.find((s) => s.id === problems[0].id)!;
           <p class="form-note">Opens WhatsApp with your message ready to send.</p>
         </form>
 
-        {(c.address || isDev) && (
-          <div class="map">
-            {c.address ? (
-              <iframe title="SMART office location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}></iframe>
-            ) : (
-              <p class="dev-flag">Map appears here once address is set in src/data/site.ts</p>
-            )}
-          </div>
-        )}
+        <a class="map-card" data-rv="lift" href={directionsUrl} target="_blank" rel="noopener" aria-label="Get directions to SMART on Google Maps (opens in a new tab)">
+          <iframe title="SMART office on the map" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade"
+            src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=16&output=embed`}></iframe>
+          <span class="map-shade" aria-hidden="true"></span>
+          <span class="map-pin" aria-hidden="true"><img src="/img/head-180.webp" width="44" height="44" alt="" /></span>
+          <span class="map-info">
+            <span class="map-k">Visit our office</span>
+            <span class="map-addr">{c.address}, {c.city} {c.postalCode}</span>
+            <span class="map-cta"><Icon name="pin" size={18} /> Get directions from where you are</span>
+          </span>
+        </a>
       </div>
     </section>
   </main>
@@ -412,7 +427,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
     <div class="dlg-card" tabindex="-1" autofocus>
       <button class="dlg-close" type="button" data-close aria-label="Close"><Icon name="close" size={22} /></button>
       <div class="dlg-head">
-        <span class="tile glass" data-d="icon"></span>
+        <span class="logo lg" data-d="icon"></span>
         <div>
           <h3 id="dlg-title" class="h3" data-d="name"></h3>
           <p class="dlg-short" data-d="short"></p>
@@ -432,7 +447,7 @@ const first = services.find((s) => s.id === problems[0].id)!;
       </div>
       <div class="dlg-foot">
         <div>
-          <p class="price" data-d="price"></p>
+          <p class="price"><Price vAttrs={{ "data-d": "price" }} /></p>
           <p class="price-note" data-d="note"></p>
         </div>
         <a class="btn btn-primary" data-d="cta" target="_blank" rel="noopener"><Icon name="whatsapp" size={20} /> Ask about this</a>

@@ -52,3 +52,27 @@ a { color: inherit; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Price reveal (shared by website and app) ── */
+.plock { display: inline-flex; align-items: center; gap: 12px; vertical-align: middle; }
+.plock-v {
+  display: inline-block; filter: blur(7px); opacity: 0.55; user-select: none; -webkit-user-select: none;
+  transition: filter 0.7s var(--ease-out), opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transform: scale(0.97);
+}
+.plock.on .plock-v { filter: none; opacity: 1; transform: none; user-select: text; -webkit-user-select: text; }
+.plock-b {
+  flex: none; display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px 0 10px; border-radius: 999px;
+  font: 600 13px/1 var(--body); letter-spacing: 0; color: var(--plock-fg, #2563ff);
+  background: var(--plock-bg, rgba(37,99,255,0.1)); box-shadow: inset 0 0 0 1px var(--plock-line, rgba(37,99,255,0.25));
+  transition: background-color 0.25s, transform 0.2s var(--ease-out);
+}
+.plock-b:hover { background: var(--plock-bg-h, rgba(37,99,255,0.16)); }
+.plock-b:active { transform: scale(0.95); }
+.plock-b .i-off { display: none; }
+.plock.on .plock-b .i-eye { display: none; }
+.plock.on .plock-b .i-off { display: block; }
+.plock.on .plock-t { display: none; }
+.plock.on .plock-b { padding: 0; width: 34px; justify-content: center; }
+.plock.on .plock-v { animation: plock-in 0.8s var(--ease-out); }
+@keyframes plock-in { 0% { filter: blur(7px); letter-spacing: 0.08em; } 100% { filter: none; letter-spacing: inherit; } }

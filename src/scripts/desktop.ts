@@ -1,4 +1,4 @@
-import { findService, iconHTML, waLink, reducedMotion, isDesktop, sendFormToWhatsApp } from './shared';
+import { findService, waLink, reducedMotion, isDesktop, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
 
 export function initDesktop() {
   const root = document.getElementById('desktop');
@@ -7,7 +7,9 @@ export function initDesktop() {
   // One orchestrated entrance: headline, head, ring, orbit.
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('ready')));
 
+  initPriceLocks();
   initNav(root);
+  initReveals(root);
   initDialog(root);
   initOrbit(root);
   initPicker(root);
@@ -50,13 +52,89 @@ function initNav(root: HTMLElement) {
   });
   root.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) =>
     a.addEventListener('click', (ev) => {
-      const t = root.querySelector(a.hash);
+      const t = root.querySelector<HTMLElement>(a.hash);
       if (!t) return;
       ev.preventDefault();
-      t.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' });
+      portalTo(t, ev as MouseEvent, a.textContent?.trim() || '');
       history.replaceState(null, '', a.hash);
     }),
   );
+}
+
+/**
+ * Menu jump: instead of a long scroll, the page "opens a portal" from the click
+ * point. The current view shrinks back and blurs away while the target section
+ * grows in through an expanding circle, then its own reveal plays.
+ * Uses the View Transitions API; falls back to a smooth scroll.
+ */
+function portalTo(target: HTMLElement, ev: MouseEvent, label: string) {
+  const doc = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+  const jump = () => {
+    target.querySelectorAll<HTMLElement>('[data-rv]').forEach((el) => el.classList.remove('in'));
+    window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - (target.id === 'top' ? 0 : 0), behavior: 'instant' as ScrollBehavior });
+  };
+  if (reducedMotion() || !doc.startViewTransition) {
+    target.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' });
+    return;
+  }
+  const x = ev.clientX || innerWidth / 2;
+  const y = ev.clientY || 60;
+  const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  const root = document.documentElement;
+  root.style.setProperty('--vt-x', `${x}px`);
+  root.style.setProperty('--vt-y', `${y}px`);
+  root.style.setProperty('--vt-r', `${r}px`);
+  root.dataset.vtLabel = label;
+  root.classList.add('vt-portal');
+  const t = doc.startViewTransition(jump);
+  t.finished.finally(() => root.classList.remove('vt-portal'));
+}
+
+/**
+ * Scroll reveals. Each element marked [data-rv] animates in once, when it first
+ * enters the viewport. Headings split into words that rise out of a mask;
+ * groups ([data-rv-group]) stagger their children.
+ */
+function initReveals(root: HTMLElement) {
+  if (reducedMotion()) return;
+  // Split section headings into masked words.
+  root.querySelectorAll<HTMLElement>('main .h2, .vm-text').forEach((h) => {
+    if (h.dataset.split) return;
+    h.dataset.split = '1';
+    const words = (h.textContent || '').trim().split(/\s+/);
+    h.setAttribute('aria-label', h.textContent!.trim());
+    h.innerHTML = words.map((w, i) => `<span class="w" aria-hidden="true"><span style="--wi:${i}">${w}</span></span>`).join(' ');
+    h.setAttribute('data-rv', 'words');
+  });
+  // Stagger children of groups.
+  root.querySelectorAll<HTMLElement>('[data-rv-group]').forEach((g) => {
+    [...g.children].forEach((c, i) => {
+      if (!(c instanceof HTMLElement) || c.classList.contains('steps-line')) return;
+      c.setAttribute('data-rv', g.dataset.rvGroup || 'up');
+      c.style.setProperty('--ri', String(i));
+    });
+  });
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+  );
+  root.querySelectorAll<HTMLElement>('[data-rv]').forEach((el) => io.observe(el));
+  // After a portal jump we re-arm the target's reveals.
+  const mo = new MutationObserver((list) => {
+    for (const m of list) {
+      const el = m.target as HTMLElement;
+      if (m.attributeName === 'class' && el.hasAttribute('data-rv') && !el.classList.contains('in')) io.observe(el);
+    }
+  });
+  mo.observe(root, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  document.documentElement.classList.add('rv-on');
 }
 
 function initDialog(root: HTMLElement) {
@@ -70,7 +148,7 @@ function initDialog(root: HTMLElement) {
     const s = findService(btn.dataset.service!);
     if (!s) return;
     opener = btn;
-    q('icon').innerHTML = iconHTML(s.id);
+    q('icon').innerHTML = logoHTML(s.logo, 72);
     q('name').textContent = s.name;
     q('short').textContent = s.short;
     q('problem').textContent = s.problem;
@@ -78,7 +156,7 @@ function initDialog(root: HTMLElement) {
     q('includes').innerHTML = s.includes
       .map((i) => `<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>${escapeHTML(i)}</li>`)
       .join('');
-    q('price').textContent = s.price;
+    setPrice(q('price'), s.price);
     q('note').textContent = [s.priceNote, s.delivery && `Ready in ${s.delivery}.`].filter(Boolean).join(' ');
     (q('cta') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}. Can you tell me more?`);
     dlg.showModal();
@@ -178,10 +256,10 @@ function initPicker(root: HTMLElement) {
     const s = findService(chip.dataset.pick!);
     if (!s) return;
     chips.forEach((c) => c.setAttribute('aria-checked', String(c === chip)));
-    q('icon').innerHTML = iconHTML(s.id);
+    q('icon').innerHTML = logoHTML(s.logo, 56);
     q('name').textContent = s.name;
     q('short').textContent = s.short;
-    q('price').textContent = s.price;
+    setPrice(q('price'), s.price);
     q('more').dataset.service = s.id;
     (q('wa') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}.`);
     card.classList.remove('swap');
