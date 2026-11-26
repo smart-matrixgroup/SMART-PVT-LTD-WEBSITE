@@ -625,17 +625,18 @@
 
 /* Work: three across, KadaBook as a phone */
 .work-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 32px; }
+.work.is-phone { grid-column: 1 / -1; }
 .work-phone {
-  position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden;
+  position: relative; aspect-ratio: 21 / 8; border-radius: 18px; overflow: hidden;
   background: radial-gradient(120% 90% at 50% 0%, #1846d6, #0a1230 70%);
   box-shadow: 0 40px 80px -40px rgba(10,18,48,0.5);
 }
 .work-phone img:first-child {
-  position: absolute; left: 50%; top: 14%; width: 46%; translate: -50% 0; border-radius: 22px;
+  position: absolute; left: 50%; top: 12%; width: 20%; translate: -50% 0; border-radius: 22px;
   box-shadow: 0 0 0 6px #1b2340, 0 30px 60px -20px rgba(0,0,0,0.7); transition: transform 0.8s var(--ease-out);
 }
 .work:hover .work-phone img:first-child { transform: translateY(-14px); }
-.work-phone-logo { position: absolute; left: 18px; top: 16px; width: 54px; height: 54px; object-fit: contain; }
+.work-phone-logo { position: absolute; left: 28px; top: 24px; width: 84px; height: 84px; object-fit: contain; }
 
 /* Testimonials */
 .quotes { grid-template-columns: repeat(3, 1fr); }

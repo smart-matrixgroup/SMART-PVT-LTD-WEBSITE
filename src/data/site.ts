@@ -299,6 +299,14 @@ export const projects: Project[] = [
     image: '/img/work-lovecakehouse.webp',
   },
   {
+    name: 'uncampusacademy.com',
+    url: 'https://uncampusacademy.com',
+    kind: 'Business Website',
+    summary: 'Website for UnCampus Academy, an education academy.',
+    // TODO(owner): replace this cover with a real screenshot of the site.
+    image: '/img/work-uncampus.webp',
+  },
+  {
     name: 'KadaBook',
     url: 'https://kadabook.app',
     kind: 'Mobile App',
