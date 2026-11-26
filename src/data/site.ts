@@ -345,7 +345,7 @@ export const testimonials: Testimonial[] = [
     role: 'Business Development & Operations Professional, Dubai',
     photo: '/img/client-mehala.webp',
     site: 'https://mehala.me',
-    approved: false,
+    approved: true,
   },
   {
     quote:
@@ -354,7 +354,7 @@ export const testimonials: Testimonial[] = [
     role: 'Business Connector, Dubai and Sri Lanka',
     photo: '/img/client-vaikunthan.webp',
     site: 'https://vaikunthan.com',
-    approved: false,
+    approved: true,
   },
   {
     quote:
@@ -363,7 +363,7 @@ export const testimonials: Testimonial[] = [
     role: 'Homemade cakes, Trincomalee',
     photo: '/img/client-lovecakehouse.webp',
     site: 'https://lovecakehouse.com',
-    approved: false,
+    approved: true,
   },
 ];
 
