@@ -48,6 +48,6 @@ const c = company.contact;
   <p>{company.legalName}<br />
     Email: <a href={`mailto:${c.email}`}>{c.email}</a><br />
     Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a>
-    {c.address && <><br />{[c.address, c.city, c.country].filter(Boolean).join(', ')}</>}
+    {c.address && <><br />{[c.address, c.city, c.postalCode, c.country].filter(Boolean).join(', ')}</>}
   </p>
 </Legal>

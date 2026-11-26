@@ -8,7 +8,7 @@ const popularIds = ['portfolio-website', 'restaurant-ordering', 'whatsapp-ai', '
 const popular = popularIds.map((id) => services.find((s) => s.id === id)!);
 const orbitIds = ['portfolio-website', 'restaurant-ordering', 'kadabook', 'whatsapp-ai', 'digital-marketing', 'mobile-apps'];
 const orbit = orbitIds.map((id) => services.find((s) => s.id === id)!);
-const mapQuery = [c.address, c.city, c.country].filter(Boolean).join(', ');
+const mapQuery = [c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ');
 const year = new Date().getFullYear();
 const tabs = [
   { id: 'home', label: 'Home', icon: 'home' },
@@ -44,7 +44,7 @@ const tabs = [
         </div>
         <img class="m-word" src="/img/wordmark-dark.webp" width="620" height="332" alt="SMART [PVT] LTD" />
         <h2 class="m-hero-title">Websites, apps and software for your business.</h2>
-        <p class="m-hero-sub">Fixed prices from LKR 14,999. Built and supported in Sri Lanka.</p>
+        <p class="m-hero-sub">Prices from LKR 14,999. Built and supported in Sri Lanka.</p>
         <div class="m-hero-cta">
           <a class="m-btn m-btn-fill" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} stroke={1.9} />WhatsApp</a>
           <a class="m-btn m-btn-glass" href={`tel:${c.phone}`}><Icon name="phone" size={20} stroke={1.9} />Call</a>
@@ -102,8 +102,7 @@ const tabs = [
           <li>
             <button type="button" class="m-cell m-cell-btn" data-service={s.id} data-search-text={`${s.name} ${s.short} ${s.forWho}`.toLowerCase()}>
               <span class={`ico ico-${s.id}`}><Icon name={s.icon} size={18} stroke={1.9} /></span>
-              <span class="m-cell-main"><b>{s.name}</b><small>{s.short}</small></span>
-              <span class="m-cell-val">{s.price.startsWith('LKR') ? s.price : ''}</span>
+              <span class="m-cell-main"><b>{s.name}</b><small>{s.short}</small>{s.priceFrom && <span class="m-cell-price">{s.priceFrom}</span>}</span>
               <Icon name="chev" size={16} stroke={2.4} class="m-chev" />
             </button>
           </li>
@@ -112,7 +111,7 @@ const tabs = [
       <p class="m-empty" data-search-empty hidden>No services match. Ask us on WhatsApp, we probably do it.</p>
       <div class="m-cta-card">
         <b>Not sure what you need?</b>
-        <p>Tell us the problem. We will suggest the simplest fix and a fixed price.</p>
+        <p>Tell us the problem. We will suggest the simplest fix and an exact price.</p>
         <a class="m-btn m-btn-fill" href={waLink('Hi SMART, I need help choosing a service.')} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} stroke={1.9} />Ask on WhatsApp</a>
       </div>
     </section>
@@ -199,7 +198,7 @@ const tabs = [
           {c.googleReviewUrl ? (
             <a class="m-cell m-cell-btn" href={c.googleReviewUrl} target="_blank" rel="noopener">
               <span class="ico ico-star"><Icon name="star" size={18} stroke={1.9} /></span>
-              <span class="m-cell-main"><b>Review us on Google</b><small>It helps other businesses find us</small></span>
+              <span class="m-cell-main"><b>SMART on Google</b><small>Reviews, photos and directions</small></span>
               <Icon name="chev" size={16} stroke={2.4} class="m-chev" />
             </a>
           ) : isDev ? (
@@ -232,7 +231,7 @@ const tabs = [
       <ul class="m-group">
         <li class="m-cell m-kv"><small>phone</small><a href={`tel:${c.phone}`}>{c.phoneDisplay}</a></li>
         <li class="m-cell m-kv"><small>email</small><a href={`mailto:${c.email}`}>{c.email}</a></li>
-        <li class="m-cell m-kv"><small>address</small><span>{[c.address, c.city, c.country].filter(Boolean).join(', ')}</span></li>
+        <li class="m-cell m-kv"><small>address</small><span>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></li>
         <li class="m-cell m-kv"><small>hours</small><span>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></li>
       </ul>
 
@@ -288,7 +287,7 @@ const tabs = [
         <h2 id="m-sheet-title" data-s="name"></h2>
         <p class="m-sheet-short" data-s="short"></p>
         <div class="m-price-card">
-          <div><small>Price</small><b data-s="price"></b></div>
+          <div><small>Price range</small><b data-s="price"></b></div>
           <div data-s="delivery-wrap"><small>Ready in</small><b data-s="delivery"></b></div>
         </div>
         <p class="m-sheet-note" data-s="note"></p>

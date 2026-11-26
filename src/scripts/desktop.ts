@@ -10,6 +10,7 @@ export function initDesktop() {
   initNav(root);
   initDialog(root);
   initOrbit(root);
+  initPicker(root);
   initSpotlight(root);
   initTilt(root);
   initChat(root);
@@ -21,7 +22,7 @@ export function initDesktop() {
     if (!isDesktop()) return;
     const canvas = root.querySelector<HTMLCanvasElement>('[data-neural]');
     if (!canvas) return;
-    import('./neural').then((m) => m.startNeural(canvas)).catch(() => {});
+    import('./neural').then((m) => m.startNeural(canvas, root.querySelector('[data-stage]'))).catch(() => {});
   };
   if ('requestIdleCallback' in window) requestIdleCallback(startNeural, { timeout: 1500 });
   else setTimeout(startNeural, 600);
@@ -110,12 +111,28 @@ function initOrbit(root: HTMLElement) {
 
   new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(stage);
 
+  // Bring one service to the front of the orbit (driven by the problem picker).
+  let focusAngle: number | null = null;
+  const nodes = items.map((it) => it.querySelector<HTMLElement>('.orbit-node')!);
+  stage.addEventListener('orbit-focus', (ev) => {
+    const id = (ev as CustomEvent<string>).detail;
+    const i = nodes.findIndex((nd) => nd.dataset.service === id);
+    if (i < 0) return;
+    focusAngle = Math.PI / 2 - (i / n) * Math.PI * 2;
+    nodes.forEach((nd, j) => nd.classList.toggle('is-focus', j === i));
+  });
+
   const frame = (now: number) => {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     if (visible) {
       speed += (target - speed) * Math.min(1, dt * 3);
-      if (!reducedMotion()) angle += speed * dt;
+      if (focusAngle !== null) {
+        let d = (focusAngle - angle) % (Math.PI * 2);
+        if (d > Math.PI) d -= Math.PI * 2;
+        if (d < -Math.PI) d += Math.PI * 2;
+        angle += reducedMotion() ? d : d * Math.min(1, dt * 3.2);
+      } else if (!reducedMotion()) angle += speed * dt;
       intro = Math.min(1, intro + dt / 1.6);
       const e = 1 - Math.pow(1 - intro, 4);
       const w = stage.clientWidth;
@@ -141,6 +158,75 @@ function initOrbit(root: HTMLElement) {
     requestAnimationFrame(frame);
   };
   setTimeout(() => requestAnimationFrame((t) => ((last = t), frame(t))), 500);
+}
+
+function initPicker(root: HTMLElement) {
+  const picker = root.querySelector<HTMLElement>('[data-picker]');
+  const stage = root.querySelector<HTMLElement>('[data-stage]');
+  if (!picker || !stage) return;
+  const chips = [...picker.querySelectorAll<HTMLButtonElement>('[data-pick]')];
+  const card = picker.querySelector<HTMLElement>('[data-answer]')!;
+  const q = (k: string) => card.querySelector<HTMLElement>(`[data-a="${k}"]`)!;
+  const CYCLE = 4200;
+  let idx = 0;
+  let auto = !reducedMotion();
+  let t0 = performance.now();
+
+  const pick = (i: number) => {
+    idx = i;
+    const chip = chips[i];
+    const s = findService(chip.dataset.pick!);
+    if (!s) return;
+    chips.forEach((c) => c.setAttribute('aria-checked', String(c === chip)));
+    q('icon').innerHTML = iconHTML(s.id);
+    q('name').textContent = s.name;
+    q('short').textContent = s.short;
+    q('price').textContent = s.price;
+    q('more').dataset.service = s.id;
+    (q('wa') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}.`);
+    card.classList.remove('swap');
+    void card.offsetWidth;
+    card.classList.add('swap');
+    stage.dispatchEvent(new CustomEvent('orbit-focus', { detail: s.id }));
+    t0 = performance.now();
+  };
+  const stopAuto = () => {
+    auto = false;
+    card.style.setProperty('--prog', '0');
+  };
+
+  chips.forEach((c, i) =>
+    c.addEventListener('click', () => {
+      stopAuto();
+      pick(i);
+    }),
+  );
+  // Arrow keys move between options, like a native radio group.
+  picker.addEventListener('keydown', (e) => {
+    if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(e.key)) return;
+    e.preventDefault();
+    stopAuto();
+    const next = (idx + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : -1) + chips.length) % chips.length;
+    pick(next);
+    chips[next].focus();
+  });
+  stage.addEventListener('click', stopAuto);
+
+  // Until someone interacts, walk through the problems so the hero explains itself.
+  let visible = true;
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(picker);
+  const tick = (now: number) => {
+    if (auto && visible && !document.hidden) {
+      const p = (now - t0) / CYCLE;
+      if (p >= 1) pick((idx + 1) % chips.length);
+      else card.style.setProperty('--prog', p.toFixed(3));
+    } else if (auto) t0 = now - (Number(card.style.getPropertyValue('--prog')) || 0) * CYCLE;
+    if (auto) requestAnimationFrame(tick);
+  };
+  setTimeout(() => {
+    pick(0);
+    if (auto) requestAnimationFrame(tick);
+  }, 1400);
 }
 
 function initSpotlight(root: HTMLElement) {

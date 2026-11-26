@@ -6,8 +6,19 @@ import { company, services, projects, process, faqs, visibleTestimonials, waLink
 const featured = services.filter((s) => ['portfolio-website', 'restaurant-ordering'].includes(s.id));
 const others = services.filter((s) => !featured.includes(s));
 const c = company.contact;
-const mapQuery = [c.address, c.city, c.country].filter(Boolean).join(', ');
+const mapQuery = [c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ');
 const year = new Date().getFullYear();
+const problems = [
+  { id: 'portfolio-website', text: 'Nobody finds me online' },
+  { id: 'restaurant-ordering', text: 'Delivery apps take my profit' },
+  { id: 'kadabook', text: 'Shop accounts on paper' },
+  { id: 'whatsapp-ai', text: 'Too many WhatsApp messages' },
+  { id: 'digital-marketing', text: 'Nobody knows my business' },
+  { id: 'mobile-apps', text: 'I have an app idea' },
+  { id: 'websites-web-apps', text: 'Customers need to book online' },
+  { id: 'custom-software', text: 'Spreadsheets slow us down' },
+];
+const first = services.find((s) => s.id === problems[0].id)!;
 ---
 <div class="desktop" id="desktop">
   <header class="nav" data-nav>
@@ -33,33 +44,46 @@ const year = new Date().getFullYear();
     <!-- HERO -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true"></div>
+      <canvas class="hero-canvas" data-neural aria-hidden="true"></canvas>
+      <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="hero-kicker"><span class="live-dot"></span>Software company in Sri Lanka</p>
+          <p class="hero-kicker"><span class="live-dot"></span>Software company in Trincomalee, Sri Lanka</p>
           <h1 id="hero-title" class="hero-title">
-            <span class="ln"><span>We build the software</span></span>
-            <span class="ln"><span>your business</span></span>
-            <span class="ln"><span>runs on.</span></span>
+            <span class="ln"><span>Tell us the problem.</span></span>
+            <span class="ln"><span class="sheen">We build the fix.</span></span>
           </h1>
-          <p class="hero-sub">
-            Websites, ordering systems, mobile apps and WhatsApp assistants, designed, built and
-            looked after by one team. Fixed prices, from LKR&nbsp;14,999.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener">
-              <Icon name="whatsapp" size={20} /> Chat on WhatsApp
-            </a>
-            <a class="btn btn-ghost" href="#services">See services and prices</a>
+
+          <div class="picker" data-picker>
+            <p class="picker-q" id="picker-q">What is holding your business back?</p>
+            <div class="chips" role="radiogroup" aria-labelledby="picker-q">
+              {problems.map((p, i) => (
+                <button type="button" class="chip" role="radio" aria-checked={i === 0 ? 'true' : 'false'} data-pick={p.id}>
+                  <span class="chip-dot" aria-hidden="true"></span>{p.text}
+                </button>
+              ))}
+            </div>
+
+            <div class="answer" data-answer aria-live="polite">
+              <span class="answer-ico tile" data-a="icon"><Icon name={first.icon} size={26} /></span>
+              <div class="answer-main">
+                <p class="answer-k">Our fix</p>
+                <p class="answer-name" data-a="name">{first.name}</p>
+                <p class="answer-short" data-a="short">{first.short}</p>
+              </div>
+              <div class="answer-side">
+                <p class="answer-price" data-a="price">{first.price}</p>
+                <div class="answer-act">
+                  <button type="button" class="btn btn-ghost btn-sm" data-service={first.id} data-a="more">What is included</button>
+                  <a class="answer-wa" data-a="wa" href={waLink(`Hi SMART, I'm interested in ${first.name}.`)} target="_blank" rel="noopener" aria-label="Ask on WhatsApp"><Icon name="whatsapp" size={22} /></a>
+                </div>
+              </div>
+              <span class="answer-bar" aria-hidden="true"></span>
+            </div>
           </div>
-          <ul class="hero-facts">
-            <li><Icon name="check" size={16} stroke={2.2} />Price agreed before we start</li>
-            <li><Icon name="check" size={16} stroke={2.2} />Websites live in days</li>
-            <li><Icon name="check" size={16} stroke={2.2} />Support on WhatsApp</li>
-          </ul>
         </div>
 
         <div class="stage" data-stage>
-          <canvas class="stage-canvas" data-neural aria-hidden="true"></canvas>
           <div class="stage-ring" aria-hidden="true"></div>
           <div class="head-wrap" aria-hidden="true">
             <div class="head-glow"></div>
@@ -88,8 +112,8 @@ const year = new Date().getFullYear();
     <section class="sec light" id="services" aria-labelledby="services-title">
       <div class="wrap">
         <div class="sec-head">
-          <h2 id="services-title" class="h2">Services with a clear price.</h2>
-          <p class="lede">Pick a package, or tell us the problem and we will shape a solution around it. Every quote is fixed before we write a line of code.</p>
+          <h2 id="services-title" class="h2">Services with clear price ranges.</h2>
+          <p class="lede">Every business needs something a little different, so each service has a range. Tell us what you need and we agree one exact price before any work starts.</p>
         </div>
 
         <div class="featured">
@@ -254,7 +278,7 @@ const year = new Date().getFullYear();
     <section class="sec light trust" aria-labelledby="trust-title">
       <div class="wrap">
         <div class="sec-head">
-          <h2 id="trust-title" class="h2">{visibleTestimonials.length ? 'What our clients say.' : 'Worked with us? Tell others.'}</h2>
+          <h2 id="trust-title" class="h2">{visibleTestimonials.length ? 'What our clients say.' : 'Find us on Google.'}</h2>
         </div>
         {visibleTestimonials.length > 0 && (
           <div class="quotes">
@@ -272,11 +296,11 @@ const year = new Date().getFullYear();
             {[0, 1, 2, 3, 4].map(() => <Icon name="star" size={22} stroke={1.4} />)}
           </div>
           <div class="g-copy">
-            <h3 class="h4">Reviews on Google</h3>
-            <p>Worked with us? A short review on Google helps other businesses find a team they can trust.</p>
+            <h3 class="h4">SMART on Google</h3>
+            <p>Read reviews, see photos and get directions to our Trincomalee office. Worked with us? A short review helps other businesses find us.</p>
           </div>
           {c.googleReviewUrl ? (
-            <a class="btn btn-dark" href={c.googleReviewUrl} target="_blank" rel="noopener">Write a Google review</a>
+            <a class="btn btn-dark" href={c.googleReviewUrl} target="_blank" rel="noopener">Open our Google profile</a>
           ) : isDev ? (
             <span class="dev-flag">Add googleReviewUrl in src/data/site.ts</span>
           ) : (
@@ -309,12 +333,12 @@ const year = new Date().getFullYear();
       <div class="wrap contact-grid">
         <div>
           <h2 id="contact-title" class="h2 chrome">Tell us what you need.</h2>
-          <p class="lede">Send a message and we will reply with a plan and a fixed price, usually the same day.</p>
+          <p class="lede">Send a message and we will reply with a plan and an exact price.</p>
           <ul class="c-list">
             <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="tile glass sm"><Icon name="whatsapp" size={20} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
             <li><a href={`tel:${c.phone}`}><span class="tile glass sm"><Icon name="phone" size={20} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
             <li><a href={`mailto:${c.email}`}><span class="tile glass sm"><Icon name="mail" size={20} /></span><span><small>Email</small>{c.email}</span></a></li>
-            <li><div><span class="tile glass sm"><Icon name="pin" size={20} /></span><span><small>Office</small>{[c.address, c.city, c.country].filter(Boolean).join(', ')}</span></div></li>
+            <li><div><span class="tile glass sm"><Icon name="pin" size={20} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></div></li>
             <li><div><span class="tile glass sm"><Icon name="clock" size={20} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
           </ul>
         </div>

@@ -9,8 +9,8 @@ const c = company.contact;
 
   <h2>Quotes and prices</h2>
   <ul>
-    <li>Prices on this site are in Sri Lankan Rupees (LKR) and are starting prices for the package described.</li>
-    <li>Before we start, we send a quote with the scope, price and delivery time. The price in that quote is fixed for the scope it describes.</li>
+    <li>Prices on this site are in Sri Lankan Rupees (LKR) and are shown as ranges. Where your project falls in the range depends on what you need.</li>
+    <li>Before we start, we send a quote with the scope, the exact price and the delivery time. The price in that quote is fixed for the scope it describes.</li>
     <li>Work outside the agreed scope is quoted separately before we do it.</li>
     <li>Third-party costs, such as advertising budgets, paid plugins, SMS or WhatsApp Business API charges, are not included unless the quote says so.</li>
   </ul>
@@ -57,6 +57,7 @@ const c = company.contact;
   <h2>Contact</h2>
   <p>{company.legalName}<br />
     Email: <a href={`mailto:${c.email}`}>{c.email}</a><br />
-    Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a>
+    Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a><br />
+    {[c.address, c.city, c.postalCode, c.country].filter(Boolean).join(', ')}
   </p>
 </Legal>

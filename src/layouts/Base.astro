@@ -15,10 +15,6 @@ const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 const ogImage = `${SITE_URL}/og-image.jpg`;
 const sameAs = Object.values(company.social).filter(Boolean);
 
-const priceNumber = (p: string) => {
-  const m = p.replace(/,/g, '').match(/LKR\s*(\d+)/);
-  return m ? m[1] : undefined;
-};
 
 const org = {
   '@context': 'https://schema.org',
@@ -40,9 +36,12 @@ const org = {
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'LK',
-    ...(company.contact.address ? { streetAddress: company.contact.address } : {}),
-    ...(company.contact.city ? { addressLocality: company.contact.city } : {}),
+    streetAddress: company.contact.address,
+    addressLocality: company.contact.city,
+    postalCode: company.contact.postalCode,
+    addressRegion: 'Eastern Province',
   },
+  hasMap: company.contact.googleProfileUrl,
   ...(sameAs.length ? { sameAs } : {}),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -50,7 +49,9 @@ const org = {
     itemListElement: services.map((s) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: s.name, description: s.short },
-      ...(priceNumber(s.price) ? { price: priceNumber(s.price), priceCurrency: 'LKR' } : {}),
+      ...(s.priceMin
+        ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: s.priceMin, maxPrice: s.priceMax, priceCurrency: 'LKR' } }
+        : {}),
     })),
   },
 };

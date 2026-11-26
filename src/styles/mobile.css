@@ -220,6 +220,7 @@
 .m-cell-main b { font-weight: 400; font-size: 17px; }
 .m-cell-main small { font-size: 14px; color: var(--label-2); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 ol.m-group .m-cell-main small { -webkit-line-clamp: unset; }
+.m-cell-price { font-size: 14px; font-weight: 600; color: var(--tint); margin-top: 2px; }
 .m-cell-val { font-size: 15px; color: var(--label-2); white-space: nowrap; }
 .m-chev { flex: none; color: var(--label-3); }
 .m-num { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--tint) 14%, transparent); color: var(--tint); font-weight: 600; font-size: 15px; }

@@ -1,8 +1,8 @@
 // Single source of truth for every word, price and contact detail on the site.
 // Edit here; both the desktop site and the mobile app view read from this file.
 //
-// TODO(owner) markers = details only SMART can confirm (address, hours, Google
-// review link, testimonials). Placeholders tagged `placeholder: true` render in
+// TODO(owner) markers = details only SMART can confirm (hours, socials,
+// testimonials). Placeholders tagged `placeholder: true` render in
 // `npm run dev` only and are stripped from the production build, so nothing
 // unverified ever goes live by accident.
 
@@ -14,36 +14,34 @@ export const company = {
   legalName: 'SMART (Pvt) Ltd',
   tagline: 'Intelligent solutions. Smarter future.',
   description:
-    'SMART is a Sri Lankan software company. We build portfolio websites, restaurant ordering systems, mobile apps, WhatsApp AI assistants and custom business software at clear, fixed prices.',
+    'SMART is a Sri Lankan software company. We build portfolio websites, restaurant ordering systems, mobile apps, WhatsApp AI assistants and custom business software at clear, honest price ranges.',
   vision: 'To be the most trusted technology partner for growing businesses in Sri Lanka and beyond.',
   mission:
     'To give every business, from a single shop to a growing company, software that is simple to use, fairly priced and built to last.',
   values: [
-    { title: 'Clear prices', text: 'You know the cost before we start. No surprise invoices.' },
+    { title: 'Clear prices', text: 'You see the price range up front and agree the final price before we start.' },
     { title: 'Built to last', text: 'We write software we are happy to support for years, not weeks.' },
     { title: 'Plain talk', text: 'We explain things in your language, without the jargon.' },
     { title: 'Always reachable', text: 'A real person answers your WhatsApp, before and after launch.' },
   ],
   contact: {
-    phone: '+94786786286',
-    phoneDisplay: '+94 786 786 286',
-    // TODO(owner): confirm WhatsApp uses the same number as the phone line.
-    whatsapp: '94786786286',
-    // TODO(owner): create this mailbox on findoursmart.com (Google Workspace / Zoho).
+    phone: '+94789999687',
+    phoneDisplay: '+94 789 999 687',
+    whatsapp: '94789999687',
     email: 'info@findoursmart.com',
-    // TODO(owner): full registered address, e.g. 'No. 12, Main Street, Trincomalee'.
-    address: '',
-    city: '',
+    address: '135C, 2nd Floor, Inner Harbour Road',
+    city: 'Trincomalee',
+    postalCode: '31000',
     country: 'Sri Lanka',
     // TODO(owner): real opening hours.
     hours: [
       { days: 'Monday to Saturday', time: '9:00 AM – 6:00 PM' },
       { days: 'Sunday', time: 'WhatsApp only' },
     ],
-    // TODO(owner): paste the "Write a review" link from Google Business Profile.
-    googleReviewUrl: '',
-    // TODO(owner): paste the Google Maps share link of the office.
-    googleMapsUrl: '',
+    // Google Business Profile (reviews, directions, photos).
+    googleProfileUrl: 'https://share.google/J00mA7hLxUJEKLkek',
+    googleReviewUrl: 'https://share.google/J00mA7hLxUJEKLkek',
+    googleMapsUrl: 'https://share.google/J00mA7hLxUJEKLkek',
   },
   social: {
     // TODO(owner): fill in the real profile links; empty ones are hidden.
@@ -63,7 +61,13 @@ export type Service = {
   forWho: string;
   problem: string;
   includes: string[];
+  /** Shown as the price everywhere. Ranges, never a single fixed number. */
   price: string;
+  /** Compact form for tight list cells, e.g. 'From 14,999'. */
+  priceFrom?: string;
+  /** Numbers for search engines (LKR). */
+  priceMin?: number;
+  priceMax?: number;
   priceNote?: string;
   delivery?: string;
   icon: IconName;
@@ -91,8 +95,11 @@ export const services: Service[] = [
       'Domain name and hosting for the first year',
       'Basic Google search setup',
     ],
-    price: 'LKR 14,999',
-    priceNote: 'One-time. Renewal from year two.',
+    price: 'LKR 14,999 – 24,999',
+    priceFrom: 'From 14,999',
+    priceMin: 14999,
+    priceMax: 24999,
+    priceNote: 'One-time. Depends on sections, photos and extras. Domain and hosting renew from year two.',
     delivery: '5 to 7 days',
     icon: 'profile',
     badge: 'Most popular',
@@ -112,8 +119,11 @@ export const services: Service[] = [
       'QR codes for tables, counter and flyers',
       'Regular updates after launch',
     ],
-    price: 'LKR 29,999',
-    priceNote: 'One-time setup. No commission on orders.',
+    price: 'LKR 29,999 – 59,999',
+    priceFrom: 'From 29,999',
+    priceMin: 29999,
+    priceMax: 59999,
+    priceNote: 'One-time setup. Depends on menu size and features. No commission on orders.',
     delivery: '7 to 10 days',
     icon: 'order',
   },
@@ -152,8 +162,11 @@ export const services: Service[] = [
       'Set up on WhatsApp Business',
       'Monthly report of what customers asked',
     ],
-    price: 'Free demo, then a quote',
-    priceNote: 'Setup plus a small monthly plan.',
+    price: 'LKR 15,000 – 45,000',
+    priceFrom: 'From 15,000',
+    priceMin: 15000,
+    priceMax: 45000,
+    priceNote: 'One-time setup, depending on how much the assistant handles. Plus a small monthly plan. Free demo first.',
     icon: 'chat',
     badge: 'New',
   },
@@ -170,8 +183,11 @@ export const services: Service[] = [
       'Facebook and Instagram ad campaigns',
       'Monthly results report',
     ],
-    price: 'Monthly plans',
-    priceNote: 'Ad budget is paid separately, directly to the platform.',
+    price: 'LKR 15,000 – 40,000 / month',
+    priceFrom: 'From 15,000/mo',
+    priceMin: 15000,
+    priceMax: 40000,
+    priceNote: 'Depends on posts, reels and ad management. Ad budget is paid separately, directly to the platform.',
     icon: 'megaphone',
   },
   {
@@ -187,7 +203,11 @@ export const services: Service[] = [
       'Client portals and dashboards',
       'Fast, secure and search friendly',
     ],
-    price: 'Quote per project',
+    price: 'LKR 50,000 – 250,000',
+    priceFrom: 'From 50,000',
+    priceMin: 50000,
+    priceMax: 250000,
+    priceNote: 'Depends on features and scope. Exact price after a free call.',
     icon: 'globe',
   },
   {
@@ -203,7 +223,11 @@ export const services: Service[] = [
       'Play Store and App Store publishing',
       'Updates and support after launch',
     ],
-    price: 'Quote per project',
+    price: 'LKR 150,000 – 750,000',
+    priceFrom: 'From 150,000',
+    priceMin: 150000,
+    priceMax: 750000,
+    priceNote: 'Depends on features and scope. Exact price after a free call.',
     icon: 'phone',
   },
   {
@@ -219,7 +243,11 @@ export const services: Service[] = [
       'Training for your staff',
       'Maintenance and support plans',
     ],
-    price: 'Quote per project',
+    price: 'LKR 100,000 – 1,000,000',
+    priceFrom: 'From 100,000',
+    priceMin: 100000,
+    priceMax: 1000000,
+    priceNote: 'Depends on features and scope. Exact price after a free call.',
     icon: 'cog',
   },
 ];
@@ -258,7 +286,7 @@ export const projects: Project[] = [
 
 export const process = [
   { title: 'Talk to us', text: 'Message us on WhatsApp or call. Tell us what you need. It is free.' },
-  { title: 'Get a fixed quote', text: 'We send a clear plan, the price and the delivery date.' },
+  { title: 'Get your exact price', text: 'We send a clear plan, the final price within the range, and the delivery date.' },
   { title: 'We build, you review', text: 'You see progress as we go and ask for changes before launch.' },
   { title: 'Launch and support', text: 'We put it live, show you how it works, and stay on WhatsApp for help.' },
 ];
@@ -273,6 +301,10 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const faqs = [
+  {
+    q: 'Why are prices shown as a range?',
+    a: 'Every business needs something a little different. The range covers the usual options. After a short chat we give you one exact price, and that is the price you pay.',
+  },
   {
     q: 'How long does a portfolio website take?',
     a: 'Five to seven days after we receive your photos and details. We share a preview link before it goes live.',

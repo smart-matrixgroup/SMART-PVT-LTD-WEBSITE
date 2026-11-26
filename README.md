@@ -5,7 +5,7 @@ Static Astro site. Two separate experiences on one URL:
 - **Desktop (> 860px):** the website — 3D neural hero (three.js, lazy-loaded) with services orbiting the SMART head; click a service for its popup.
 - **Mobile (≤ 860px):** an iOS-style app — tab bar, large titles, inset grouped lists, page sheets with drag-to-dismiss, light/dark mode.
 
-Both read every word, price and contact detail from **`src/data/site.ts`**. Edit there.
+Prices are always shown as ranges (`price`, `priceFrom`, `priceMin`/`priceMax`). Both read every word, price and contact detail from **`src/data/site.ts`**. Edit there.
 
 ## Commands
 
@@ -20,11 +20,7 @@ npm run preview   # serve the built dist/
 
 | Field | Why |
 |---|---|
-| `contact.address`, `contact.city` | Shows the office and the Google Map (map is hidden until set) |
 | `contact.hours` | Real opening hours |
-| `contact.whatsapp` | Confirm the WhatsApp number (currently the phone number) |
-| `contact.email` | Create `info@findoursmart.com` mailbox |
-| `contact.googleReviewUrl`, `contact.googleMapsUrl` | From Google Business Profile |
 | `social.*` | Facebook / Instagram / LinkedIn / TikTok links (empty ones are hidden) |
 | `testimonials` | Real client quotes. Entries with `placeholder: true` show only in `npm run dev`, never in the build |
 
