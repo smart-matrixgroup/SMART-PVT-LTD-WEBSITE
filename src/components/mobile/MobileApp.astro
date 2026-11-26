@@ -1,0 +1,312 @@
+---
+import Icon from '../Icon.astro';
+import '../../styles/mobile.css';
+import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev } from '../../data/site';
+
+const c = company.contact;
+const popularIds = ['portfolio-website', 'restaurant-ordering', 'whatsapp-ai', 'kadabook'];
+const popular = popularIds.map((id) => services.find((s) => s.id === id)!);
+const orbitIds = ['portfolio-website', 'restaurant-ordering', 'kadabook', 'whatsapp-ai', 'digital-marketing', 'mobile-apps'];
+const orbit = orbitIds.map((id) => services.find((s) => s.id === id)!);
+const mapQuery = [c.address, c.city, c.country].filter(Boolean).join(', ');
+const year = new Date().getFullYear();
+const tabs = [
+  { id: 'home', label: 'Home', icon: 'home' },
+  { id: 'services', label: 'Services', icon: 'grid' },
+  { id: 'work', label: 'Work', icon: 'briefcase' },
+  { id: 'about', label: 'About', icon: 'info' },
+  { id: 'contact', label: 'Contact', icon: 'chat' },
+] as const;
+---
+<div class="mobile" id="mobile" data-active="home">
+  <header class="m-nav" data-mnav>
+    <span class="m-nav-title" data-mnav-title>SMART</span>
+    <a class="m-nav-btn" href={waLink('Hi SMART!')} target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <Icon name="whatsapp" size={24} stroke={1.8} />
+    </a>
+  </header>
+
+  <main class="m-main">
+    <!-- HOME -->
+    <section class="m-tab is-active" data-tab="home" aria-label="Home">
+      <div class="m-hero">
+        <div class="m-orbit-stage">
+          <div class="m-halo" aria-hidden="true"></div>
+          <img class="m-head" src="/img/head-440.webp" width="440" height="440" alt="" fetchpriority="high" decoding="async" />
+          <span class="m-core" aria-hidden="true"></span>
+          <div class="m-orbit" aria-label="Services">
+            {orbit.map((s, i) => (
+              <button type="button" class="m-orb" style={`--i:${i};--n:${orbit.length}`} data-service={s.id} aria-label={s.name}>
+                <span class={`ico ico-${s.id}`}><Icon name={s.icon} size={18} stroke={1.9} /></span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <img class="m-word" src="/img/wordmark-dark.webp" width="620" height="332" alt="SMART [PVT] LTD" />
+        <h2 class="m-hero-title">Websites, apps and software for your business.</h2>
+        <p class="m-hero-sub">Fixed prices from LKR 14,999. Built and supported in Sri Lanka.</p>
+        <div class="m-hero-cta">
+          <a class="m-btn m-btn-fill" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} stroke={1.9} />WhatsApp</a>
+          <a class="m-btn m-btn-glass" href={`tel:${c.phone}`}><Icon name="phone" size={20} stroke={1.9} />Call</a>
+        </div>
+        <p class="m-hint">Tap an icon around the head to explore</p>
+      </div>
+
+      <div class="m-sec-h"><h3>Popular services</h3><button type="button" data-goto="services">See all</button></div>
+      <div class="m-carousel">
+        {popular.map((s) => (
+          <button type="button" class={`m-pcard pc-${s.id}`} data-service={s.id}>
+            <span class="m-pcard-top">
+              <span class={`ico lg ico-${s.id}`}><Icon name={s.icon} size={26} stroke={1.8} /></span>
+              {s.badge && <span class="m-chip">{s.badge}</span>}
+            </span>
+            <span class="m-pcard-name">{s.name}</span>
+            <span class="m-pcard-short">{s.short}</span>
+            <span class="m-pcard-price">{s.price}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="m-sec-h"><h3>Live websites we built</h3><button type="button" data-goto="work">See all</button></div>
+      <div class="m-carousel">
+        {projects.filter((p) => p.image).map((p) => (
+          <a class="m-wcard" href={p.url} target="_blank" rel="noopener">
+            <img src={p.image} width="1080" height="675" alt={`Screenshot of ${p.name}`} loading="lazy" decoding="async" />
+            <span><b>{p.name}</b><small>{p.kind}</small></span>
+          </a>
+        ))}
+      </div>
+
+      <h3 class="m-group-h">Why businesses choose SMART</h3>
+      <ul class="m-group">
+        {company.values.map((v, i) => (
+          <li class="m-cell">
+            <span class={`ico ico-v${i}`}><Icon name={(['shield', 'cog', 'chat', 'whatsapp'] as const)[i]} size={18} stroke={1.9} /></span>
+            <span class="m-cell-main"><b>{v.title}</b><small>{v.text}</small></span>
+          </li>
+        ))}
+      </ul>
+      <p class="m-foot-note">{company.tagline}</p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="m-tab" data-tab="services" aria-label="Services" hidden>
+      <h2 class="m-large">Services</h2>
+      <label class="m-search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span class="sr-only">Search services</span>
+        <input type="search" placeholder="Search" data-search enterkeyhint="search" />
+      </label>
+      <ul class="m-group" data-svc-list>
+        {services.map((s) => (
+          <li>
+            <button type="button" class="m-cell m-cell-btn" data-service={s.id} data-search-text={`${s.name} ${s.short} ${s.forWho}`.toLowerCase()}>
+              <span class={`ico ico-${s.id}`}><Icon name={s.icon} size={18} stroke={1.9} /></span>
+              <span class="m-cell-main"><b>{s.name}</b><small>{s.short}</small></span>
+              <span class="m-cell-val">{s.price.startsWith('LKR') ? s.price : ''}</span>
+              <Icon name="chev" size={16} stroke={2.4} class="m-chev" />
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p class="m-empty" data-search-empty hidden>No services match. Ask us on WhatsApp, we probably do it.</p>
+      <div class="m-cta-card">
+        <b>Not sure what you need?</b>
+        <p>Tell us the problem. We will suggest the simplest fix and a fixed price.</p>
+        <a class="m-btn m-btn-fill" href={waLink('Hi SMART, I need help choosing a service.')} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} stroke={1.9} />Ask on WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="m-tab" data-tab="work" aria-label="Our work" hidden>
+      <h2 class="m-large">Our Work</h2>
+      <div class="m-seg" role="tablist" data-seg>
+        <span class="m-seg-thumb" aria-hidden="true"></span>
+        <button type="button" role="tab" aria-selected="true" data-filter="all">All</button>
+        <button type="button" role="tab" aria-selected="false" data-filter="Portfolio Website">Websites</button>
+        <button type="button" role="tab" aria-selected="false" data-filter="Mobile App">Apps</button>
+      </div>
+      <div class="m-work-list">
+        {projects.map((p) => (
+          <article class="m-work" data-kind={p.kind}>
+            {p.image ? (
+              <img src={p.image} width="1080" height="675" alt={`Screenshot of ${p.name}`} loading="lazy" decoding="async" />
+            ) : (
+              <div class="m-work-ph"><span class="ico lg ico-kadabook"><Icon name="book" size={30} stroke={1.8} /></span></div>
+            )}
+            <div class="m-work-body">
+              <div><b>{p.name}</b><small>{p.kind}</small></div>
+              {p.url ? (
+                <a class="m-pill-btn" href={p.url} target="_blank" rel="noopener">Visit</a>
+              ) : (
+                <span class="m-pill-btn muted">{p.status}</span>
+              )}
+            </div>
+            <p>{p.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="m-tab" data-tab="about" aria-label="About" hidden>
+      <h2 class="m-large">About</h2>
+      <div class="m-about-card">
+        <img src="/img/logo-dark.webp" width="640" height="258" alt="SMART [PVT] LTD" loading="lazy" />
+        <p>{company.description}</p>
+      </div>
+      <div class="m-vm">
+        <div><small>Vision</small><p>{company.vision}</p></div>
+        <div><small>Mission</small><p>{company.mission}</p></div>
+      </div>
+
+      <h3 class="m-group-h">How a project works</h3>
+      <ol class="m-group">
+        {process.map((p, i) => (
+          <li class="m-cell">
+            <span class="m-num">{i + 1}</span>
+            <span class="m-cell-main"><b>{p.title}</b><small>{p.text}</small></span>
+          </li>
+        ))}
+      </ol>
+
+      {visibleTestimonials.length > 0 && (
+        <>
+          <h3 class="m-group-h">What clients say</h3>
+          <div class="m-carousel">
+            {visibleTestimonials.map((t) => (
+              <figure class:list={['m-quote', { placeholder: t.placeholder }]}>
+                <blockquote>{t.quote}</blockquote>
+                <figcaption><b>{t.name}</b> {t.role}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </>
+      )}
+
+      <h3 class="m-group-h">Questions</h3>
+      <div class="m-group m-faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}<Icon name="chev" size={16} stroke={2.4} class="m-chev" /></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <ul class="m-group">
+        <li>
+          {c.googleReviewUrl ? (
+            <a class="m-cell m-cell-btn" href={c.googleReviewUrl} target="_blank" rel="noopener">
+              <span class="ico ico-star"><Icon name="star" size={18} stroke={1.9} /></span>
+              <span class="m-cell-main"><b>Review us on Google</b><small>It helps other businesses find us</small></span>
+              <Icon name="chev" size={16} stroke={2.4} class="m-chev" />
+            </a>
+          ) : isDev ? (
+            <span class="m-cell"><span class="dev-flag">Add googleReviewUrl in src/data/site.ts</span></span>
+          ) : (
+            <a class="m-cell m-cell-btn" href={waLink('Hi SMART, I would like to share feedback.')} target="_blank" rel="noopener">
+              <span class="ico ico-star"><Icon name="star" size={18} stroke={1.9} /></span>
+              <span class="m-cell-main"><b>Share your feedback</b><small>We read every message</small></span>
+              <Icon name="chev" size={16} stroke={2.4} class="m-chev" />
+            </a>
+          )}
+        </li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="m-tab" data-tab="contact" aria-label="Contact" hidden>
+      <div class="m-contact-card">
+        <img src="/img/head-180.webp" width="180" height="180" alt="" loading="lazy" />
+        <h2>SMART [PVT] LTD</h2>
+        <p>{company.tagline}</p>
+        <div class="m-actions">
+          <a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span><Icon name="whatsapp" size={22} stroke={1.8} /></span>message</a>
+          <a href={`tel:${c.phone}`}><span><Icon name="phone" size={22} stroke={1.8} /></span>call</a>
+          <a href={`mailto:${c.email}`}><span><Icon name="mail" size={22} stroke={1.8} /></span>mail</a>
+          <a href={c.googleMapsUrl || (mapQuery ? `https://maps.google.com/?q=${encodeURIComponent(mapQuery)}` : '#contact')} target="_blank" rel="noopener"><span><Icon name="pin" size={22} stroke={1.8} /></span>map</a>
+        </div>
+      </div>
+
+      <ul class="m-group">
+        <li class="m-cell m-kv"><small>phone</small><a href={`tel:${c.phone}`}>{c.phoneDisplay}</a></li>
+        <li class="m-cell m-kv"><small>email</small><a href={`mailto:${c.email}`}>{c.email}</a></li>
+        <li class="m-cell m-kv"><small>address</small><span>{[c.address, c.city, c.country].filter(Boolean).join(', ')}</span></li>
+        <li class="m-cell m-kv"><small>hours</small><span>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></li>
+      </ul>
+
+      {c.address ? (
+        <div class="m-map">
+          <iframe title="SMART office location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}></iframe>
+        </div>
+      ) : isDev && <p class="m-pad"><span class="dev-flag">Map appears once address is set in src/data/site.ts</span></p>}
+
+      <h3 class="m-group-h">Send a message</h3>
+      <form class="m-group m-form" data-wa-form novalidate>
+        <label class="m-cell"><span class="sr-only">Your name</span><input name="name" placeholder="Your name" autocomplete="name" required /></label>
+        <label class="m-cell"><span class="sr-only">Business name</span><input name="business" placeholder="Business name (optional)" autocomplete="organization" /></label>
+        <label class="m-cell m-select"><span>Service</span>
+          <select name="service">
+            {services.map((s) => <option>{s.name}</option>)}
+            <option>Something else</option>
+          </select>
+        </label>
+        <label class="m-cell"><span class="sr-only">Message</span><textarea name="message" rows="3" placeholder="Tell us a little about your business"></textarea></label>
+      </form>
+      <div class="m-pad">
+        <button class="m-btn m-btn-fill wide" type="button" data-wa-submit><Icon name="whatsapp" size={20} stroke={1.9} />Send on WhatsApp</button>
+      </div>
+
+      <ul class="m-group">
+        <li><a class="m-cell m-cell-btn" href="/privacy-policy"><span class="ico ico-shield"><Icon name="shield" size={18} stroke={1.9} /></span><span class="m-cell-main"><b>Privacy Policy</b></span><Icon name="chev" size={16} stroke={2.4} class="m-chev" /></a></li>
+        <li><a class="m-cell m-cell-btn" href="/terms"><span class="ico ico-terms"><Icon name="book" size={18} stroke={1.9} /></span><span class="m-cell-main"><b>Terms and Conditions</b></span><Icon name="chev" size={16} stroke={2.4} class="m-chev" /></a></li>
+      </ul>
+      <p class="m-foot-note">© {year} {company.legalName}<br />findoursmart.com</p>
+    </section>
+  </main>
+
+  <nav class="m-tabbar" aria-label="Sections">
+    {tabs.map((t) => (
+      <a href={`#${t.id}`} class:list={['m-tabbtn', { on: t.id === 'home' }]} data-tabbtn={t.id} aria-current={t.id === 'home' ? 'page' : undefined}>
+        <Icon name={t.icon} size={25} stroke={1.7} />
+        <span>{t.label}</span>
+      </a>
+    ))}
+  </nav>
+
+  <div class="m-sheet-wrap" data-sheet-wrap hidden>
+    <div class="m-backdrop" data-sheet-close></div>
+    <div class="m-sheet" role="dialog" aria-modal="true" aria-labelledby="m-sheet-title" tabindex="-1" data-sheet>
+      <div class="m-grabber" data-grabber><span></span></div>
+      <div class="m-sheet-scroll" data-sheet-scroll>
+        <div class="m-sheet-head">
+          <span class="ico xl" data-s="icon"></span>
+          <button type="button" class="m-x" data-sheet-close aria-label="Close"><Icon name="close" size={16} stroke={2.6} /></button>
+        </div>
+        <h2 id="m-sheet-title" data-s="name"></h2>
+        <p class="m-sheet-short" data-s="short"></p>
+        <div class="m-price-card">
+          <div><small>Price</small><b data-s="price"></b></div>
+          <div data-s="delivery-wrap"><small>Ready in</small><b data-s="delivery"></b></div>
+        </div>
+        <p class="m-sheet-note" data-s="note"></p>
+        <h3 class="m-group-h">What you get</h3>
+        <ul class="m-group m-ticks" data-s="includes"></ul>
+        <h3 class="m-group-h">Made for</h3>
+        <p class="m-sheet-p" data-s="forWho"></p>
+        <h3 class="m-group-h">The problem it solves</h3>
+        <p class="m-sheet-p" data-s="problem"></p>
+      </div>
+      <div class="m-sheet-cta">
+        <a class="m-btn m-btn-fill wide" data-s="cta" target="_blank" rel="noopener"><Icon name="whatsapp" size={20} stroke={1.9} />Ask about this on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { initMobile } from '../../scripts/mobile';
+  initMobile();
+</script>

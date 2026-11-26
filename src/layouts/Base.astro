@@ -1,0 +1,117 @@
+---
+import '@fontsource-variable/unbounded';
+import '@fontsource-variable/instrument-sans';
+import '../styles/base.css';
+import { SITE_URL, company, services } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const { title, description, path = '/', jsonLd = [], noindex = false } = Astro.props;
+const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`;
+const ogImage = `${SITE_URL}/og-image.jpg`;
+const sameAs = Object.values(company.social).filter(Boolean);
+
+const priceNumber = (p: string) => {
+  const m = p.replace(/,/g, '').match(/LKR\s*(\d+)/);
+  return m ? m[1] : undefined;
+};
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${SITE_URL}/#organization`,
+  name: company.name,
+  legalName: company.legalName,
+  alternateName: ['SMART Pvt Ltd', 'SMART Private Limited', 'Find Our SMART'],
+  description: company.description,
+  slogan: company.tagline,
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon-512.png`,
+  image: ogImage,
+  telephone: company.contact.phone,
+  email: company.contact.email,
+  priceRange: 'LKR 14,999+',
+  currenciesAccepted: 'LKR',
+  areaServed: [{ '@type': 'Country', name: 'Sri Lanka' }, 'Worldwide'],
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'LK',
+    ...(company.contact.address ? { streetAddress: company.contact.address } : {}),
+    ...(company.contact.city ? { addressLocality: company.contact.city } : {}),
+  },
+  ...(sameAs.length ? { sameAs } : {}),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Software services',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.name, description: s.short },
+      ...(priceNumber(s.price) ? { price: priceNumber(s.price), priceCurrency: 'LKR' } : {}),
+    })),
+  },
+};
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: company.name,
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  inLanguage: 'en-LK',
+};
+const graph = [org, website, ...jsonLd];
+---
+<!doctype html>
+<html lang="en-LK">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#040817" media="(min-width: 861px)" />
+    <meta name="theme-color" content="#F2F4F9" media="(max-width: 860px) and (prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(max-width: 860px) and (prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SMART" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="geo.region" content="LK" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:locale" content="en_LK" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SMART [PVT] LTD logo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preload" as="image" href="/img/head-440.webp" type="image/webp" fetchpriority="high"
+      imagesrcset="/img/head-440.webp 440w, /img/head-880.webp 880w" imagesizes="(max-width: 860px) 240px, 520px" />
+
+    {graph.map((g) => <script type="application/ld+json" set:html={JSON.stringify(g)} />)}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

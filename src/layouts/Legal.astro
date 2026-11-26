@@ -1,0 +1,49 @@
+---
+import Base from './Base.astro';
+import { company } from '../data/site';
+interface Props { title: string; description: string; path: string; updated: string }
+const { title, description, path, updated } = Astro.props;
+---
+<Base title={`${title} | ${company.name}`} description={description} path={path}>
+  <div class="legal">
+    <header class="legal-bar">
+      <a href="/" class="legal-brand" aria-label="Back to SMART home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        <img src="/img/head-180.webp" width="34" height="34" alt="" />
+        <span>SMART</span>
+      </a>
+    </header>
+    <article class="legal-body">
+      <h1>{title}</h1>
+      <p class="legal-updated">Last updated {updated}</p>
+      <slot />
+    </article>
+    <footer class="legal-foot">
+      <a href="/privacy-policy">Privacy policy</a>
+      <a href="/terms">Terms and conditions</a>
+      <span>© {new Date().getFullYear()} {company.legalName}</span>
+    </footer>
+  </div>
+</Base>
+
+<style is:global>
+  .legal {
+    --bg: #f2f4f9; --fg: #0a1230; --mut: #56627f; --card: #fff; --line: #dbe1ec;
+    min-height: 100dvh; background: var(--bg); color: var(--fg);
+    font-family: var(--body); font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-color-scheme: dark) {
+    .legal { --bg: #040817; --fg: #eef2f9; --mut: #a3aec4; --card: #0a1230; --line: #1d2a5a; }
+  }
+  .legal-bar { position: sticky; top: 0; z-index: 5; padding: calc(10px + env(safe-area-inset-top)) 20px 10px; background: color-mix(in srgb, var(--bg) 80%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 0.5px solid var(--line); }
+  .legal-brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; min-height: 44px; }
+  .legal-body { width: min(720px, 100% - 40px); margin: 0 auto; padding: 56px 0 40px; }
+  .legal-body h1 { font-family: var(--display); font-weight: 500; font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -0.035em; margin: 0; }
+  .legal-updated { color: var(--mut); margin: 12px 0 40px; font-size: 15px; }
+  .legal-body h2 { font-family: var(--display); font-weight: 500; font-size: 21px; letter-spacing: -0.02em; margin: 44px 0 10px; }
+  .legal-body p, .legal-body li { color: color-mix(in srgb, var(--fg) 88%, transparent); }
+  .legal-body ul { padding-left: 1.2em; }
+  .legal-body a { color: #2563ff; }
+  .legal-foot { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; padding: 32px 20px calc(32px + env(safe-area-inset-bottom)); border-top: 0.5px solid var(--line); font-size: 14px; color: var(--mut); }
+  .legal-foot a { color: inherit; }
+</style>

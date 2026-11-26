@@ -1,0 +1,423 @@
+---
+import Icon from '../Icon.astro';
+import '../../styles/desktop.css';
+import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev } from '../../data/site';
+
+const featured = services.filter((s) => ['portfolio-website', 'restaurant-ordering'].includes(s.id));
+const others = services.filter((s) => !featured.includes(s));
+const c = company.contact;
+const mapQuery = [c.address, c.city, c.country].filter(Boolean).join(', ');
+const year = new Date().getFullYear();
+---
+<div class="desktop" id="desktop">
+  <header class="nav" data-nav>
+    <a href="#top" class="nav-brand" aria-label="SMART home">
+      <img src="/img/head-180.webp" width="40" height="40" alt="" />
+      <img src="/img/wordmark-dark.webp" width="118" height="63" alt="SMART [PVT] LTD" class="nav-word" />
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener">
+      <Icon name="whatsapp" size={18} /> Start a project
+    </a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-kicker"><span class="live-dot"></span>Software company in Sri Lanka</p>
+          <h1 id="hero-title" class="hero-title">
+            <span class="ln"><span>We build the software</span></span>
+            <span class="ln"><span>your business</span></span>
+            <span class="ln"><span>runs on.</span></span>
+          </h1>
+          <p class="hero-sub">
+            Websites, ordering systems, mobile apps and WhatsApp assistants, designed, built and
+            looked after by one team. Fixed prices, from LKR&nbsp;14,999.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener">
+              <Icon name="whatsapp" size={20} /> Chat on WhatsApp
+            </a>
+            <a class="btn btn-ghost" href="#services">See services and prices</a>
+          </div>
+          <ul class="hero-facts">
+            <li><Icon name="check" size={16} stroke={2.2} />Price agreed before we start</li>
+            <li><Icon name="check" size={16} stroke={2.2} />Websites live in days</li>
+            <li><Icon name="check" size={16} stroke={2.2} />Support on WhatsApp</li>
+          </ul>
+        </div>
+
+        <div class="stage" data-stage>
+          <canvas class="stage-canvas" data-neural aria-hidden="true"></canvas>
+          <div class="stage-ring" aria-hidden="true"></div>
+          <div class="head-wrap" aria-hidden="true">
+            <div class="head-glow"></div>
+            <img class="head" src="/img/head-880.webp"
+              srcset="/img/head-440.webp 440w, /img/head-880.webp 880w" sizes="440px"
+              width="440" height="440" alt="" fetchpriority="high" decoding="async" />
+            <span class="core-pulse"></span>
+            <span class="core-pulse d2"></span>
+          </div>
+          <ul class="orbit" data-orbit aria-label="Our services">
+            {services.map((s) => (
+              <li class="orbit-item">
+                <button class="orbit-node" type="button" data-service={s.id} aria-label={s.name}>
+                  <span class="orbit-ico"><Icon name={s.icon} size={20} /></span>
+                  <span class="orbit-label">{s.orbit}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p class="stage-hint">Click any service to see what is included</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="sec light" id="services" aria-labelledby="services-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="services-title" class="h2">Services with a clear price.</h2>
+          <p class="lede">Pick a package, or tell us the problem and we will shape a solution around it. Every quote is fixed before we write a line of code.</p>
+        </div>
+
+        <div class="featured">
+          {featured.map((s) => (
+            <article class="feat-card" data-spot>
+              <div class="feat-top">
+                <span class="tile"><Icon name={s.icon} size={26} /></span>
+                {s.badge && <span class="badge">{s.badge}</span>}
+              </div>
+              <h3 class="h3">{s.name}</h3>
+              <p class="feat-short">{s.short}</p>
+              <p class="feat-for"><strong>For</strong> {s.forWho}</p>
+              <ul class="ticks">
+                {s.includes.slice(0, 4).map((i) => <li><Icon name="check" size={18} stroke={2} />{i}</li>)}
+              </ul>
+              <div class="feat-foot">
+                <div>
+                  <p class="price">{s.price}</p>
+                  <p class="price-note">{s.priceNote}{s.delivery && <> Ready in {s.delivery}.</>}</p>
+                </div>
+                <button type="button" class="btn btn-dark" data-service={s.id}>See everything included</button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <ul class="svc-list">
+          {others.map((s) => (
+            <li>
+              <button type="button" class="svc-row" data-service={s.id}>
+                <span class="tile sm"><Icon name={s.icon} size={22} /></span>
+                <span class="svc-main">
+                  <span class="svc-name">{s.name}{s.badge && <span class="badge sm">{s.badge}</span>}</span>
+                  <span class="svc-short">{s.short}</span>
+                </span>
+                <span class="svc-price">{s.price}</span>
+                <span class="svc-go"><Icon name="arrow" size={20} /></span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="sec dark products" id="products" aria-labelledby="products-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="products-title" class="h2 chrome">Products we built ourselves.</h2>
+          <p class="lede">We do not just build for clients. These are ours, and we run them every day.</p>
+        </div>
+        <div class="prod-grid">
+          <article class="prod" data-spot>
+            <div class="prod-copy">
+              <span class="badge glow">Coming to Google Play</span>
+              <h3 class="h3">KadaBook</h3>
+              <p>Billing, stock and a credit book for every Sri Lankan shop, on the phone the owner already has. English, Tamil and Sinhala.</p>
+              <button type="button" class="link-btn" data-service="kadabook">What KadaBook does <Icon name="arrow" size={18} /></button>
+            </div>
+            <div class="phone" aria-hidden="true">
+              <div class="phone-screen kb">
+                <div class="kb-top"><span>Today</span><b>LKR 48,250</b><small>32 bills</small></div>
+                <div class="kb-row"><span>Rice 5kg</span><b>2,150</b></div>
+                <div class="kb-row"><span>Dhal 1kg</span><b>420</b></div>
+                <div class="kb-row"><span>Milk powder</span><b>1,180</b></div>
+                <div class="kb-row credit"><span>Credit · Raju</span><b>3,600</b></div>
+                <div class="kb-btn">New bill</div>
+              </div>
+            </div>
+          </article>
+          <article class="prod" data-spot>
+            <div class="prod-copy">
+              <span class="badge glow">New service</span>
+              <h3 class="h3">WhatsApp AI Assistant</h3>
+              <p>Answers prices, opening hours and orders the moment a customer asks, even at midnight, and hands the chat to you when it needs a person.</p>
+              <button type="button" class="link-btn" data-service="whatsapp-ai">How it works <Icon name="arrow" size={18} /></button>
+            </div>
+            <div class="phone" aria-hidden="true">
+              <div class="phone-screen wa" data-chat>
+                <div class="wa-head"><span class="wa-av"></span><span>Your Business<small>online</small></span></div>
+                <div class="wa-body">
+                  <p class="bub in">Hi, do you deliver to Nilaveli?</p>
+                  <p class="bub out">Yes! Delivery to Nilaveli is LKR 350 and takes about 40 minutes. Shall I send today's menu?</p>
+                  <p class="bub in">Yes please</p>
+                  <p class="bub out">Here it is. Reply with the item numbers and I will confirm your order.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="sec light" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="work-title" class="h2">Live websites we built.</h2>
+          <p class="lede">Real clients, real sites, online today. Open them and judge for yourself.</p>
+        </div>
+        <div class="work-grid">
+          {projects.filter((p) => p.url).map((p) => (
+            <a class="work" href={p.url} target="_blank" rel="noopener" data-tilt>
+              <div class="browser">
+                <div class="browser-bar"><i></i><i></i><i></i><span>{p.name}</span></div>
+                <img src={p.image} width="1080" height="675" loading="lazy" decoding="async" alt={`Screenshot of ${p.name}`} />
+              </div>
+              <div class="work-meta">
+                <div>
+                  <h3 class="h4">{p.name}</h3>
+                  <p>{p.summary}</p>
+                </div>
+                <span class="pill">{p.kind}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="sec dark about" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 id="about-title" class="sr-only">About SMART</h2>
+        <div class="vm">
+          <div>
+            <h3 class="vm-label">Our vision</h3>
+            <p class="vm-text">{company.vision}</p>
+          </div>
+          <div>
+            <h3 class="vm-label">Our mission</h3>
+            <p class="vm-text">{company.mission}</p>
+          </div>
+        </div>
+        <ul class="values">
+          {company.values.map((v, i) => (
+            <li>
+              <span class="tile glass"><Icon name={(['shield', 'cog', 'chat', 'whatsapp'] as const)[i]} size={22} /></span>
+              <h4>{v.title}</h4>
+              <p>{v.text}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div class="process">
+          <h3 class="h2 chrome sm">How a project works.</h3>
+          <ol class="steps" data-steps>
+            <span class="steps-line" aria-hidden="true"><span></span></span>
+            {process.map((p, i) => (
+              <li>
+                <span class="step-n">{i + 1}</span>
+                <h4>{p.title}</h4>
+                <p>{p.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST: testimonials + Google reviews -->
+    <section class="sec light trust" aria-labelledby="trust-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="trust-title" class="h2">{visibleTestimonials.length ? 'What our clients say.' : 'Worked with us? Tell others.'}</h2>
+        </div>
+        {visibleTestimonials.length > 0 && (
+          <div class="quotes">
+            {visibleTestimonials.map((t) => (
+              <figure class:list={['quote', { placeholder: t.placeholder }]}>
+                {t.placeholder && <span class="dev-flag">Placeholder, dev only</span>}
+                <blockquote>{t.quote}</blockquote>
+                <figcaption><b>{t.name}</b><span>{t.role}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+        <div class="greview">
+          <div class="g-stars" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map(() => <Icon name="star" size={22} stroke={1.4} />)}
+          </div>
+          <div class="g-copy">
+            <h3 class="h4">Reviews on Google</h3>
+            <p>Worked with us? A short review on Google helps other businesses find a team they can trust.</p>
+          </div>
+          {c.googleReviewUrl ? (
+            <a class="btn btn-dark" href={c.googleReviewUrl} target="_blank" rel="noopener">Write a Google review</a>
+          ) : isDev ? (
+            <span class="dev-flag">Add googleReviewUrl in src/data/site.ts</span>
+          ) : (
+            <a class="btn btn-dark" href={waLink('Hi SMART, I would like to share feedback.')} target="_blank" rel="noopener">Share feedback</a>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec light faq-sec" aria-labelledby="faq-title">
+      <div class="wrap faq-wrap">
+        <div class="sec-head sticky">
+          <h2 id="faq-title" class="h2">Questions people ask us.</h2>
+          <p class="lede">Something else on your mind? Ask on WhatsApp, a person replies.</p>
+        </div>
+        <div class="faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}<span class="faq-x" aria-hidden="true"></span></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sec dark contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div>
+          <h2 id="contact-title" class="h2 chrome">Tell us what you need.</h2>
+          <p class="lede">Send a message and we will reply with a plan and a fixed price, usually the same day.</p>
+          <ul class="c-list">
+            <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="tile glass sm"><Icon name="whatsapp" size={20} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
+            <li><a href={`tel:${c.phone}`}><span class="tile glass sm"><Icon name="phone" size={20} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
+            <li><a href={`mailto:${c.email}`}><span class="tile glass sm"><Icon name="mail" size={20} /></span><span><small>Email</small>{c.email}</span></a></li>
+            <li><div><span class="tile glass sm"><Icon name="pin" size={20} /></span><span><small>Office</small>{[c.address, c.city, c.country].filter(Boolean).join(', ')}</span></div></li>
+            <li><div><span class="tile glass sm"><Icon name="clock" size={20} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
+          </ul>
+        </div>
+
+        <form class="c-form" data-wa-form novalidate>
+          <h3 class="h4">Quick message</h3>
+          <label>Your name<input name="name" autocomplete="name" required /></label>
+          <label>Business name<input name="business" autocomplete="organization" /></label>
+          <label>I am interested in
+            <select name="service">
+              {services.map((s) => <option>{s.name}</option>)}
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Message<textarea name="message" rows="4" placeholder="Tell us a little about your business"></textarea></label>
+          <button class="btn btn-primary wide" type="submit"><Icon name="whatsapp" size={20} /> Send on WhatsApp</button>
+          <p class="form-note">Opens WhatsApp with your message ready to send.</p>
+        </form>
+
+        {(c.address || isDev) && (
+          <div class="map">
+            {c.address ? (
+              <iframe title="SMART office location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`}></iframe>
+            ) : (
+              <p class="dev-flag">Map appears here once address is set in src/data/site.ts</p>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/img/logo-dark.webp" width="220" height="89" alt="SMART [PVT] LTD" loading="lazy" />
+        <p>{company.tagline}</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>{services.slice(0, 5).map((s) => <li><button type="button" data-service={s.id}>{s.name}</button></li>)}</ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Our work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy-policy">Privacy policy</a></li>
+          <li><a href="/terms">Terms and conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-base">
+      <p>© {year} {company.legalName}. Registered in Sri Lanka.</p>
+      <p>findoursmart.com</p>
+    </div>
+  </footer>
+
+  <a class="wa-float" href={waLink('Hi SMART!')} target="_blank" rel="noopener" aria-label="Chat with SMART on WhatsApp">
+    <Icon name="whatsapp" size={28} stroke={1.8} />
+  </a>
+
+  <dialog class="svc-dialog" data-dialog aria-labelledby="dlg-title">
+    <div class="dlg-card" tabindex="-1" autofocus>
+      <button class="dlg-close" type="button" data-close aria-label="Close"><Icon name="close" size={22} /></button>
+      <div class="dlg-head">
+        <span class="tile glass" data-d="icon"></span>
+        <div>
+          <h3 id="dlg-title" class="h3" data-d="name"></h3>
+          <p class="dlg-short" data-d="short"></p>
+        </div>
+      </div>
+      <div class="dlg-body">
+        <div class="dlg-col">
+          <h4>The problem it solves</h4>
+          <p data-d="problem"></p>
+          <h4>Made for</h4>
+          <p data-d="forWho"></p>
+        </div>
+        <div class="dlg-col">
+          <h4>What you get</h4>
+          <ul class="ticks" data-d="includes"></ul>
+        </div>
+      </div>
+      <div class="dlg-foot">
+        <div>
+          <p class="price" data-d="price"></p>
+          <p class="price-note" data-d="note"></p>
+        </div>
+        <a class="btn btn-primary" data-d="cta" target="_blank" rel="noopener"><Icon name="whatsapp" size={20} /> Ask about this</a>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  import { initDesktop } from '../../scripts/desktop';
+  initDesktop();
+</script>

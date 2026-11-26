@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Desktop from '../components/desktop/Desktop.astro';
+import MobileApp from '../components/mobile/MobileApp.astro';
+import Icon from '../components/Icon.astro';
+import { company, services, faqs, SITE_URL } from '../data/site';
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const pageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE_URL}/#webpage`,
+  url: `${SITE_URL}/`,
+  name: 'SMART [PVT] LTD | Software, websites and apps in Sri Lanka',
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': `${SITE_URL}/#organization` },
+};
+const siteData = { wa: company.contact.whatsapp, services };
+---
+<Base
+  title="SMART [PVT] LTD | Websites, Apps and Software Company in Sri Lanka"
+  description="SMART builds portfolio websites from LKR 14,999, restaurant online ordering systems, mobile apps, WhatsApp AI assistants and custom software for businesses in Sri Lanka. Fixed prices, fast delivery."
+  jsonLd={[pageLd, faqLd]}
+>
+  <Desktop />
+  <MobileApp />
+
+  <script type="application/json" id="site-data" set:html={JSON.stringify(siteData)} />
+  {services.map((s) => (
+    <template data-icon={s.id}><Icon name={s.icon} size={26} /></template>
+  ))}
+</Base>
