@@ -34,7 +34,21 @@ export function initDesktop() {
 
 function initNav(root: HTMLElement) {
   const nav = root.querySelector<HTMLElement>('[data-nav]')!;
-  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 40);
+  // Hide the nav while scrolling down, bring it back on any scroll up.
+  let lastY = scrollY;
+  let holdUntil = 0;
+  const onScroll = () => {
+    const y = scrollY;
+    nav.classList.toggle('scrolled', y > 40);
+    const d = y - lastY;
+    if (performance.now() < holdUntil || y < 120) nav.classList.remove('hide');
+    else if (d > 6) nav.classList.add('hide');
+    else if (d < -6) nav.classList.remove('hide');
+    if (Math.abs(d) > 6) lastY = y;
+  };
+  // keep the nav visible right after a menu jump
+  nav.addEventListener('click', () => { holdUntil = performance.now() + 1500; nav.classList.remove('hide'); });
+  nav.addEventListener('focusin', () => nav.classList.remove('hide'));
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
