@@ -25,6 +25,8 @@ const org = {
   alternateName: ['SMART Pvt Ltd', 'SMART Private Limited', 'Find Our SMART'],
   description: company.description,
   slogan: company.tagline,
+  foundingDate: company.registration.incorporatedISO,
+  identifier: { '@type': 'PropertyValue', propertyID: 'Sri Lanka company registration number', value: company.registration.number },
   url: SITE_URL,
   logo: `${SITE_URL}/favicon-512.png`,
   image: ogImage,

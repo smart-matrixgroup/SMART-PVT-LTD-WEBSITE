@@ -15,15 +15,31 @@ export const company = {
   tagline: 'Intelligent solutions. Smarter future.',
   description:
     'SMART is a Sri Lankan software company. We build portfolio websites, restaurant ordering systems, mobile apps, WhatsApp AI assistants and custom business software at clear, honest price ranges.',
-  vision: 'To be the most trusted technology partner for growing businesses in Sri Lanka and beyond.',
+  vision:
+    "To be Sri Lanka's most trusted business technology partner, building practical, scalable and reliable technology that helps businesses work smarter and grow sustainably.",
   mission:
-    'To give every business, from a single shop to a growing company, software that is simple to use, fairly priced and built to last.',
+    'To understand real business needs and deliver useful software, automation and digital solutions that improve efficiency, control and decision-making for businesses of every size.',
+  ambition: 'From Trincomalee to the world: growing SMART into an international business technology hub.',
+  registration: {
+    number: 'PV 00277791',
+    act: 'Companies Act No. 7 of 2007',
+    incorporated: '6 June 2023',
+    incorporatedISO: '2023-06-06',
+    type: 'Private limited company',
+    image: '/img/br-certificate.webp',
+    thumb: '/img/br-certificate-thumb.webp',
+    pdf: '/docs/smart-pvt-ltd-certificate-of-incorporation.pdf',
+  },
   values: [
-    { title: 'Clear prices', text: 'You see the price range up front and agree the final price before we start.' },
-    { title: 'Built to last', text: 'We write software we are happy to support for years, not weeks.' },
-    { title: 'Plain talk', text: 'We explain things in your language, without the jargon.' },
-    { title: 'Always reachable', text: 'A real person answers your WhatsApp, before and after launch.' },
-  ],
+    { title: 'Business understanding', text: 'We listen first and understand your business before we build anything.', icon: 'users', tone: 'blue' },
+    { title: 'Reliability', text: 'We deliver what we promise. Our systems work and our support is real.', icon: 'shield', tone: 'green' },
+    { title: 'Simplicity', text: 'We build systems people can actually use, not tools that need a manual.', icon: 'spark', tone: 'cyan' },
+    { title: 'Innovation', text: 'We keep up with technology so you get the latest and best solutions.', icon: 'chart', tone: 'violet' },
+    { title: 'Customer focus', text: 'Your success is our success. We measure ourselves by how well our work serves you.', icon: 'heart', tone: 'pink' },
+    { title: 'Transparency', text: 'No hidden costs, no exaggerated claims. Just honest conversations.', icon: 'eye', tone: 'indigo' },
+    { title: 'Continuous improvement', text: 'Every product, service and process keeps getting better.', icon: 'cog', tone: 'amber' },
+    { title: 'Long-term support', text: 'We stay with you after delivery. We do not disappear.', icon: 'whatsapp', tone: 'wa' },
+  ] as { title: string; text: string; icon: IconName; tone: string }[],
   contact: {
     phone: '+94789999687',
     phoneDisplay: '+94 789 999 687',
@@ -326,6 +342,42 @@ export const process = [
   { title: 'Get your exact price', text: 'We send a clear plan, the final price within the range, and the delivery date.' },
   { title: 'We build, you review', text: 'You see progress as we go and ask for changes before launch.' },
   { title: 'Launch and support', text: 'We put it live, show you how it works, and stay on WhatsApp for help.' },
+];
+
+export const roadmap = [
+  {
+    stage: 'Now',
+    when: 'Next 12 months',
+    title: 'Strong foundations',
+    points: [
+      'Complete SMART ORIX HUB with Restaurant and Hardware POS',
+      'Clear service packages for every service',
+      'Company website and portfolio live',
+      'Our first 10 long-term business clients',
+    ],
+  },
+  {
+    stage: 'Next',
+    when: 'By 2029',
+    title: 'Growing across Sri Lanka',
+    points: [
+      'SMART ORIX HUB across five business sectors',
+      '100+ active business customers',
+      'A dedicated customer support team',
+      'Mobile apps for every ORIX HUB module',
+    ],
+  },
+  {
+    stage: 'Future',
+    when: 'By 2031',
+    title: 'An international business hub',
+    points: [
+      'A leading SME technology provider in Sri Lanka',
+      'KadaBook as a subscription (SaaS) product',
+      'AI-powered business automation',
+      'Expansion beyond Sri Lanka',
+    ],
+  },
 ];
 
 export type Testimonial = {

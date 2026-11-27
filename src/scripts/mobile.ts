@@ -122,6 +122,13 @@ export function initMobile() {
     );
   }
 
+  // ── Certificate viewer ──
+  const cert = root.querySelector<HTMLDialogElement>('[data-mcert]');
+  if (cert) {
+    root.querySelectorAll('[data-cert-open]').forEach((b) => b.addEventListener('click', () => { tap(); cert.showModal(); }));
+    cert.querySelector('[data-mcert-close]')?.addEventListener('click', () => cert.close());
+  }
+
   // ── Form ──
   const form = root.querySelector<HTMLFormElement>('[data-wa-form]');
   root.querySelector('[data-wa-submit]')?.addEventListener('click', () => form && sendFormToWhatsApp(form));

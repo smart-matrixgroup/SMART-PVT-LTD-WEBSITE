@@ -792,3 +792,85 @@
 
 .sa-custom-software rect[fill='#0f1b45'] { fill: #dfe6f6; }
 .feat-card .feat-short, .feat-card .h3 { max-width: 70%; }
+
+/* ── About v2: ambition, vision & mission, values, roadmap, registration ── */
+.ab-intro { max-width: 860px; }
+.ab-kicker { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 15px; font-weight: 600; color: var(--cyan); }
+.ab-title { font-size: clamp(34px, 3.4vw, 52px); }
+.vm2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
+.vm-card {
+  position: relative; overflow: hidden; padding: 40px 40px 44px; border-radius: 32px; isolation: isolate;
+  background: linear-gradient(160deg, rgba(30,48,110,0.55), rgba(8,14,40,0.75));
+  box-shadow: inset 0 0 0 1px rgba(150,190,255,0.16), 0 40px 80px -40px rgba(0,0,0,0.7);
+}
+.vm-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; z-index: -1;
+  background: conic-gradient(from var(--vm-a, 0deg), transparent 0 60%, rgba(72,214,255,0.9) 75%, transparent 90%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: vm-spin 7s linear infinite; }
+.vm-mission::before { animation-delay: -3.5s; background: conic-gradient(from var(--vm-a, 0deg), transparent 0 60%, rgba(244,114,182,0.85) 75%, transparent 90%); }
+@property --vm-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes vm-spin { to { --vm-a: 360deg; } }
+.vm-glow { position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 50%; z-index: -1; filter: blur(60px); opacity: 0.5; background: #2563ff; animation: breathe 6s ease-in-out infinite; }
+.vm-mission .vm-glow { background: #db2777; opacity: 0.35; }
+.vm-card .vm-label { margin: 26px 0 12px; }
+.vm-mission .vm-label { color: #f9a8d4; }
+.vm-card .vm-text { font-size: clamp(20px, 1.7vw, 25px); line-height: 1.4; }
+
+.cv { margin-top: 120px; }
+.cv-grid { list-style: none; padding: 0; margin: 48px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.cv-item { padding: 26px 24px 28px; border-radius: 24px; background: rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); transition: transform 0.5s var(--ease-out), background-color 0.4s, box-shadow 0.4s; }
+.cv-item:hover { transform: translateY(-6px); background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(150,190,255,0.25), 0 30px 50px -30px rgba(37,99,255,0.6); }
+.cv-item:hover .t3d { transform: rotate(-8deg) scale(1.06); }
+.cv-item .t3d { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.cv-item h4 { font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: -0.02em; margin: 20px 0 8px; }
+.cv-item p { margin: 0; font-size: 15px; line-height: 1.55; color: rgba(238,242,249,0.66); }
+
+.road { margin-top: 120px; }
+.road-track { position: relative; list-style: none; padding: 0; margin: 56px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.road-track::before { content: ''; position: absolute; left: 24px; right: 24px; top: 11px; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--electric) 40%, rgba(124,58,237,0.6) 75%, rgba(255,255,255,0.08)); }
+.road-step { position: relative; padding-top: 44px; }
+.road-dot { position: absolute; left: 24px; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 2px var(--electric), 0 0 0 6px var(--ink); }
+.road-step.now .road-dot { background: var(--cyan); box-shadow: 0 0 0 6px var(--ink), 0 0 24px var(--cyan); }
+.road-step.now .road-dot::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--cyan); animation: pulse 2.4s var(--ease-out) infinite; }
+.road-step > :not(.road-dot) { margin-left: 0; }
+.road-when { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--cyan); }
+.road-when em { font-style: normal; font-weight: 500; color: rgba(238,242,249,0.55); }
+.road-step h4 { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.03em; margin: 10px 0 18px; }
+.road-step ul { list-style: none; margin: 0; padding: 22px 22px 24px; display: grid; gap: 12px; border-radius: 22px; background: rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+.road-step.now ul { background: linear-gradient(160deg, rgba(37,99,255,0.18), rgba(8,14,40,0.4)); box-shadow: inset 0 0 0 1px rgba(72,214,255,0.3); }
+.road-step li { display: flex; gap: 10px; font-size: 15px; line-height: 1.5; color: rgba(238,242,249,0.78); }
+.road-step li svg { flex: none; margin-top: 3px; color: var(--cyan); }
+
+.reg {
+  margin-top: 120px; display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: center;
+  padding: 44px; border-radius: 32px; background: linear-gradient(150deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 40px 80px -40px rgba(0,0,0,0.7);
+}
+.reg-cert { position: relative; display: block; border-radius: 14px; overflow: hidden; perspective: 900px; }
+.reg-cert img { display: block; width: 100%; height: auto; border-radius: 14px; background: #fff;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); transform: rotateY(-10deg) rotateX(4deg); transform-origin: left center;
+  transition: transform 0.8s var(--ease-out); }
+.reg-cert:hover img, .reg-cert:focus-visible img { transform: rotateY(0) rotateX(0) scale(1.02); }
+.reg-cert::after { content: ''; position: absolute; inset: 0; border-radius: 14px; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.55) 45%, transparent 60%); background-size: 250% 100%; background-position: 120% 0;
+  animation: reg-shine 5s ease-in-out infinite; }
+@keyframes reg-shine { 0%, 60% { background-position: 120% 0; } 100% { background-position: -40% 0; } }
+.reg-zoom { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #fff; background: rgba(4,8,23,0.8); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); white-space: nowrap; }
+.reg-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #4ade80; background: rgba(74,222,128,0.1); box-shadow: inset 0 0 0 1px rgba(74,222,128,0.3); }
+.reg-copy .h3 { margin: 20px 0 12px; font-size: 30px; }
+.reg-copy > p { margin: 0; color: rgba(238,242,249,0.72); max-width: 34em; }
+.reg-facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 12px 40px; margin: 28px 0 0; }
+.reg-facts dt { font-size: 13px; color: rgba(238,242,249,0.55); }
+.reg-facts dd { margin: 4px 0 0; font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; }
+.reg-actions { display: flex; gap: 12px; margin-top: 30px; }
+
+.cert-dialog { padding: 0; border: 0; background: transparent; width: min(820px, 100% - 48px); max-height: calc(100vh - 48px); overflow: visible; }
+.cert-dialog::backdrop { background: rgba(2,4,13,0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.cert-dialog[open] { animation: dlg-in 0.5s var(--ease-out); }
+.cert-card { display: flex; flex-direction: column; max-height: calc(100vh - 48px); border-radius: 24px; overflow: hidden; background: #0a1230; box-shadow: 0 60px 120px -40px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(150,190,255,0.2); font-family: var(--body); color: var(--chrome); }
+.cert-bar { display: flex; align-items: center; gap: 14px; padding: 14px 16px 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.cert-bar > span { flex: 1; display: grid; }
+.cert-bar small { color: rgba(238,242,249,0.6); font-size: 13px; }
+.cert-bar .dlg-close { position: static; }
+.cert-scroll { overflow: auto; background: #e9edf5; padding: 20px; }
+.cert-scroll img { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4); }

@@ -3,7 +3,7 @@ import Icon from '../Icon.astro';
 import Price from '../Price.astro';
 import Social from '../Social.astro';
 import '../../styles/mobile.css';
-import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
+import { company, services, projects, process, roadmap, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 import type { IconName } from '../../data/site';
 
 const c = company.contact;
@@ -40,6 +40,7 @@ const kbFeatures = [
   { icon: 'package', tone: 'violet' }, { icon: 'chart', tone: 'indigo' }, { icon: 'printer', tone: 'cyan' },
 ] as const;
 const stepTones = ['blue', 'violet', 'orange', 'green'];
+const reg = company.registration;
 ---
 <div class="mobile" id="mobile" data-active="home">
   <header class="m-nav" data-mnav>
@@ -141,9 +142,9 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
 
       <div class="m-sec-h m-rv"><h3>Why SMART</h3></div>
       <div class="m-widgets">
-        {company.values.map((v, i) => (
+        {[1, 2, 5, 7].map((k) => company.values[k]).map((v, i) => (
           <div class="m-widget m-rv" style={`--d:${i}`}>
-            <span class={`t3d tone-${values[i].tone}`}><Icon name={values[i].icon} size={22} stroke={1.9} /></span>
+            <span class={`t3d tone-${v.tone}`}><Icon name={v.icon} size={22} stroke={1.9} /></span>
             <b>{v.title}</b>
             <small>{v.text}</small>
           </div>
@@ -266,13 +267,59 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
     <section class="m-tab" data-tab="about" aria-label="About" hidden>
       <div class="m-about-card">
         <img src="/img/logo-dark.webp" width="640" height="258" alt="SMART [PVT] LTD" loading="lazy" />
+        <p class="m-ambition">{company.ambition}</p>
         <p>{company.description}</p>
+        <button type="button" class="m-reg-pill" data-cert-open><Icon name="shield" size={15} stroke={2.2} />Registered company · {reg.number}</button>
       </div>
 
-      <div class="m-vm">
-        <div class="m-rv"><span class="t3d tone-blue" style="--s:40px"><Icon name="eye" size={20} stroke={2} /></span><small>Vision</small><p>{company.vision}</p></div>
-        <div class="m-rv"><span class="t3d tone-pink" style="--s:40px"><Icon name="target" size={20} stroke={2} /></span><small>Mission</small><p>{company.mission}</p></div>
+      <div class="m-vm2">
+        <article class="m-vmc vision m-rv">
+          <span class="t3d tone-blue" style="--s:46px"><Icon name="eye" size={22} stroke={2} /></span>
+          <small>Our vision</small>
+          <p>{company.vision}</p>
+        </article>
+        <article class="m-vmc mission m-rv">
+          <span class="t3d tone-pink" style="--s:46px"><Icon name="target" size={22} stroke={2} /></span>
+          <small>Our mission</small>
+          <p>{company.mission}</p>
+        </article>
       </div>
+
+      <div class="m-sec-h m-rv"><h3>What we stand for</h3></div>
+      <div class="m-values">
+        {company.values.map((v, i) => (
+          <div class="m-value m-rv" style={`--d:${i % 2}`}>
+            <span class={`t3d tone-${v.tone}`} style="--s:40px"><Icon name={v.icon} size={20} stroke={2} /></span>
+            <b>{v.title}</b>
+            <small>{v.text}</small>
+          </div>
+        ))}
+      </div>
+
+      <div class="m-sec-h m-rv"><h3>Where we are going</h3></div>
+      <ol class="m-road">
+        {roadmap.map((rm, i) => (
+          <li class:list={['m-rv', { now: i === 0 }]}>
+            <span class="m-road-dot" aria-hidden="true"></span>
+            <div class="m-road-card">
+              <span class="m-road-when">{rm.stage} <em>{rm.when}</em></span>
+              <b>{rm.title}</b>
+              <ul>{rm.points.map((pt) => <li><Icon name="check" size={15} stroke={2.6} />{pt}</li>)}</ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="m-sec-h m-rv"><h3>Registered company</h3></div>
+      <button type="button" class="m-reg m-rv" data-cert-open>
+        <span class="m-reg-img"><img src={reg.thumb} width="380" height="626" alt="" loading="lazy" /></span>
+        <span class="m-reg-copy">
+          <span class="m-reg-badge"><Icon name="shield" size={14} stroke={2.4} />Officially registered</span>
+          <b>{reg.number}</b>
+          <small>Incorporated {reg.incorporated}<br />{reg.act}</small>
+          <em><Icon name="eye" size={15} stroke={2.2} />View certificate</em>
+        </span>
+      </button>
 
       <div class="m-sec-h m-rv"><h3>How a project works</h3></div>
       <ol class="m-steps">
@@ -393,6 +440,15 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
       </a>
     ))}
   </nav>
+
+  <dialog class="m-cert" data-mcert aria-label="Certificate of incorporation">
+    <div class="m-cert-bar">
+      <button type="button" class="m-cert-x" data-mcert-close aria-label="Close"><Icon name="close" size={18} stroke={2.6} /></button>
+      <span><b>Certificate</b><small>{reg.number}</small></span>
+      <a href={reg.pdf} target="_blank" rel="noopener" class="m-cert-dl">PDF</a>
+    </div>
+    <div class="m-cert-body"><img src={reg.image} width="1100" height="1812" alt="SMART (PVT) LTD certificate of incorporation" loading="lazy" /></div>
+  </dialog>
 
   <div class="m-sheet-wrap" data-sheet-wrap hidden>
     <div class="m-backdrop" data-sheet-close></div>

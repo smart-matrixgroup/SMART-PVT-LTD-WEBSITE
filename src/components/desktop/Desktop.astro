@@ -4,13 +4,14 @@ import Price from '../Price.astro';
 import Social from '../Social.astro';
 import ServiceArt from '../ServiceArt.astro';
 import '../../styles/desktop.css';
-import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
+import { company, services, projects, process, roadmap, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 
 const featured = services.filter((s) => ['portfolio-website', 'restaurant-ordering'].includes(s.id));
 const others = services.filter((s) => !featured.includes(s));
 const c = company.contact;
 const mapQuery = [c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ');
 const year = new Date().getFullYear();
+const reg = company.registration;
 const problems = [
   { id: 'portfolio-website', text: 'Nobody finds me online' },
   { id: 'restaurant-ordering', text: 'Delivery apps take my profit' },
@@ -290,26 +291,74 @@ const kbFeatures = [
     <!-- ABOUT -->
     <section class="sec dark about" id="about" aria-labelledby="about-title">
       <div class="wrap">
-        <h2 id="about-title" class="sr-only">About SMART</h2>
-        <div class="vm">
-          <div>
+        <div class="ab-intro">
+          <p class="ab-kicker"><span class="live-dot"></span>About SMART</p>
+          <h2 id="about-title" class="h2 chrome ab-title">{company.ambition}</h2>
+          <p class="lede">A registered Sri Lankan technology company building practical software for real businesses, from a single shop to a growing group.</p>
+        </div>
+
+        <div class="vm2">
+          <article class="vm-card vm-vision" data-rv="lift">
+            <span class="vm-glow" aria-hidden="true"></span>
+            <span class="t3d tone-blue" style="--s:58px"><Icon name="eye" size={28} stroke={1.9} /></span>
             <h3 class="vm-label">Our vision</h3>
             <p class="vm-text">{company.vision}</p>
-          </div>
-          <div>
+          </article>
+          <article class="vm-card vm-mission" data-rv="lift">
+            <span class="vm-glow" aria-hidden="true"></span>
+            <span class="t3d tone-pink" style="--s:58px"><Icon name="target" size={28} stroke={1.9} /></span>
             <h3 class="vm-label">Our mission</h3>
             <p class="vm-text">{company.mission}</p>
+          </article>
+        </div>
+
+        <div class="cv">
+          <h3 class="h2 chrome sm">What we stand for.</h3>
+          <ul class="cv-grid" data-rv-group="up">
+            {company.values.map((v) => (
+              <li class="cv-item">
+                <span class={`t3d tone-${v.tone}`} style="--s:50px"><Icon name={v.icon} size={24} stroke={1.9} /></span>
+                <h4>{v.title}</h4>
+                <p>{v.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="road">
+          <h3 class="h2 chrome sm">Where we are going.</h3>
+          <ol class="road-track" data-rv-group="lift">
+            {roadmap.map((r, i) => (
+              <li class:list={['road-step', { now: i === 0 }]}>
+                <span class="road-dot" aria-hidden="true"></span>
+                <span class="road-when">{r.stage} <em>{r.when}</em></span>
+                <h4>{r.title}</h4>
+                <ul>{r.points.map((pt) => <li><Icon name="check" size={16} stroke={2.4} />{pt}</li>)}</ul>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="reg" data-rv="lift">
+          <button type="button" class="reg-cert" data-cert-open aria-label="View our certificate of incorporation">
+            <img src={reg.thumb} width="380" height="626" alt="SMART (PVT) LTD certificate of incorporation" loading="lazy" />
+            <span class="reg-zoom"><Icon name="eye" size={18} stroke={2} /> View certificate</span>
+          </button>
+          <div class="reg-copy">
+            <span class="reg-badge"><Icon name="shield" size={18} stroke={2} /> Officially registered</span>
+            <h3 class="h3">A registered company you can trust.</h3>
+            <p>SMART (PVT) LTD is incorporated in Sri Lanka as a private limited company under the {reg.act}.</p>
+            <dl class="reg-facts">
+              <div><dt>Registration number</dt><dd>{reg.number}</dd></div>
+              <div><dt>Incorporated</dt><dd>{reg.incorporated}</dd></div>
+              <div><dt>Company type</dt><dd>{reg.type}</dd></div>
+            </dl>
+            <div class="reg-actions">
+              <button type="button" class="btn btn-primary btn-sm" data-cert-open>View certificate</button>
+              <a class="btn btn-ghost btn-sm" href={reg.pdf} target="_blank" rel="noopener">Download PDF</a>
+            </div>
           </div>
         </div>
-        <ul class="values" data-rv-group="up">
-          {company.values.map((v, i) => (
-            <li>
-              <span class="tile glass"><Icon name={(['shield', 'cog', 'chat', 'whatsapp'] as const)[i]} size={22} /></span>
-              <h4>{v.title}</h4>
-              <p>{v.text}</p>
-            </li>
-          ))}
-        </ul>
 
         <div class="process">
           <h3 class="h2 chrome sm">How a project works.</h3>
@@ -463,7 +512,7 @@ const kbFeatures = [
       </div>
     </div>
     <div class="wrap foot-base">
-      <p>© {year} {company.legalName}. Registered in Sri Lanka.</p>
+      <p>© {year} {company.legalName}. Reg. No. {reg.number}, Sri Lanka.</p>
       <p>findoursmart.com</p>
     </div>
   </footer>
@@ -471,6 +520,17 @@ const kbFeatures = [
   <a class="wa-float" href={waLink('Hi SMART!')} target="_blank" rel="noopener" aria-label="Chat with SMART on WhatsApp">
     <Icon name="whatsapp" size={28} stroke={1.8} />
   </a>
+
+  <dialog class="cert-dialog" data-cert aria-label="Certificate of incorporation">
+    <div class="cert-card">
+      <div class="cert-bar">
+        <span><b>Certificate of incorporation</b><small>{reg.number} · {reg.incorporated}</small></span>
+        <a class="btn btn-ghost btn-sm" href={reg.pdf} target="_blank" rel="noopener">Download PDF</a>
+        <button class="dlg-close" type="button" data-cert-close aria-label="Close"><Icon name="close" size={22} /></button>
+      </div>
+      <div class="cert-scroll"><img src={reg.image} width="1100" height="1812" alt="SMART (PVT) LTD certificate of incorporation, Registrar of Companies, Sri Lanka" loading="lazy" /></div>
+    </div>
+  </dialog>
 
   <dialog class="svc-dialog" data-dialog aria-labelledby="dlg-title">
     <div class="dlg-card" tabindex="-1" autofocus>

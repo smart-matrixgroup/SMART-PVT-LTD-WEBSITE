@@ -18,6 +18,7 @@ export function initDesktop() {
   initChat(root);
   initSteps(root);
   initForm(root);
+  initCert(root);
 
   // three.js only on desktop, only after first paint, never blocking LCP.
   const startNeural = () => {
@@ -372,4 +373,17 @@ function initForm(root: HTMLElement) {
 
 function escapeHTML(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+}
+
+function initCert(root: HTMLElement) {
+  const dlg = root.querySelector<HTMLDialogElement>('[data-cert]');
+  if (!dlg) return;
+  let opener: HTMLElement | null = null;
+  root.querySelectorAll<HTMLElement>('[data-cert-open]').forEach((b) =>
+    b.addEventListener('click', () => { opener = b; dlg.showModal(); }),
+  );
+  dlg.addEventListener('click', (e) => {
+    if (e.target === dlg || (e.target as HTMLElement).closest('[data-cert-close]')) dlg.close();
+  });
+  dlg.addEventListener('close', () => opener?.focus({ preventScroll: true }));
 }
