@@ -3,3 +3,4 @@ dist/
 .astro/
 .env
 src/i18n/todo-*.txt
+.wrangler/

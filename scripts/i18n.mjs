@@ -6,10 +6,11 @@
 //
 // Dictionaries are src/i18n/ta.json and si.json: { "English text": "translation" }.
 // Text with no entry stays in English.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { SITE, LANGS, collect, loadDict, translateHtml } from './i18n-core.mjs';
 
-const DIST = 'dist';
+// Static output lives in dist/, or dist/client/ if a server adapter is ever added.
+const DIST = existsSync('dist/index.html') ? 'dist' : existsSync('dist/client/index.html') ? 'dist/client' : 'dist';
 const english = readFileSync(`${DIST}/index.html`, 'utf8');
 
 if (process.argv.includes('--extract')) {

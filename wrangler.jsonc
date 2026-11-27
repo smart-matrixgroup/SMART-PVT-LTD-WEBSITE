@@ -1,0 +1,14 @@
+// Cloudflare Workers deploy: serve the already-built static site in ./dist.
+// Having this file stops `wrangler deploy` from auto-installing the Astro
+// Cloudflare adapter (which moves output to dist/client and breaks the
+// Tamil/Sinhala build step).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "smart-pvt-ltd-website",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
