@@ -104,7 +104,7 @@
 }
 .nav-brand { display: flex; align-items: center; gap: 6px; }
 .nav-brand img:first-child { width: 40px; height: 40px; }
-.nav-word { width: 104px; height: auto; }
+.nav-word { width: 104px; height: auto; transform: translateY(-4px); }
 .nav-links { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .nav-links a {
   display: block; padding: 10px 16px; border-radius: 999px; text-decoration: none;
@@ -137,7 +137,7 @@
   position: relative;
   width: min(1280px, 100% - 96px); margin-inline: auto;
   display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 32px;
-  padding-top: 96px;
+  padding: 112px 0 88px;
 }
 .hero-kicker {
   display: inline-flex; align-items: center; gap: 10px; margin: 0 0 26px;
@@ -740,3 +740,55 @@
 .foot-social { margin-top: 22px; }
 
 .foot ul.social { display: flex; gap: 12px; }
+
+/* ── Service background art: soft animated mockups behind each service ── */
+.sa { position: absolute; pointer-events: none; z-index: 0; }
+.sa svg { width: 100%; height: 100%; overflow: visible; }
+.feat-card > *:not(.sa), .svc-row > *:not(.sa) { position: relative; z-index: 1; }
+.sa-feat {
+  right: -10px; top: -14px; width: 300px; height: 200px; opacity: 0.38; filter: blur(0.4px) saturate(1.05);
+  -webkit-mask-image: radial-gradient(70% 70% at 70% 35%, #000 25%, transparent 72%); mask-image: radial-gradient(70% 70% at 70% 35%, #000 25%, transparent 72%);
+  transition: opacity 0.6s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.feat-card:hover .sa-feat { opacity: 0.85; transform: translate(-8px, 6px) scale(1.03); }
+.svc-row { position: relative; overflow: hidden; }
+.sa-row {
+  right: 300px; top: 50%; width: 150px; height: 100px; translate: 0 -50%; opacity: 0.28;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent); mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  transition: opacity 0.5s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.svc-row:hover .sa-row { opacity: 0.6; transform: translateX(-10px) scale(1.04); }
+
+.sa-float { animation: sa-float 6s ease-in-out infinite; }
+.sa-float.d2 { animation-delay: -2s; } .sa-float.d3 { animation-delay: -4s; } .sa-float.d1 { animation-delay: -1s; }
+@keyframes sa-float { 50% { transform: translateY(-6px); } }
+.sa-pulse { animation: sa-pulse 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes sa-pulse { 50% { opacity: 0.55; transform: scale(1.06); } }
+.sa-rise { animation: sa-rise 4.5s var(--ease-out) infinite; }
+@keyframes sa-rise { 0% { opacity: 0; transform: translateY(16px); } 18%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.sa-chat { animation: sa-chat 8s var(--ease-out) infinite; opacity: 0; }
+.sa-chat.c2 { animation-delay: 0.9s; } .sa-chat.c3 { animation-delay: 1.8s; } .sa-chat.c4 { animation-delay: 2.7s; }
+@keyframes sa-chat { 0% { opacity: 0; transform: translateY(10px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.sa-dot { animation: sa-dot 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.sa-dot.e2 { animation-delay: 0.15s; } .sa-dot.e3 { animation-delay: 0.3s; }
+@keyframes sa-dot { 50% { transform: translateY(-4px); opacity: 0.6; } }
+.sa-draw { stroke-dasharray: 140; stroke-dashoffset: 140; animation: sa-draw 4s var(--ease-out) infinite; }
+@keyframes sa-draw { 60%, 100% { stroke-dashoffset: 0; } }
+.sa-bar { animation: sa-bar 3.6s var(--ease-out) infinite alternate; }
+.sa-bar.b0 { transform: scaleY(0.4); animation-delay: 0s; } .sa-bar.b1 { animation-delay: -0.6s; } .sa-bar.b2 { animation-delay: -1.2s; } .sa-bar.b3 { animation-delay: -1.8s; } .sa-bar.b4 { animation-delay: -2.4s; }
+@keyframes sa-bar { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+.sa-spin { animation: sa-spin 10s linear infinite; }
+.sa-spin.slow { animation-duration: 18s; }
+@keyframes sa-spin { to { transform: rotate(360deg); } }
+.sa-app { animation: sa-app 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.sa-app.a1 { animation-delay: -0.75s; } .sa-app.a2 { animation-delay: -1.5s; } .sa-app.a3 { animation-delay: -2.25s; }
+@keyframes sa-app { 50% { transform: scale(0.85); opacity: 0.7; } }
+.sa-type { animation: sa-type 5s var(--ease-out) infinite; transform-box: fill-box; transform-origin: left; }
+.sa-type.t1 { animation-delay: 0.3s; } .sa-type.t2 { animation-delay: 0.6s; } .sa-type.t3 { animation-delay: 0.9s; } .sa-type.t4 { animation-delay: 1.2s; } .sa-type.t5 { animation-delay: 1.5s; }
+@keyframes sa-type { 0% { transform: scaleX(0); } 25%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); opacity: 0; } }
+.sa-blink { animation: sa-blink 1s steps(1) infinite; }
+@keyframes sa-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sa * { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; } }
+
+.sa-custom-software rect[fill='#0f1b45'] { fill: #dfe6f6; }
+.feat-card .feat-short, .feat-card .h3 { max-width: 70%; }

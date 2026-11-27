@@ -1,0 +1,118 @@
+---
+// Soft, animated mini-mockup of what each service produces. Purely decorative:
+// it sits behind card content at low opacity and drifts slowly.
+interface Props { id: string; class?: string }
+const { id, class: cls = '' } = Astro.props;
+---
+<span class:list={['sa', `sa-${id}`, cls]} aria-hidden="true">
+  <svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id={`sa-g-${id}`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb6ff" /><stop offset="1" stop-color="#2563ff" /></linearGradient>
+      <linearGradient id={`sa-c-${id}`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48d6ff" /><stop offset="1" stop-color="#2563ff" /></linearGradient>
+    </defs>
+
+    {id === 'portfolio-website' && (
+      <g>
+        <rect x="22" y="18" width="256" height="170" rx="14" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+        <circle cx="38" cy="32" r="3.5" fill="#ff8a8a" /><circle cx="50" cy="32" r="3.5" fill="#ffd27a" /><circle cx="62" cy="32" r="3.5" fill="#7ee0a0" />
+        <rect x="22" y="44" width="256" height="1.5" fill="#e3e9f8" />
+        <g class="sa-float"><circle cx="76" cy="94" r="28" fill={`url(#sa-g-${id})`} /><circle cx="76" cy="86" r="10" fill="#fff" opacity=".9" /><path d="M58 110c4-10 10-14 18-14s14 4 18 14" fill="#fff" opacity=".9" /></g>
+        <rect x="120" y="70" width="120" height="12" rx="6" fill="#1d3a8a" opacity=".85" />
+        <rect x="120" y="90" width="90" height="8" rx="4" fill="#9fb3dc" />
+        <rect x="120" y="106" width="104" height="8" rx="4" fill="#c4d1ec" />
+        <rect class="sa-pulse" x="120" y="122" width="62" height="18" rx="9" fill={`url(#sa-c-${id})`} />
+        <g class="sa-float d2"><rect x="44" y="150" width="62" height="28" rx="7" fill="#dbe6ff" /><rect x="118" y="150" width="62" height="28" rx="7" fill="#e6ecfb" /><rect x="192" y="150" width="62" height="28" rx="7" fill="#d4f1ff" /></g>
+      </g>
+    )}
+
+    {id === 'restaurant-ordering' && (
+      <g>
+        <rect x="26" y="20" width="160" height="168" rx="16" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+        <rect x="44" y="36" width="80" height="10" rx="5" fill="#1d3a8a" opacity=".85" />
+        {[0, 1, 2].map((i) => (
+          <g class={`sa-float d${i + 1}`}>
+            <circle cx="58" cy={74 + i * 40} r="14" fill={['#ffb36b', '#ff8a8a', '#7ee0a0'][i]} />
+            <rect x="80" y={66 + i * 40} width="64" height="8" rx="4" fill="#9fb3dc" />
+            <rect x="80" y={80 + i * 40} width="40" height="7" rx="3.5" fill="#c4d1ec" />
+            <circle cx="164" cy={74 + i * 40} r="9" fill={`url(#sa-c-${id})`} />
+          </g>
+        ))}
+        <g class="sa-pulse"><rect x="206" y="30" width="70" height="70" rx="12" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+          <rect x="216" y="40" width="18" height="18" rx="3" fill="#1d3a8a" /><rect x="248" y="40" width="18" height="18" rx="3" fill="#1d3a8a" /><rect x="216" y="72" width="18" height="18" rx="3" fill="#1d3a8a" /><rect x="248" y="72" width="8" height="8" fill="#2563ff" /><rect x="258" y="82" width="8" height="8" fill="#48d6ff" /></g>
+        <g class="sa-rise"><rect x="200" y="122" width="84" height="40" rx="12" fill="#25d366" /><rect x="212" y="134" width="50" height="6" rx="3" fill="#fff" opacity=".9" /><rect x="212" y="146" width="34" height="6" rx="3" fill="#fff" opacity=".7" /></g>
+      </g>
+    )}
+
+    {id === 'kadabook' && (
+      <g>
+        <g class="sa-float"><rect x="96" y="8" width="108" height="190" rx="20" fill="#e2e8f3" stroke="#b7c3da" stroke-width="2" />
+        <image href="/img/kadabook-ui-home.webp" x="103" y="16" width="94" height="176" preserveAspectRatio="xMidYMin slice" /></g>
+        <g class="sa-float d2"><rect x="16" y="56" width="70" height="52" rx="12" fill="#fff" stroke="#c9d6f5" stroke-width="2" /><rect x="28" y="70" width="46" height="9" rx="4.5" fill="#16a34a" /><rect x="28" y="86" width="30" height="7" rx="3.5" fill="#9fb3dc" /></g>
+        <g class="sa-float d3"><rect x="214" y="110" width="72" height="52" rx="12" fill="#fff" stroke="#c9d6f5" stroke-width="2" /><rect x="226" y="124" width="48" height="9" rx="4.5" fill="#ea580c" /><rect x="226" y="140" width="30" height="7" rx="3.5" fill="#9fb3dc" /></g>
+      </g>
+    )}
+
+    {id === 'whatsapp-ai' && (
+      <g>
+        <g class="sa-chat c1"><rect x="20" y="22" width="150" height="34" rx="14" fill="#fff" stroke="#c9d6f5" stroke-width="2" /><rect x="34" y="35" width="100" height="8" rx="4" fill="#9fb3dc" /></g>
+        <g class="sa-chat c2"><rect x="110" y="68" width="170" height="44" rx="14" fill="#25d366" /><rect x="124" y="81" width="130" height="7" rx="3.5" fill="#fff" opacity=".9" /><rect x="124" y="94" width="90" height="7" rx="3.5" fill="#fff" opacity=".7" /></g>
+        <g class="sa-chat c3"><rect x="20" y="124" width="120" height="34" rx="14" fill="#fff" stroke="#c9d6f5" stroke-width="2" /><rect x="34" y="137" width="70" height="8" rx="4" fill="#9fb3dc" /></g>
+        <g class="sa-chat c4"><rect x="180" y="166" width="100" height="26" rx="13" fill="#25d366" /><circle class="sa-dot" cx="210" cy="179" r="4" fill="#fff" /><circle class="sa-dot e2" cx="230" cy="179" r="4" fill="#fff" /><circle class="sa-dot e3" cx="250" cy="179" r="4" fill="#fff" /></g>
+      </g>
+    )}
+
+    {id === 'digital-marketing' && (
+      <g>
+        <g class="sa-float"><rect x="20" y="20" width="130" height="164" rx="16" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+        <rect x="32" y="32" width="106" height="82" rx="10" fill={`url(#sa-g-${id})`} opacity=".85" />
+        <path class="sa-pulse" d="M52 140c0-6 8-9 12-3 4-6 12-3 12 3 0 7-12 13-12 13s-12-6-12-13z" fill="#ff4d6d" />
+        <rect x="88" y="138" width="40" height="8" rx="4" fill="#9fb3dc" /><rect x="32" y="160" width="96" height="8" rx="4" fill="#c4d1ec" /></g>
+        <rect x="166" y="40" width="114" height="130" rx="16" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+        <path class="sa-draw" d="M182 150 L208 128 L228 136 L250 104 L268 80" fill="none" stroke={`url(#sa-c-${id})`} stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle class="sa-pulse" cx="268" cy="80" r="6" fill="#2563ff" />
+      </g>
+    )}
+
+    {id === 'websites-web-apps' && (
+      <g>
+        <rect x="16" y="18" width="268" height="168" rx="14" fill="#fff" stroke="#c9d6f5" stroke-width="2" />
+        <rect x="16" y="18" width="58" height="168" rx="14" fill="#eef3ff" />
+        {[0, 1, 2, 3].map((i) => <rect x="28" y={40 + i * 22} width="34" height="8" rx="4" fill={i === 0 ? '#2563ff' : '#c4d1ec'} />)}
+        <rect x="90" y="32" width="110" height="10" rx="5" fill="#1d3a8a" opacity=".85" />
+        {[0, 1, 2, 3, 4].map((i) => (
+          <rect class={`sa-bar b${i}`} x={96 + i * 26} y="80" width="16" height="90" rx="4" fill={`url(#sa-c-${id})`} style={`transform-origin: ${104 + i * 26}px 170px`} />
+        ))}
+        <g class="sa-spin" style="transform-origin: 248px 112px"><circle cx="248" cy="112" r="24" fill="none" stroke="#dbe6ff" stroke-width="10" /><path d="M248 88a24 24 0 0 1 22 33" fill="none" stroke="#2563ff" stroke-width="10" stroke-linecap="round" /></g>
+      </g>
+    )}
+
+    {id === 'mobile-apps' && (
+      <g>
+        <g class="sa-float"><rect x="100" y="8" width="100" height="186" rx="22" fill="#fff" stroke="#c9d6f5" stroke-width="2.5" />
+        <rect x="134" y="16" width="32" height="7" rx="3.5" fill="#c4d1ec" />
+        {[0, 1, 2].flatMap((r) => [0, 1, 2].map((c2) => (
+          <rect class={`sa-app a${(r * 3 + c2) % 4}`} x={114 + c2 * 26} y={40 + r * 30} width="20" height="20" rx="6"
+            fill={['#2563ff', '#48d6ff', '#7c3aed', '#16a34a', '#ea580c', '#db2777', '#2563ff', '#0891b2', '#d97706'][r * 3 + c2]} />
+        )))}
+        <rect x="114" y="140" width="72" height="34" rx="10" fill="#eef3ff" /></g>
+        <path class="sa-pulse" d="M218 70l20-12M222 96h24M218 122l20 12" stroke="#48d6ff" stroke-width="5" stroke-linecap="round" />
+        <path class="sa-pulse" d="M82 70l-20-12M78 96h-24M82 122l-20 12" stroke="#48d6ff" stroke-width="5" stroke-linecap="round" />
+      </g>
+    )}
+
+    {id === 'custom-software' && (
+      <g>
+        <rect x="16" y="22" width="200" height="160" rx="14" fill="#0f1b45" />
+        <circle cx="32" cy="36" r="3.5" fill="#ff8a8a" /><circle cx="44" cy="36" r="3.5" fill="#ffd27a" /><circle cx="56" cy="36" r="3.5" fill="#7ee0a0" />
+        {[[30, 70, '#7fa8ff'], [44, 110, '#48d6ff'], [44, 80, '#c4d1ec'], [58, 90, '#a78bfa'], [44, 60, '#c4d1ec'], [30, 40, '#7fa8ff']].map(([x, w, c], i) => (
+          <rect class={`sa-type t${i}`} x={x as number} y={58 + i * 18} width={w as number} height="8" rx="4" fill={c as string} />
+        ))}
+        <rect class="sa-blink" x="100" y="148" width="3" height="12" fill="#48d6ff" />
+        <g class="sa-spin slow" style="transform-origin: 246px 128px">
+          <path d="M246 88l7 2 2 9a32 32 0 0 1 7 4l9-3 5 6-5 8a32 32 0 0 1 2 8l9 4v7l-9 3a32 32 0 0 1-3 8l5 8-5 6-9-3a32 32 0 0 1-7 4l-2 9-7 2-7-2-2-9a32 32 0 0 1-7-4l-9 3-5-6 5-8a32 32 0 0 1-3-8l-9-3v-7l9-4a32 32 0 0 1 2-8l-5-8 5-6 9 3a32 32 0 0 1 7-4l2-9z" fill="#dbe6ff" stroke="#9fb3dc" stroke-width="2" />
+          <circle cx="246" cy="128" r="14" fill="#2563ff" />
+        </g>
+      </g>
+    )}
+  </svg>
+</span>

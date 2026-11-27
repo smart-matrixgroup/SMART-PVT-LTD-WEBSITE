@@ -2,6 +2,7 @@
 import Icon from '../Icon.astro';
 import Price from '../Price.astro';
 import Social from '../Social.astro';
+import ServiceArt from '../ServiceArt.astro';
 import '../../styles/desktop.css';
 import { company, services, projects, process, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 
@@ -131,6 +132,7 @@ const kbFeatures = [
         <div class="featured" data-rv-group="lift">
           {featured.map((s) => (
             <article class="feat-card" data-spot>
+              <ServiceArt id={s.id} class="sa-feat" />
               <div class="feat-top">
                 <span class="logo lg"><img src={s.logo} width="72" height="72" alt="" loading="lazy" /></span>
                 {s.badge && <span class="badge">{s.badge}</span>}
@@ -156,6 +158,7 @@ const kbFeatures = [
           {others.map((s) => (
             <li class="svc-li">
               <button type="button" class="svc-row" data-service={s.id}>
+                <ServiceArt id={s.id} class="sa-row" />
                 <span class="logo"><img src={s.logo} width="52" height="52" alt="" loading="lazy" /></span>
                 <span class="svc-main">
                   <span class="svc-name">{s.name}{s.badge && <span class="badge sm">{s.badge}</span>}</span>
