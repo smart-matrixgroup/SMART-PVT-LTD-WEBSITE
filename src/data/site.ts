@@ -75,7 +75,7 @@ export const company = {
    * paste its Website ID, and turn on "Share URL" to show public stats on the site.
    */
   analytics: {
-    umamiWebsiteId: '',
+    umamiWebsiteId: '0367a50c-d22b-4174-9c6b-7a9e0e1cbe03',
     umamiShareUrl: '',
     umamiScript: 'https://cloud.umami.is/script.js',
     // Google Analytics 4: Admin > Data streams > (web stream for findoursmart.com) > Measurement ID, e.g. 'G-ABC123XYZ'
