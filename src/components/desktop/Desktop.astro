@@ -292,9 +292,17 @@ const kbFeatures = [
     <section class="sec dark about" id="about" aria-labelledby="about-title">
       <div class="wrap">
         <div class="ab-intro">
-          <p class="ab-kicker"><span class="live-dot"></span>About SMART</p>
-          <h2 id="about-title" class="h2 chrome ab-title">Built in Sri Lanka. Made for the world.</h2>
-          <p class="lede">A registered technology company in Trincomalee, building practical software for real businesses, from a single shop to a growing group. {company.ambition}</p>
+          <div>
+            <p class="ab-kicker">About SMART</p>
+            <h2 id="about-title" class="ab-title"><span>Built in Sri Lanka.</span><span class="ab-accent">Made for the world.</span></h2>
+            <p class="lede">A registered technology company in Trincomalee, building practical software for real businesses, from a single shop to a growing group. {company.ambition}</p>
+          </div>
+          <dl class="ab-facts" data-rv-group="up">
+            <div><dt>Founded</dt><dd>2023</dd></div>
+            <div><dt>Registration</dt><dd>{reg.number}</dd></div>
+            <div><dt>Head office</dt><dd>Trincomalee</dd></div>
+            <div><dt>Services</dt><dd>{services.length}</dd></div>
+          </dl>
         </div>
 
         <div class="vm3" data-rv="lift">
