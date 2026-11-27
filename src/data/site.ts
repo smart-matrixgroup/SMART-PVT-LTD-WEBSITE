@@ -81,7 +81,7 @@ export const company = {
     // Google Analytics 4: Admin > Data streams > (web stream for findoursmart.com) > Measurement ID, e.g. 'G-ABC123XYZ'
     gaMeasurementId: '',
     // Google Tag Manager: the container ID at the top of Tag Manager, e.g. 'GTM-ABC1234'
-    gtmContainerId: '',
+    gtmContainerId: 'GTM-52W6M3SP',
   },
   social: {
     facebook: 'https://www.facebook.com/profile.php?id=61593893646038',
