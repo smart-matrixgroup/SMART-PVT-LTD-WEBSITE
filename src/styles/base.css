@@ -194,3 +194,24 @@ html:lang(ta) .hero-title { font-size: clamp(28px, 2.7vw, 40px); }
 html:lang(ta) .ab-title { font-size: clamp(28px, 2.7vw, 40px); }
 html:lang(ta) .desktop .h2 { font-size: clamp(26px, 2.3vw, 36px); }
 .nav-links a { white-space: nowrap; }
+
+/* Tamil/Sinhala spacing, second pass: Noto's own metrics are already normal,
+   so keep line heights close to English instead of padding everything out. */
+html:lang(ta) p, html:lang(si) p, html:lang(ta) li, html:lang(si) li, html:lang(ta) small, html:lang(si) small, html:lang(ta) blockquote, html:lang(si) blockquote, html:lang(ta) dd, html:lang(si) dd { line-height: 1.6 !important; }
+html:lang(ta) :is(h1, h2, h3, h4, b, strong, .h2, .h3, .h4, .hero-title, .ab-title, .vm3-big, .vm-big, .kb-title, .price, .answer-name, .svc-name, .m-large, .m-hero-title, .m-pcard-name, .m-vm-big, .m-ambition),
+html:lang(si) :is(h1, h2, h3, h4, b, strong, .h2, .h3, .h4, .hero-title, .ab-title, .vm3-big, .vm-big, .kb-title, .price, .answer-name, .svc-name, .m-large, .m-hero-title, .m-pcard-name, .m-vm-big, .m-ambition) { line-height: 1.28 !important; }
+html:lang(ta) .hero-title .ln, html:lang(si) .hero-title .ln { padding-block: 0.02em 0.06em; overflow: visible; }
+html:lang(ta) .hero-title, html:lang(si) .hero-title { font-size: clamp(26px, 2.3vw, 34px); }
+html:lang(ta) .ab-title, html:lang(si) .ab-title { font-size: clamp(26px, 2.4vw, 36px); }
+html:lang(ta) .desktop .h2, html:lang(si) .desktop .h2 { font-size: clamp(24px, 2.1vw, 32px); }
+html:lang(ta) .desktop .lede, html:lang(si) .desktop .lede { font-size: 17px; }
+html:lang(ta) .picker, html:lang(si) .picker { margin-top: 26px; }
+html:lang(ta) .chip, html:lang(si) .chip { min-height: 36px; padding-block: 4px; font-size: 13px; }
+html:lang(ta) .chips, html:lang(si) .chips { gap: 8px; }
+html:lang(ta) .hero-kicker, html:lang(si) .hero-kicker { margin-bottom: 18px; }
+html:lang(ta) .rv-on [data-rv='words'] .w, html:lang(si) .rv-on [data-rv='words'] .w { padding: 0.08em 0 0.12em; margin: -0.08em 0 -0.12em; }
+html:lang(ta) .m-hero-title, html:lang(si) .m-hero-title { font-size: 19px; }
+
+/* Product cards: long words must not push the phone out of the card */
+.prod-copy { min-width: 0; }
+.prod-links { flex-wrap: wrap; row-gap: 12px; }
