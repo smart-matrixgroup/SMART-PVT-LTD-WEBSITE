@@ -267,7 +267,7 @@ const reg = company.registration;
     <section class="m-tab" data-tab="about" aria-label="About" hidden>
       <div class="m-about-card">
         <img src="/img/logo-dark.webp" width="640" height="258" alt="SMART [PVT] LTD" loading="lazy" />
-        <p class="m-ambition">{company.ambition}</p>
+        <p class="m-ambition">Built in Sri Lanka. Made for the world.</p>
         <p>{company.description}</p>
         <button type="button" class="m-reg-pill" data-cert-open><Icon name="shield" size={15} stroke={2.2} />Registered company · {reg.number}</button>
       </div>
@@ -276,11 +276,13 @@ const reg = company.registration;
         <article class="m-vmc vision m-rv">
           <span class="t3d tone-blue" style="--s:46px"><Icon name="eye" size={22} stroke={2} /></span>
           <small>Our vision</small>
+          <b class="m-vm-big">{company.visionShort}</b>
           <p>{company.vision}</p>
         </article>
         <article class="m-vmc mission m-rv">
           <span class="t3d tone-pink" style="--s:46px"><Icon name="target" size={22} stroke={2} /></span>
           <small>Our mission</small>
+          <b class="m-vm-big">{company.missionShort}</b>
           <p>{company.mission}</p>
         </article>
       </div>

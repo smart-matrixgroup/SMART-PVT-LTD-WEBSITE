@@ -293,22 +293,21 @@ const kbFeatures = [
       <div class="wrap">
         <div class="ab-intro">
           <p class="ab-kicker"><span class="live-dot"></span>About SMART</p>
-          <h2 id="about-title" class="h2 chrome ab-title">{company.ambition}</h2>
-          <p class="lede">A registered Sri Lankan technology company building practical software for real businesses, from a single shop to a growing group.</p>
+          <h2 id="about-title" class="h2 chrome ab-title">Built in Sri Lanka. Made for the world.</h2>
+          <p class="lede">A registered technology company in Trincomalee, building practical software for real businesses, from a single shop to a growing group. {company.ambition}</p>
         </div>
 
-        <div class="vm2">
-          <article class="vm-card vm-vision" data-rv="lift">
-            <span class="vm-glow" aria-hidden="true"></span>
-            <span class="t3d tone-blue" style="--s:58px"><Icon name="eye" size={28} stroke={1.9} /></span>
-            <h3 class="vm-label">Our vision</h3>
-            <p class="vm-text">{company.vision}</p>
+        <div class="vm3" data-rv="lift">
+          <article class="vm3-col">
+            <p class="vm3-label"><span class="t3d tone-blue" style="--s:36px"><Icon name="eye" size={18} stroke={2} /></span>Our vision</p>
+            <p class="vm3-big">{company.visionShort}</p>
+            <p class="vm3-text">{company.vision}</p>
           </article>
-          <article class="vm-card vm-mission" data-rv="lift">
-            <span class="vm-glow" aria-hidden="true"></span>
-            <span class="t3d tone-pink" style="--s:58px"><Icon name="target" size={28} stroke={1.9} /></span>
-            <h3 class="vm-label">Our mission</h3>
-            <p class="vm-text">{company.mission}</p>
+          <span class="vm3-rule" aria-hidden="true"></span>
+          <article class="vm3-col">
+            <p class="vm3-label"><span class="t3d tone-pink" style="--s:36px"><Icon name="target" size={18} stroke={2} /></span>Our mission</p>
+            <p class="vm3-big">{company.missionShort}</p>
+            <p class="vm3-text">{company.mission}</p>
           </article>
         </div>
 
@@ -443,7 +442,7 @@ const kbFeatures = [
           <p class="lede" data-rv="up">Send a message and we will reply with a plan and an exact price.</p>
           <ul class="c-list" data-rv-group="up">
             <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="t3d tone-wa"><Icon name="whatsapp" size={22} stroke={1.9} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
-            <li><a href={`tel:${c.phone}`}><span class="t3d tone-blue"><Icon name="call" size={22} stroke={1.9} /></span><span><small>Call</small>{c.phoneDisplay}</span></a></li>
+            <li><button type="button" class="c-row" data-tel={c.phone} aria-label={`Call ${c.phoneDisplay}`}><span class="t3d tone-blue"><Icon name="call" size={22} stroke={1.9} /></span><span class="c-txt"><small>Call</small><span class="c-num">{c.phoneDisplay}</span></span><span class="c-pill">Call now</span></button></li>
             <li><a href={`mailto:${c.email}`}><span class="t3d tone-violet"><Icon name="mail" size={22} stroke={1.9} /></span><span><small>Email</small>{c.email}</span></a></li>
             <li><a href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange"><Icon name="pin" size={22} stroke={1.9} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></a></li>
             <li><div><span class="t3d tone-indigo"><Icon name="clock" size={22} stroke={1.9} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>

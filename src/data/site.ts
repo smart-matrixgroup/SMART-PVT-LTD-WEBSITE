@@ -19,7 +19,9 @@ export const company = {
     "To be Sri Lanka's most trusted business technology partner, building practical, scalable and reliable technology that helps businesses work smarter and grow sustainably.",
   mission:
     'To understand real business needs and deliver useful software, automation and digital solutions that improve efficiency, control and decision-making for businesses of every size.',
-  ambition: 'From Trincomalee to the world: growing SMART into an international business technology hub.',
+  ambition: 'Our goal is to grow SMART from Sri Lanka into an international business technology hub.',
+  visionShort: "Sri Lanka's most trusted business technology partner.",
+  missionShort: 'Useful software for real businesses, of every size.',
   registration: {
     number: 'PV 00277791',
     act: 'Companies Act No. 7 of 2007',

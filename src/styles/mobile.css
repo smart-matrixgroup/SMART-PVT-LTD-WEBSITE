@@ -693,3 +693,6 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .m-cert-dl { width: 52px; height: 36px; display: grid; place-items: center; border-radius: 999px; font-size: 13px; font-weight: 700; color: #fff; background: #2563ff; text-decoration: none; }
 .m-cert-body { flex: 1; overflow: auto; padding: 8px 10px calc(16px + var(--safe-b)); background: #e9edf5; touch-action: pan-x pan-y pinch-zoom; }
 .m-cert-body img { width: 100%; height: auto; display: block; border-radius: 6px; }
+
+.m-vm-big { font-family: var(--display); font-size: 20px; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; }
+.m-vmc p { font-size: 15px !important; opacity: 0.82; }

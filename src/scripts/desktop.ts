@@ -19,6 +19,7 @@ export function initDesktop() {
   initSteps(root);
   initForm(root);
   initCert(root);
+  root.querySelectorAll<HTMLElement>('[data-tel]').forEach((b) => b.addEventListener('click', () => { location.href = `tel:${b.dataset.tel}`; }));
 
   // three.js only on desktop, only after first paint, never blocking LCP.
   const startNeural = () => {
