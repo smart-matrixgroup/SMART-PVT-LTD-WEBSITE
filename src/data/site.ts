@@ -46,6 +46,8 @@ export const company = {
     phone: '+94789999687',
     phoneDisplay: '+94 789 999 687',
     whatsapp: '94789999687',
+    landline: '+94262227878',
+    landlineDisplay: '+94 26 222 7878',
     email: 'info@findoursmart.com',
     address: '135C, 2nd Floor, Inner Harbour Road',
     city: 'Trincomalee',
@@ -60,6 +62,22 @@ export const company = {
     googleProfileUrl: 'https://share.google/J00mA7hLxUJEKLkek',
     googleReviewUrl: 'https://share.google/J00mA7hLxUJEKLkek',
     googleMapsUrl: 'https://share.google/J00mA7hLxUJEKLkek',
+  },
+  /** Search engine ownership checks. Paste only the code from the verification meta tag. */
+  seo: {
+    // Google Search Console > Add property > URL prefix > HTML tag: content="THIS-PART"
+    googleSiteVerification: '',
+    // Bing Webmaster Tools > Add site > Meta tag: content="THIS-PART"
+    bingSiteVerification: '',
+  },
+  /**
+   * Umami analytics (free, cookie-less). Create a site at https://cloud.umami.is,
+   * paste its Website ID, and turn on "Share URL" to show public stats on the site.
+   */
+  analytics: {
+    umamiWebsiteId: '',
+    umamiShareUrl: '',
+    umamiScript: 'https://cloud.umami.is/script.js',
   },
   social: {
     facebook: 'https://www.facebook.com/profile.php?id=61593893646038',

@@ -2,7 +2,7 @@
 // dist/si.html using the dictionaries in src/i18n/.
 //
 //   node scripts/i18n.mjs            build the Tamil and Sinhala pages
-//   node scripts/i18n.mjs --extract  list every English string to src/i18n/strings.txt
+//   node scripts/i18n.mjs --extract  list strings with no translation yet (src/i18n/todo-*.txt)
 //
 // Dictionaries are src/i18n/ta.json and si.json: { "English text": "translation" }.
 // Text with no entry stays in English. After changing site text, run
@@ -124,8 +124,12 @@ function setLangMeta(root, lang) {
 
 const list = collect(root0());
 if (process.argv.includes('--extract')) {
-  writeFileSync(`${I18N}/strings.txt`, list.map((s, i) => `${i + 1}|${s}`).join('\n') + '\n');
-  console.log(`[i18n] ${list.length} strings written to ${I18N}/strings.txt`);
+  for (const lang of Object.keys(LANGS)) {
+    const dict = loadDict(lang);
+    const todo = list.filter((x) => !dict.has(x));
+    writeFileSync(`${I18N}/todo-${lang}.txt`, todo.join('\n') + '\n');
+    console.log(`[i18n] ${lang}: ${todo.length} strings without a translation, see ${I18N}/todo-${lang}.txt (names, URLs and brand words stay English)`);
+  }
 } else {
   // English page: hreflang alternates only
   const en = root0();
@@ -136,11 +140,17 @@ if (process.argv.includes('--extract')) {
     console.log(`[i18n] ${lang}.html written${missing.size ? `, ${missing.size} strings left in English` : ''}`);
     if (missing.size && process.argv.includes('--verbose')) console.log([...missing].join('\n'));
   }
-  // sitemap
-  const sm = `${DIST}/sitemap-0.xml`;
-  if (existsSync(sm)) {
-    let x = readFileSync(sm, 'utf8');
-    for (const l of Object.keys(LANGS)) if (!x.includes(`${SITE}/${l}<`)) x = x.replace('</urlset>', `<url><loc>${SITE}/${l}</loc></url></urlset>`);
-    writeFileSync(sm, x);
-  }
+  // sitemap: every page with last-modified date; language pages list each other
+  const today = new Date().toISOString().slice(0, 10);
+  const alt = ['en', 'ta', 'si'].map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${SITE}${l === 'en' ? '/' : '/' + l}"/>`).join('')
+    + `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`;
+  const pages = [
+    [`${SITE}/`, '1.0', alt], [`${SITE}/ta`, '0.9', alt], [`${SITE}/si`, '0.9', alt],
+    [`${SITE}/privacy-policy`, '0.3', ''], [`${SITE}/terms`, '0.3', ''],
+  ];
+  writeFileSync(`${DIST}/sitemap-0.xml`, '<?xml version="1.0" encoding="UTF-8"?>'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+    + pages.map(([u, p, a]) => `<url><loc>${u}</loc><lastmod>${today}</lastmod><priority>${p}</priority>${a}</url>`).join('')
+    + '</urlset>');
+
 }

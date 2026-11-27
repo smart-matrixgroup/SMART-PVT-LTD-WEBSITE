@@ -13,7 +13,7 @@ const c = company.contact;
     <li><strong>Project information:</strong> content you share for a project, such as text, photos, logos and menus.</li>
     <li><strong>Basic technical data:</strong> our hosting provider may record standard server logs (IP address, browser type, pages visited) to keep the site secure and working.</li>
   </ul>
-  <p>This website does not use advertising cookies and does not sell personal information.</p>
+  <p>This website does not use advertising cookies and does not sell personal information. We use Umami, a privacy-friendly analytics tool that does not use cookies, to count visits, pages viewed and time spent on the site. It does not identify you personally.</p>
 
   <h2>How the message form works</h2>
   <p>The form on this site does not store your message on our servers. When you press "Send on WhatsApp", your browser opens WhatsApp with your message ready, and you choose whether to send it. Messages you send through WhatsApp are handled under WhatsApp's own privacy policy.</p>
@@ -47,7 +47,8 @@ const c = company.contact;
   <h2>Contact</h2>
   <p>{company.legalName}<br />
     Email: <a href={`mailto:${c.email}`}>{c.email}</a><br />
-    Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a>
+    Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a><br />
+    Office: <a href={`tel:${c.landline}`}>{c.landlineDisplay}</a>
     {c.address && <><br />{[c.address, c.city, c.postalCode, c.country].filter(Boolean).join(', ')}</>}
   </p>
 </Legal>

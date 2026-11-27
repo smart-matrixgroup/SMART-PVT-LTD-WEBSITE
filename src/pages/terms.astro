@@ -58,6 +58,7 @@ const c = company.contact;
   <p>{company.legalName}<br />
     Email: <a href={`mailto:${c.email}`}>{c.email}</a><br />
     Phone and WhatsApp: <a href={`tel:${c.phone}`}>{c.phoneDisplay}</a><br />
+    Office: <a href={`tel:${c.landline}`}>{c.landlineDisplay}</a><br />
     {[c.address, c.city, c.postalCode, c.country].filter(Boolean).join(', ')}
   </p>
 </Legal>

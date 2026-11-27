@@ -394,6 +394,7 @@ const reg = company.registration;
 
       <ul class="m-group m-info">
         <li><a class="m-cell m-cell-btn" href={`tel:${c.phone}`}><span class="t3d tone-blue" style="--s:34px"><Icon name="call" size={17} stroke={2} /></span><span class="m-cell-main"><small>Phone and WhatsApp</small><b>{c.phoneDisplay}</b></span></a></li>
+        <li><a class="m-cell m-cell-btn" href={`tel:${c.landline}`}><span class="t3d tone-cyan" style="--s:34px"><Icon name="phone" size={17} stroke={2} /></span><span class="m-cell-main"><small>Office line</small><b>{c.landlineDisplay}</b></span></a></li>
         <li><a class="m-cell m-cell-btn" href={`mailto:${c.email}`}><span class="t3d tone-violet" style="--s:34px"><Icon name="mail" size={17} stroke={2} /></span><span class="m-cell-main"><small>Email</small><b>{c.email}</b></span></a></li>
         <li><a class="m-cell m-cell-btn" href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange" style="--s:34px"><Icon name="pin" size={17} stroke={2} /></span><span class="m-cell-main"><small>Office</small><b>{mapQuery}</b></span></a></li>
         <li><span class="m-cell"><span class="t3d tone-indigo" style="--s:34px"><Icon name="clock" size={17} stroke={2} /></span><span class="m-cell-main"><small>Hours</small><b>{c.hours.map((h) => <>{h.days}: <span class="nw">{h.time}</span><br /></>)}</b></span></span></li>
@@ -431,7 +432,12 @@ const reg = company.registration;
         <li><a class="m-cell m-cell-btn" href="/privacy-policy"><span class="t3d tone-green" style="--s:34px"><Icon name="shield" size={17} stroke={2} /></span><span class="m-cell-main"><b>Privacy Policy</b></span><Icon name="chev" size={16} stroke={2.4} class="m-chev" /></a></li>
         <li><a class="m-cell m-cell-btn" href="/terms"><span class="t3d tone-slate" style="--s:34px"><Icon name="book" size={17} stroke={2} /></span><span class="m-cell-main"><b>Terms and Conditions</b></span><Icon name="chev" size={16} stroke={2.4} class="m-chev" /></a></li>
       </ul>
-      <p class="m-foot-note">© {year} {company.legalName}<br />findoursmart.com</p>
+      {company.analytics.umamiShareUrl && (
+        <ul class="m-group" style="margin-top:16px">
+          <li><a class="m-cell m-cell-btn" href={company.analytics.umamiShareUrl} target="_blank" rel="noopener"><span class="t3d tone-indigo" style="--s:34px"><Icon name="chart" size={17} stroke={2} /></span><span class="m-cell-main"><b>Live website stats</b><small>Visitors, pages and time on site</small></span><Icon name="chev" size={16} stroke={2.4} class="m-chev" /></a></li>
+        </ul>
+      )}
+      <p class="m-foot-note">© {year} {company.legalName}<br />Software company in Trincomalee, Sri Lanka<br />findoursmart.com</p>
     </section>
   </main>
 

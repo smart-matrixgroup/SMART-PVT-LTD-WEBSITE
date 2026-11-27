@@ -66,11 +66,11 @@ const kbFeatures = [
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="hero-kicker"><span class="live-dot"></span>Software company in Trincomalee, Sri Lanka</p>
-          <h1 id="hero-title" class="hero-title">
+          <h1 class="hero-kicker"><span class="live-dot"></span>Software company in Trincomalee, Sri Lanka</h1>
+          <p id="hero-title" class="hero-title">
             <span class="ln"><span>Tell us the problem.</span></span>
             <span class="ln"><span class="sheen">We build the fix.</span></span>
-          </h1>
+          </p>
 
           <div class="picker" data-picker>
             <p class="picker-q" id="picker-q">What is holding your business back?</p>
@@ -455,6 +455,7 @@ const kbFeatures = [
           <ul class="c-list" data-rv-group="up">
             <li><a href={waLink('Hi SMART!')} target="_blank" rel="noopener"><span class="t3d tone-wa"><Icon name="whatsapp" size={22} stroke={1.9} /></span><span><small>WhatsApp</small>{c.phoneDisplay}</span></a></li>
             <li><button type="button" class="c-row" data-tel={c.phone} aria-label={`Call ${c.phoneDisplay}`}><span class="t3d tone-blue"><Icon name="call" size={22} stroke={1.9} /></span><span class="c-txt"><small>Call</small><span class="c-num">{c.phoneDisplay}</span></span><span class="c-pill">Call now</span></button></li>
+            <li><button type="button" class="c-row" data-tel={c.landline} aria-label={`Call the office on ${c.landlineDisplay}`}><span class="t3d tone-cyan"><Icon name="phone" size={22} stroke={1.9} /></span><span class="c-txt"><small>Office line</small><span class="c-num">{c.landlineDisplay}</span></span><span class="c-pill">Call now</span></button></li>
             <li><a href={`mailto:${c.email}`}><span class="t3d tone-violet"><Icon name="mail" size={22} stroke={1.9} /></span><span><small>Email</small>{c.email}</span></a></li>
             <li><a href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange"><Icon name="pin" size={22} stroke={1.9} /></span><span><small>Office</small>{[c.address, `${c.city} ${c.postalCode}`.trim(), c.country].filter(Boolean).join(', ')}</span></a></li>
             <li><div><span class="t3d tone-indigo"><Icon name="clock" size={22} stroke={1.9} /></span><span><small>Hours</small>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</span></div></li>
@@ -500,6 +501,7 @@ const kbFeatures = [
       <div class="foot-brand">
         <img src="/img/logo-dark.webp" width="220" height="89" alt="SMART [PVT] LTD" loading="lazy" />
         <p>{company.tagline}</p>
+        <p class="foot-area">Software company in Trincomalee, Eastern Province, working with businesses across Sri Lanka and abroad.</p>
         <Social size="sm" labels={false} class="foot-social" />
       </div>
       <div>
@@ -524,7 +526,9 @@ const kbFeatures = [
     </div>
     <div class="wrap foot-base">
       <p>© {year} {company.legalName}. Reg. No. {reg.number}, Sri Lanka.</p>
-      <p>findoursmart.com</p>
+      {company.analytics.umamiShareUrl ? (
+        <a class="foot-stats" href={company.analytics.umamiShareUrl} target="_blank" rel="noopener"><span class="live-dot"></span>Live website stats</a>
+      ) : <p>findoursmart.com</p>}
     </div>
   </footer>
 
