@@ -928,3 +928,6 @@
 /* Keep the head and orbit level with the headline, however tall the text column gets */
 .hero-inner { align-items: start; }
 .stage { align-self: start; margin-top: -24px; }
+
+/* footer social icons: room above (beats ".foot ul { margin: 0 }") */
+.foot ul.foot-social { margin-top: 26px; }
