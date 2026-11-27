@@ -76,7 +76,7 @@ export const company = {
    */
   analytics: {
     umamiWebsiteId: '0367a50c-d22b-4174-9c6b-7a9e0e1cbe03',
-    umamiShareUrl: '',
+    umamiShareUrl: 'https://cloud.umami.is/share/ABtgYdWtuIEfrL1K',
     umamiScript: 'https://cloud.umami.is/script.js',
     // Google Analytics 4: Admin > Data streams > (web stream for findoursmart.com) > Measurement ID, e.g. 'G-ABC123XYZ'
     gaMeasurementId: '',
