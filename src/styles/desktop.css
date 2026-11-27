@@ -268,7 +268,7 @@
 @keyframes pulse { 0% { scale: 1; opacity: 0.9; } 100% { scale: 9; opacity: 0; } }
 
 .orbit { position: absolute; inset: 0; list-style: none; margin: 0; padding: 0; }
-.orbit-item { position: absolute; left: 0; top: 0; will-change: transform; }
+.orbit-item { position: absolute; left: 0; top: 0; will-change: transform; opacity: 0; }
 .orbit-node {
   display: flex; align-items: center; gap: 10px;
   translate: -50% -50%;
