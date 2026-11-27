@@ -345,7 +345,7 @@ const stepTones = ['blue', 'violet', 'orange', 'green'];
         <li><a class="m-cell m-cell-btn" href={`tel:${c.phone}`}><span class="t3d tone-blue" style="--s:34px"><Icon name="call" size={17} stroke={2} /></span><span class="m-cell-main"><small>Phone and WhatsApp</small><b>{c.phoneDisplay}</b></span></a></li>
         <li><a class="m-cell m-cell-btn" href={`mailto:${c.email}`}><span class="t3d tone-violet" style="--s:34px"><Icon name="mail" size={17} stroke={2} /></span><span class="m-cell-main"><small>Email</small><b>{c.email}</b></span></a></li>
         <li><a class="m-cell m-cell-btn" href={directionsUrl} target="_blank" rel="noopener"><span class="t3d tone-orange" style="--s:34px"><Icon name="pin" size={17} stroke={2} /></span><span class="m-cell-main"><small>Office</small><b>{mapQuery}</b></span></a></li>
-        <li><span class="m-cell"><span class="t3d tone-indigo" style="--s:34px"><Icon name="clock" size={17} stroke={2} /></span><span class="m-cell-main"><small>Hours</small><b>{c.hours.map((h) => <>{h.days}: {h.time}<br /></>)}</b></span></span></li>
+        <li><span class="m-cell"><span class="t3d tone-indigo" style="--s:34px"><Icon name="clock" size={17} stroke={2} /></span><span class="m-cell-main"><small>Hours</small><b>{c.hours.map((h) => <>{h.days}: <span class="nw">{h.time}</span><br /></>)}</b></span></span></li>
       </ul>
 
       <div class="m-card m-follow m-rv">
