@@ -133,9 +133,19 @@ const graph = [org, website, ...jsonLd];
       imagesrcset="/img/head-440.webp 440w, /img/head-880.webp 880w" imagesizes="(max-width: 860px) 240px, 520px" />
 
     {graph.map((g) => <script type="application/ld+json" set:html={JSON.stringify(g)} />)}
+    {an.gtmContainerId && (
+      <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${an.gtmContainerId}');`} />
+    )}
+    {an.gaMeasurementId && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${an.gaMeasurementId}`}></script>}
+    {an.gaMeasurementId && (
+      <script is:inline set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${an.gaMeasurementId}');`} />
+    )}
     {an.umamiWebsiteId && <script defer src={an.umamiScript} data-website-id={an.umamiWebsiteId} data-domains="findoursmart.com,www.findoursmart.com"></script>}
   </head>
   <body>
+    {an.gtmContainerId && (
+      <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${an.gtmContainerId}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    )}
     <slot />
   </body>
 </html>

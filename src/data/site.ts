@@ -66,7 +66,7 @@ export const company = {
   /** Search engine ownership checks. Paste only the code from the verification meta tag. */
   seo: {
     // Google Search Console > Add property > URL prefix > HTML tag: content="THIS-PART"
-    googleSiteVerification: '',
+    googleSiteVerification: 'leBfZ6wH7G_8Z5VV-fP2QjPm2MAtjeJMJIeuz99Zt9A',
     // Bing Webmaster Tools > Add site > Meta tag: content="THIS-PART"
     bingSiteVerification: '',
   },
@@ -78,6 +78,10 @@ export const company = {
     umamiWebsiteId: '',
     umamiShareUrl: '',
     umamiScript: 'https://cloud.umami.is/script.js',
+    // Google Analytics 4: Admin > Data streams > (web stream for findoursmart.com) > Measurement ID, e.g. 'G-ABC123XYZ'
+    gaMeasurementId: '',
+    // Google Tag Manager: the container ID at the top of Tag Manager, e.g. 'GTM-ABC1234'
+    gtmContainerId: '',
   },
   social: {
     facebook: 'https://www.facebook.com/profile.php?id=61593893646038',
