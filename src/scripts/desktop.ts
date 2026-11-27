@@ -1,4 +1,4 @@
-import { findService, waLink, reducedMotion, isDesktop, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
+import { initLang, ui, findService, waLink, reducedMotion, isDesktop, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
 
 export function initDesktop() {
   const root = document.getElementById('desktop');
@@ -8,6 +8,7 @@ export function initDesktop() {
   requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('ready')));
 
   initPriceLocks();
+  initLang();
   initNav(root);
   initReveals(root);
   initDialog(root);
@@ -173,8 +174,8 @@ function initDialog(root: HTMLElement) {
       .map((i) => `<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>${escapeHTML(i)}</li>`)
       .join('');
     setPrice(q('price'), s.price);
-    q('note').textContent = [s.priceNote, s.delivery && `Ready in ${s.delivery}.`].filter(Boolean).join(' ');
-    (q('cta') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}. Can you tell me more?`);
+    q('note').textContent = [s.priceNote, s.delivery && ui('readyIn', { x: s.delivery })].filter(Boolean).join(' ');
+    (q('cta') as HTMLAnchorElement).href = waLink(ui('waAsk', { x: s.name }));
     dlg.showModal();
   });
 
@@ -277,7 +278,7 @@ function initPicker(root: HTMLElement) {
     q('short').textContent = s.short;
     setPrice(q('price'), s.price);
     q('more').dataset.service = s.id;
-    (q('wa') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}.`);
+    (q('wa') as HTMLAnchorElement).href = waLink(ui('waInterested', { x: s.name }));
     card.classList.remove('swap');
     void card.offsetWidth;
     card.classList.add('swap');

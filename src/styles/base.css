@@ -13,9 +13,9 @@
   --line-d: #dbe1ec;
   --wa: #25d366;
 
-  --display: 'Sora', ui-sans-serif, system-ui, sans-serif;
-  --body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --ios: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  --display: 'Sora', 'Noto Sans Tamil', 'Noto Sans Sinhala', ui-sans-serif, system-ui, sans-serif;
+  --body: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Sinhala', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ios: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Noto Sans Tamil', 'Noto Sans Sinhala', system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
@@ -126,3 +126,71 @@ a { color: inherit; }
 .social-lg .social-tile { --s: 62px; }
 .social-lg { gap: 18px; justify-content: center; }
 @media (prefers-reduced-motion: reduce) { .social-tile { animation: none; } }
+
+/* ═════════════ Tamil and Sinhala: script-aware typography ═════════════
+   Both scripts have tall vowel signs above and below the letters and wider
+   words. Negative tracking breaks their joined letters, tight line heights
+   cut the signs off, and English-sized headlines overflow. So for these
+   languages: normal tracking, taller lines, slightly smaller display sizes,
+   and no clipping masks around headline text. */
+html:lang(ta), html:lang(si) { --display: 'Noto Sans Tamil', 'Noto Sans Sinhala', 'Sora', ui-sans-serif, system-ui, sans-serif; }
+html:lang(ta) body, html:lang(si) body { font-feature-settings: normal; }
+html:lang(ta) *, html:lang(si) * { letter-spacing: 0 !important; }
+html:lang(ta) p, html:lang(si) p, html:lang(ta) li, html:lang(si) li, html:lang(ta) small, html:lang(si) small, html:lang(ta) blockquote, html:lang(si) blockquote, html:lang(ta) dd, html:lang(si) dd { line-height: 1.75 !important; }
+html:lang(ta) :is(h1, h2, h3, h4, b, strong, .h2, .h3, .h4, .hero-title, .ab-title, .vm3-big, .vm-big, .kb-title, .price, .answer-name, .svc-name, .m-large, .m-hero-title, .m-pcard-name, .m-vm-big, .m-ambition),
+html:lang(si) :is(h1, h2, h3, h4, b, strong, .h2, .h3, .h4, .hero-title, .ab-title, .vm3-big, .vm-big, .kb-title, .price, .answer-name, .svc-name, .m-large, .m-hero-title, .m-pcard-name, .m-vm-big, .m-ambition) { line-height: 1.4 !important; }
+
+/* desktop display sizes */
+html:lang(ta) .hero-title, html:lang(si) .hero-title { font-size: clamp(32px, 3.2vw, 48px); }
+html:lang(ta) .hero-title .ln, html:lang(si) .hero-title .ln { white-space: normal; padding-block: 0.12em 0.18em; }
+html:lang(ta) .desktop .h2, html:lang(si) .desktop .h2 { font-size: clamp(28px, 2.6vw, 40px); }
+html:lang(ta) .desktop .h2.sm, html:lang(si) .desktop .h2.sm { font-size: clamp(24px, 2.1vw, 32px); }
+html:lang(ta) .ab-title, html:lang(si) .ab-title { font-size: clamp(32px, 3.2vw, 48px); }
+html:lang(ta) .vm3-big, html:lang(si) .vm3-big { font-size: clamp(20px, 1.8vw, 26px); }
+html:lang(ta) .desktop .h3, html:lang(si) .desktop .h3 { font-size: 22px; }
+html:lang(ta) .kb-title, html:lang(si) .kb-title { font-size: 36px; }
+html:lang(ta) .desktop .price, html:lang(si) .desktop .price { font-size: 24px; }
+html:lang(ta) .nav-links a, html:lang(si) .nav-links a { font-size: 14px; padding: 10px 12px; }
+html:lang(ta) .desktop .btn, html:lang(si) .desktop .btn { font-size: 15px; }
+html:lang(ta) .orbit-node, html:lang(si) .orbit-node { font-size: 13px; }
+html:lang(ta) .chip, html:lang(si) .chip { font-size: 13.5px; height: auto; min-height: 40px; padding-block: 6px; }
+html:lang(ta) .faq summary, html:lang(si) .faq summary { font-size: 17px; }
+/* word-by-word heading reveal: give the mask room for vowel signs */
+html:lang(ta) .rv-on [data-rv='words'] .w, html:lang(si) .rv-on [data-rv='words'] .w { padding: 0.2em 0 0.25em; margin: -0.2em 0 -0.25em; }
+
+/* mobile display sizes */
+html:lang(ta) .m-large, html:lang(si) .m-large { font-size: 26px; }
+html:lang(ta) .m-hero-title, html:lang(si) .m-hero-title { font-size: 21px; }
+html:lang(ta) .m-sec-h h3, html:lang(si) .m-sec-h h3 { font-size: 17.5px; }
+html:lang(ta) .m-pcard-name, html:lang(si) .m-pcard-name { font-size: 16px; }
+html:lang(ta) .m-vm-big, html:lang(si) .m-vm-big, html:lang(ta) .m-ambition, html:lang(si) .m-ambition { font-size: 17px !important; }
+html:lang(ta) .m-cell-main b, html:lang(si) .m-cell-main b { font-size: 15px; }
+html:lang(ta) .m-tabbtn span, html:lang(si) .m-tabbtn span { font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+html:lang(ta) .m-quick a, html:lang(si) .m-quick a, html:lang(ta) .m-quick button, html:lang(si) .m-quick button { font-size: 11px; text-align: center; }
+html:lang(ta) .m-chip2, html:lang(si) .m-chip2 { font-size: 13px; }
+html:lang(ta) .m-btn, html:lang(si) .m-btn { font-size: 15px; }
+html:lang(ta) .plock-b, html:lang(si) .plock-b { font-size: 12px; }
+
+/* ── Language switcher ── */
+.lang { position: relative; }
+.lang-btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px 0 12px; border-radius: 999px; font: 600 14px/1 var(--body); color: inherit; transition: background-color 0.25s, transform 0.2s; }
+.lang-btn:active { transform: scale(0.95); }
+.lang-btn svg { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.lang.open .lang-btn svg.globe { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 80; min-width: 196px; padding: 6px; margin: 0; list-style: none; border-radius: 18px;
+  background: rgba(10,18,48,0.94); -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px rgba(150,190,255,0.2), 0 24px 50px -16px rgba(0,0,0,0.7);
+  opacity: 0; transform: translateY(-8px) scale(0.96); transform-origin: top right; pointer-events: none; transition: opacity 0.25s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lang.open .lang-menu { opacity: 1; transform: none; pointer-events: auto; }
+.lang-menu a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 12px; color: #eef2f9; text-decoration: none; font: 600 15px/1.3 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Sinhala', sans-serif; letter-spacing: 0 !important; }
+.lang-menu a small { font-weight: 500; font-size: 12px; color: rgba(238,242,249,0.55); }
+.lang-menu a:hover, .lang-menu a:focus-visible { background: rgba(255,255,255,0.08); }
+.lang-menu a[aria-current='true'] { background: rgba(37,99,255,0.28); }
+.lang-menu a[aria-current='true']::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #48d6ff; box-shadow: 0 0 10px #48d6ff; }
+.lang-code { display: inline-grid; place-items: center; min-width: 26px; height: 22px; padding: 0 5px; border-radius: 7px; font-size: 11.5px; font-weight: 800; color: #fff; background: linear-gradient(145deg, #3a74ff, #1236b8); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35); }
+html:lang(ta) .hero-title { font-size: clamp(28px, 2.7vw, 40px); }
+html:lang(ta) .ab-title { font-size: clamp(28px, 2.7vw, 40px); }
+html:lang(ta) .desktop .h2 { font-size: clamp(26px, 2.3vw, 36px); }
+.nav-links a { white-space: nowrap; }

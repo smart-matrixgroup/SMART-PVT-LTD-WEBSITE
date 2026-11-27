@@ -32,3 +32,7 @@ Point `findoursmart.com` DNS at the host. After it is live, add the site to Goog
 ## SEO included
 
 Title/description/canonical, Open Graph + Twitter cards (`public/og-image.jpg`), JSON-LD (ProfessionalService with offer catalog and LKR prices, WebSite, WebPage, FAQPage), `robots.txt`, sitemap, web manifest, favicons.
+
+## Languages
+
+English at `/`, Tamil at `/ta`, Sinhala at `/si`. `npm run build` builds the English page and then `scripts/i18n.mjs` writes `dist/ta.html` and `dist/si.html` from `src/i18n/ta.json` and `si.json` (keyed by the English text). After changing any site text run `npm run i18n:extract`: it lists strings without a translation in `src/i18n/todo-*.txt`. Legal pages stay English.

@@ -19,7 +19,23 @@ const pageLd = {
   isPartOf: { '@id': `${SITE_URL}/#website` },
   about: { '@id': `${SITE_URL}/#organization` },
 };
-const siteData = { wa: company.contact.whatsapp, services };
+// UI strings the scripts use. Values are English here; the i18n build step
+// translates them for /ta and /si (keys stay the same).
+const ui = {
+  showPrice: 'Show price',
+  hidePrice: 'Hide price',
+  readyIn: 'Ready in {x}.',
+  waAsk: "Hi SMART, I'm interested in {x}. Can you tell me more?",
+  waInterested: "Hi SMART, I'm interested in {x}.",
+  waFormHello: "Hi SMART, I'm {name}.",
+  waFormFrom: "Hi SMART, I'm {name} from {business}.",
+  waFormService: "I'm interested in: {service}.",
+  Services: 'Services',
+  'Our Work': 'Our Work',
+  About: 'About',
+  Contact: 'Contact',
+};
+const siteData = { wa: company.contact.whatsapp, services, ui };
 ---
 <Base
   title="SMART [PVT] LTD | Websites, Apps and Software Company in Sri Lanka"

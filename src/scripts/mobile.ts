@@ -1,14 +1,16 @@
-import { findService, waLink, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
+import { initLang, ui, findService, waLink, sendFormToWhatsApp, initPriceLocks, setPrice, logoHTML } from './shared';
 
 const TABS = ['home', 'services', 'work', 'about', 'contact'] as const;
 type Tab = (typeof TABS)[number];
 const TITLES: Record<Tab, string> = { home: 'SMART', services: 'Services', work: 'Our Work', about: 'About', contact: 'Contact' };
+const title = (t: Tab) => (t === 'home' ? 'SMART' : ui(TITLES[t]));
 const tap = () => navigator.vibrate?.(6);
 
 export function initMobile() {
   const root = document.getElementById('mobile');
   if (!root) return;
   initPriceLocks();
+  initLang();
   const nav = root.querySelector<HTMLElement>('[data-mnav]')!;
   const navTitle = root.querySelector<HTMLElement>('[data-mnav-title]')!;
   const panels = new Map(TABS.map((t) => [t, root.querySelector<HTMLElement>(`[data-tab="${t}"]`)!]));
@@ -28,7 +30,7 @@ export function initMobile() {
       else b.removeAttribute('aria-current');
     });
     root.dataset.active = tab;
-    navTitle.textContent = TITLES[tab];
+    navTitle.textContent = title(tab);
     root.querySelector<HTMLElement>('.m-tabbar')?.style.setProperty('--ti', String(TABS.indexOf(tab)));
     const panel = panels.get(tab)!;
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -163,7 +165,7 @@ export function initMobile() {
       .map((i) => `<li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span></span></li>`)
       .join('');
     q('includes').querySelectorAll('span').forEach((sp, i) => (sp.textContent = s.includes[i]));
-    (q('cta') as HTMLAnchorElement).href = waLink(`Hi SMART, I'm interested in ${s.name}. Can you tell me more?`);
+    (q('cta') as HTMLAnchorElement).href = waLink(ui('waAsk', { x: s.name }));
     scroller.scrollTop = 0;
     sheet.style.removeProperty('--drag');
     wrap.hidden = false;

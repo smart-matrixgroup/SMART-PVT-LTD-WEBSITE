@@ -1,0 +1,28 @@
+---
+// Language picker. Pages are English at "/", Tamil at "/ta", Sinhala at "/si".
+// The build step (scripts/i18n.mjs) marks the current language in each page.
+interface Props { variant?: 'desktop' | 'mobile' }
+const { variant = 'desktop' } = Astro.props;
+const langs = [
+  { code: 'en', short: 'EN', name: 'English', note: 'English', href: '/' },
+  { code: 'ta', short: 'TA', name: 'தமிழ்', note: 'Tamil', href: '/ta' },
+  { code: 'si', short: 'SI', name: 'සිංහල', note: 'Sinhala', href: '/si' },
+];
+---
+<div class:list={['lang', `lang-${variant}`]} data-lang>
+  <button type="button" class="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Change language" data-lang-btn>
+    <svg class="globe" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.6 5.7 3.6 9s-1.1 6.3-3.6 9c-2.5-2.7-3.6-5.7-3.6-9S9.5 5.7 12 3z" />
+    </svg>
+    {variant === 'desktop' && <span class="lang-cur" data-lang-code>EN</span>}
+  </button>
+  <ul class="lang-menu" role="menu">
+    {langs.map((l) => (
+      <li role="none">
+        <a role="menuitem" href={l.href} hreflang={l.code} lang={l.code} data-lang-link={l.code} aria-current={l.code === 'en' ? 'true' : 'false'}>
+          <span><span class="lang-code">{l.short}</span>&nbsp; {l.name}</span><small>{l.code === 'en' ? '' : l.note}</small>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

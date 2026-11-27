@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build && node scripts/i18n.mjs",
+    "preview": "astro preview",
+    "i18n:extract": "node scripts/i18n.mjs --extract"
   },
   "keywords": [],
   "type": "module",
@@ -14,7 +15,10 @@
     "three": "^0.187.0"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^3.7.6"
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource-variable/noto-sans-sinhala": "^5.3.0",
+    "@fontsource-variable/noto-sans-tamil": "^5.3.0",
+    "node-html-parser": "^9.0.7"
   },
   "private": true
 }

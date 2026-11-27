@@ -2,6 +2,7 @@
 import Icon from '../Icon.astro';
 import Price from '../Price.astro';
 import Social from '../Social.astro';
+import LangSwitch from '../LangSwitch.astro';
 import '../../styles/mobile.css';
 import { company, services, projects, process, roadmap, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 import type { IconName } from '../../data/site';
@@ -45,6 +46,7 @@ const reg = company.registration;
 <div class="mobile" id="mobile" data-active="home">
   <header class="m-nav" data-mnav>
     <span class="m-nav-title" data-mnav-title>SMART</span>
+    <LangSwitch variant="mobile" />
     <a class="m-nav-btn" href={waLink('Hi SMART!')} target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
       <Icon name="whatsapp" size={24} stroke={1.8} />
     </a>

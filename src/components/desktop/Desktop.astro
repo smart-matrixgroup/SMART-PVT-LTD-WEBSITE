@@ -3,6 +3,7 @@ import Icon from '../Icon.astro';
 import Price from '../Price.astro';
 import Social from '../Social.astro';
 import ServiceArt from '../ServiceArt.astro';
+import LangSwitch from '../LangSwitch.astro';
 import '../../styles/desktop.css';
 import { company, services, projects, process, roadmap, faqs, visibleTestimonials, waLink, isDev, directionsUrl } from '../../data/site';
 
@@ -49,9 +50,12 @@ const kbFeatures = [
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn-primary btn-sm" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener">
-      <Icon name="whatsapp" size={18} /> Start a project
-    </a>
+    <div class="nav-end">
+      <LangSwitch />
+      <a class="btn btn-primary btn-sm" href={waLink('Hi SMART, I would like to talk about a project.')} target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={18} /> Start a project
+      </a>
+    </div>
   </header>
 
   <main>
